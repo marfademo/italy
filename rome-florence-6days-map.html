@@ -151,13 +151,15 @@
   body:not(.edit-mode) .del-row{display:none;}
 
   /* ===== 拖拽 ===== */
-  .list-row[draggable]{cursor:grab;}
-  .list-row[draggable]:active{cursor:grabbing;}
+  body.edit-mode .list-row[draggable]{cursor:grab;}
+  body.edit-mode .list-row[draggable]:active{cursor:grabbing;}
   .list-row.dragging{opacity:.4;background:#fff5f8;}
   .list-row.drag-over{box-shadow:inset 0 0 0 2px var(--pink-deep);}
-  .panel ul li[draggable]{cursor:grab;}
+  body.edit-mode .panel ul li[draggable]{cursor:grab;}
   .panel ul li.dragging{opacity:.4;}
   .panel ul li.drag-over{box-shadow:inset 0 0 0 2px var(--pink-deep);}
+  /* ✅ 非编辑态：禁止 list-row 被选中为拖拽源（防止 ghost 出现） */
+  body:not(.edit-mode) .list-row[draggable]{-webkit-user-drag:none;user-select:none;}
 
   /* ===== 底部 li 删除按钮 ===== */
   .del-li{
