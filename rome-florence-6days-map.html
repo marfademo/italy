@@ -158,8 +158,6 @@
   body.edit-mode .panel ul li[draggable]{cursor:grab;}
   .panel ul li.dragging{opacity:.4;}
   .panel ul li.drag-over{box-shadow:inset 0 0 0 2px var(--pink-deep);}
-  /* ✅ 非编辑态：禁止 list-row 被选中为拖拽源（防止 ghost 出现） */
-  body:not(.edit-mode) .list-row[draggable]{-webkit-user-drag:none;user-select:none;}
 
   /* ===== 底部 li 删除按钮 ===== */
   .del-li{
@@ -1022,8 +1020,15 @@ function changeRowType(row, newType){
 
 // 给一个 row 装上编辑相关（contenteditable + delete + icon click + drag）
 function attachRowHandlers(row){
-  // ✅ 非编辑态：移除 draggable 属性，禁止原生拖拽 ghost
-  if (!editMode) row.removeAttribute("draggable");
+  // ✅ 非编辑态：拦截 dragstart 阻止原生拖拽 ghost，但不影响 click 事件（图片查看模态框）
+  if (!editMode) {
+    row.removeAttribute("draggable");
+    const preventDrag = (e) => e.preventDefault();
+    row.removeEventListener("dragstart", preventDrag);
+    row.addEventListener("dragstart", preventDrag, { passive: false });
+  } else {
+    row.setAttribute("draggable", "true");
+  }
   row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
     .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   const icon = row.querySelector(".list-icon");
