@@ -371,11 +371,15 @@
   body:not(.edit-mode) .list-row > .img-gallery.collapsed .img-thumb{
     width:88px !important;height:88px !important;
   }
-  /* 展开态（图 1）：图横排在 list 左下，从左到右平铺，按钮仍在右侧 column 4 */
+  /* 展开态（图 1）：图横排在 list 左下，从左到右平铺，可换行，不溢出父容器 */
   body:not(.edit-mode) .list-row > .img-gallery:not(.collapsed){
     grid-column:1/4;grid-row:2;
     margin-top:6px;
     margin-left:32px;
+    max-width:calc(100% - 32px);
+    flex-wrap:wrap !important;
+    width:auto !important;
+    height:auto !important;
   }
   /* 折叠/展开按钮：固定在 column 4，row 1（折叠）或 row 2（展开） */
   body:not(.edit-mode) .list-row > .img-toggle{
@@ -2952,10 +2956,12 @@ function applyImgGalleryCollapse(gallery){
 function bindCoverCollapse(gallery, row){
   if (gallery.dataset.coverBound === "1") return;
   gallery.dataset.coverBound = "1";
-  // 折叠态下整个画廊（实际就是首图）都可点切展；用 pointerdown 防与 openImgModal 冲突
+  // 折叠态下点击首图 → 展开；已展开时不再拦截，让 attachImgGalleryHandlers 处理打开模态框
   gallery.addEventListener("click", (e) => {
     if (editMode) return;
-    if (!gallery.classList.contains("collapsed")) return;
+    const thumb = e.target.closest(".img-thumb");
+    if (!thumb) return;
+    if (!gallery.classList.contains("collapsed")) return; // 已展开 → 不拦截，交给 openImgModal
     const total = gallery.querySelectorAll(".img-thumb").length;
     if (total <= 1) return;     // 单图无意义
     e.stopPropagation();
