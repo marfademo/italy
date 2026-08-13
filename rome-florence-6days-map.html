@@ -1048,7 +1048,7 @@ function attachRowHandlers(row){
     row.remove();
     scheduleSave();
   };
-  attachDragHandlers(row);
+  if (editMode) attachDragHandlers(row);
 
   // 图片画廊：补挂 img-del / 选中 / 添加 / 全屏查看事件
   const gallery = row.querySelector(".img-gallery");
