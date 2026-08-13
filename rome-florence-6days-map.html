@@ -1020,6 +1020,8 @@ function changeRowType(row, newType){
 
 // 给一个 row 装上编辑相关（contenteditable + delete + icon click + drag）
 function attachRowHandlers(row){
+  // ✅ 非编辑态：移除 draggable 属性，禁止原生拖拽 ghost
+  if (!editMode) row.removeAttribute("draggable");
   row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
     .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   const icon = row.querySelector(".list-icon");
