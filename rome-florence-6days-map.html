@@ -2634,9 +2634,14 @@ function ensureImgToggle(row){
 
 // 装上图片画廊的所有交互
 function attachImgGalleryHandlers(gallery, row){
+  // ✅ 用捕获阶段监听，确保不被其他 stopPropagation 拦截
+  gallery.addEventListener("click", (e) => {
+    console.log("[gallery click CAPTURE]", e.target, "editMode:", editMode);
+  }, { capture: true });
+
   // 点击选中/查看/添加（删除按钮由 attachImgDragHandlers 单独处理）
   gallery.addEventListener("click", (e) => {
-    console.log("[gallery click]", e.target, "editMode:", editMode);
+    console.log("[gallery click BUBBLE]", e.target, "editMode:", editMode);
     if (e.target.closest(".img-del")) return; // 删除按钮由拖拽 handler 处理
     const thumb = e.target.closest(".img-thumb");
     console.log("[gallery click] thumb:", thumb);
