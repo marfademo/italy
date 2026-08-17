@@ -2751,6 +2751,7 @@ function attachImgDragHandlers(gallery, row){
 
   // mousedown: 开始拖拽
   gallery.addEventListener("mousedown", (e) => {
+    console.log("[img-thumb mousedown handler]", editMode, e.target);
     if (!editMode) return;
     const t = e.target.closest(".img-thumb");
     if (!t) return;
