@@ -2624,8 +2624,10 @@ function ensureImgToggle(row){
 function attachImgGalleryHandlers(gallery, row){
   // 点击选中/查看/添加（删除按钮由 attachImgDragHandlers 单独处理）
   gallery.addEventListener("click", (e) => {
+    console.log("[gallery click]", e.target, "editMode:", editMode);
     if (e.target.closest(".img-del")) return; // 删除按钮由拖拽 handler 处理
     const thumb = e.target.closest(".img-thumb");
+    console.log("[gallery click] thumb:", thumb);
     if (thumb && editMode) {
       // 编辑态：单击图片 → 弹全屏大图
       e.stopPropagation();
