@@ -1029,8 +1029,10 @@ function attachRowHandlers(row){
   } else {
     row.setAttribute("draggable", "true");
   }
-  row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
-    .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
+  if (editMode) {
+    row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
+      .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
+  }
   const icon = row.querySelector(".list-icon");
   if (icon) {
     icon.onclick = (e) => {
