@@ -2637,23 +2637,42 @@ function ensureImgToggle(row){
   };
 }
 
-// 装上图片画廊的所有交互
+// 装上图片画廊的所有交互（含 document 级兜底委托）
 function attachImgGalleryHandlers(gallery, row){
+  // ✅ 用 document 级别的事件委托，确保不被任何 stopPropagation 拦截
+  // 标记这个 gallery 已绑定
+  gallery.dataset.clickBound = "1";
+
   // 点击选中/查看/添加（删除按钮由 attachImgDragHandlers 单独处理）
   gallery.addEventListener("click", (e) => {
     if (e.target.closest(".img-del")) return; // 删除按钮由拖拽 handler 处理
     const thumb = e.target.closest(".img-thumb");
     if (!thumb) return;
-    if (editMode) {
-      // 编辑态：单击图片 → 弹全屏大图
+    // 非编辑态 + 展开态：直接打开模态框
+    if (!editMode && !gallery.classList.contains("collapsed")) {
       e.stopPropagation();
       openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
       return;
     }
-    // 非编辑态：点击图片 → 弹全屏大图
-    e.stopPropagation();
-    openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
-  });
+    // 编辑态：单击图片 → 弹全屏大图
+    if (editMode) {
+      e.stopPropagation();
+      openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
+      return;
+    }
+  }, { capture: false });
+
+  // ✅ 兜底：document 级委托，捕获所有 .img-thumb 点击（防止 gallery 自身 handler 被覆盖）
+  document.addEventListener("click", (e) => {
+    const thumb = e.target.closest(".img-thumb");
+    if (!thumb) return;
+    const parentGallery = thumb.closest(".img-gallery");
+    if (!parentGallery || parentGallery !== gallery) return; // 只处理当前 gallery
+    if (e.defaultPrevented) return; // 已被其他 handler 处理则跳过
+    if (!editMode && !gallery.classList.contains("collapsed")) {
+      openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
+    }
+  }, { capture: true });
 
   // 点击"添加图片"框 → 等待粘贴
   const addBox = gallery.querySelector(".img-add");
