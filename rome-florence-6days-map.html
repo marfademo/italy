@@ -1247,7 +1247,7 @@ function renderDayPanel(d){
 function renderTransitBoard(){
   return `
             <div class="transit-board">
-      <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrow" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="9" markerHeight="9" orient="auto">
             <path d="M0 0 L12 6 L0 12 Z" fill="#e63475"/>
@@ -1255,51 +1255,51 @@ function renderTransitBoard(){
         </defs>
         <!-- 第一行：深圳 → 香港 -->
         <g>
-          <circle cx="100" cy="80" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
+          <circle cx="100" cy="70" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
           <text x="100" y="70" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Shenzhen</text>
-          <text x="100" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳</text>
-          <text x="100" y="116" text-anchor="middle" font-size="22"></text>
+          <text x="100" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳</text>
+          <text x="100" y="106" text-anchor="middle" font-size="22"></text>
         </g>
         <!-- 深圳 → 香港 水平箭头 (从深圳圆右边缘 x=152 到香港圆左边缘 x=208) -->
-        <path d="M152 80 Q 180 80 208 80" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,52)">
+        <path d="M152 70 Q 180 70 208 70" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(180,42)">
           <rect x="-38" y="-11" width="76" height="22" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.4"/>
           <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#e63475">🚌 跨境巴士</text>
         </g>
         <!-- 香港 -->
         <g>
-          <circle cx="260" cy="80" r="52" fill="#cfe7ff" stroke="#3a82c9" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
+          <circle cx="260" cy="70" r="52" fill="#cfe7ff" stroke="#3a82c9" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
           <text x="260" y="70" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Hong Kong</text>
-          <text x="260" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港</text>
-          <text x="260" y="116" text-anchor="middle" font-size="22">✈️</text>
+          <text x="260" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港</text>
+          <text x="260" y="106" text-anchor="middle" font-size="22">✈️</text>
         </g>
         <!-- 香港 → 伊斯坦布尔 斜向箭头 (从香港圆底部 x=260,y=132 斜向左下到伊斯坦布尔圆顶部 x=100,y=218) -->
-        <path d="M260 132 Q 180 175 100 218" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,175)">
+        <path d="M260 122 Q 180 150 100 178" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(180,150)">
           <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
           <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK0171</text>
           <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">09:20 – 15:45</text>
         </g>
         <!-- 第二行：伊斯坦布尔 → 罗马 -->
         <g>
-          <circle cx="100" cy="270" r="52" fill="#e6f4ff" stroke="#3b82f6" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="100" y="260" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Istanbul</text>
-          <text x="100" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">伊斯坦布尔</text>
-          <text x="100" y="306" text-anchor="middle" font-size="22">🕌</text>
+          <circle cx="100" cy="230" r="52" fill="#e6f4ff" stroke="#3b82f6" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
+          <text x="100" y="220" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Istanbul</text>
+          <text x="100" y="238" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">伊斯坦布尔</text>
+          <text x="100" y="266" text-anchor="middle" font-size="22">🕌</text>
         </g>
         <!-- 伊斯坦布尔 → 罗马 水平箭头 (从伊斯坦布尔圆右边缘 x=152 到罗马圆左边缘 x=208) -->
-        <path d="M152 270 Q 180 270 208 270" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,242)">
+        <path d="M152 230 Q 180 230 208 230" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(180,202)">
           <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
           <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK1361</text>
           <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">21:50 – 23:35</text>
         </g>
         <!-- 罗马 -->
         <g>
-          <circle cx="260" cy="270" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="260" y="260" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Rome FCO</text>
-          <text x="260" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">罗马</text>
-          <text x="260" y="306" text-anchor="middle" font-size="22">🇮🇹</text>
+          <circle cx="260" cy="230" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
+          <text x="260" y="220" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Rome FCO</text>
+          <text x="260" y="238" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">罗马</text>
+          <text x="260" y="266" text-anchor="middle" font-size="22">🇮🇹</text>
         </g>
       </svg>
     </div>`;
