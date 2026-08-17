@@ -877,7 +877,7 @@ function listRowHTML({ type = "activity", icon = "·", name = "新条目",
   const inputClass = isTransport ? "list-transport-duration" : "list-time";
   const inputValue = isTransport ? duration : time;
   const inputPlaceholder = isTransport ? "交通消耗时长" : "活动时间";
-  // ✅ 编辑态下在 gallery 内追加「+ 添加图片」框和「🔄 重拉」按钮
+  // ✅ 编辑态下在 gallery 内追加「+ 添加图片」框和「 重拉」按钮
   const galleryInner = editMode
     ? `<div class="img-add" tabindex="0" title="点击后复制图片粘贴上传">+ 添加图片</div><button class="img-refetch" type="button" title="重新从 Wikipedia 拉取图片">🔄 重拉</button>`
     : "";
