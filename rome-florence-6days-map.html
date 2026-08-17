@@ -1029,10 +1029,8 @@ function attachRowHandlers(row){
   } else {
     row.setAttribute("draggable", "true");
   }
-  if (editMode) {
-    row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
-      .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
-  }
+  row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
+    .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   const icon = row.querySelector(".list-icon");
   if (icon) {
     icon.onclick = (e) => {
@@ -1962,8 +1960,12 @@ function toggleEdit(){
     ensureAddBoxes();
     // 进入编辑：所有 .img-thumb 启用 draggable
     document.querySelectorAll(".day-panel.active .img-thumb").forEach(t => t.draggable = true);
-    // 进入编辑：恢复 list-row 的 draggable 属性
-    document.querySelectorAll(".day-panel.active .list-row:not([draggable])").forEach(r => r.setAttribute("draggable", "true"));
+    // 进入编辑：恢复 list-row 的 draggable 属性 + 启用字段 contentEditable
+    document.querySelectorAll(".day-panel.active .list-row").forEach(r => {
+      r.setAttribute("draggable", "true");
+      r.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
+        .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
+    });
   } else {
     // 退出编辑模式：如有未保存的改动，提示用户
     if (Object.keys(pendingEdits).length > 0 || document.getElementById("edit-toggle").classList.contains("dirty")) {
@@ -1992,8 +1994,12 @@ function toggleEdit(){
     refreshNonEditLayout(currentDay);
     // 退出编辑：所有 .img-thumb 禁用 draggable（确保点击查看大图正常）
     document.querySelectorAll(".day-panel.active .img-thumb").forEach(t => t.draggable = false);
-    // 退出编辑：移除 list-row 的 draggable 属性（禁止原生拖拽 ghost）
-    document.querySelectorAll(".day-panel.active .list-row[draggable]").forEach(r => r.removeAttribute("draggable"));
+    // 退出编辑：移除 list-row 的 draggable 属性 + 禁用字段 contentEditable
+    document.querySelectorAll(".day-panel.active .list-row").forEach(r => {
+      r.removeAttribute("draggable");
+      r.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
+        .forEach(el => el.removeAttribute("contenteditable"));
+    });
     // 退出编辑时：对所有当前 Day 的活动 list，如果名称变了，重新联网取图
     refetchEditedRowImages();
   }
