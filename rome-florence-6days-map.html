@@ -396,7 +396,12 @@
     position:relative;width:88px;height:64px;
     border-radius:6px;overflow:hidden;
     border:1px solid #f3d9a4;background:#fbf5e3;
-    cursor:zoom-in;flex-shrink:0;outline:none;
+    cursor:zoom-in;flex-shrink:0;outline:none;z-index:1;
+  }
+  /* 非编辑态展开图：确保可点击且不被遮挡 */
+  body:not(.edit-mode) .img-gallery:not(.collapsed) .img-thumb{
+    z-index:2 !important;
+    pointer-events:auto !important;
   }
   /* 展开态：图更大更清晰 */
   body:not(.edit-mode) .img-gallery:not(.collapsed) .img-thumb{
@@ -461,7 +466,7 @@
     cursor:pointer;border:none;padding:0;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 2px 4px rgba(0,0,0,.18);
-    line-height:1;flex-shrink:0;
+    line-height:1;flex-shrink:0;z-index:3;
     transition:transform .15s;
   }
   .img-toggle:hover{transform:scale(1.1);}
@@ -2634,28 +2639,20 @@ function ensureImgToggle(row){
 
 // 装上图片画廊的所有交互
 function attachImgGalleryHandlers(gallery, row){
-  // ✅ 用捕获阶段监听，确保不被其他 stopPropagation 拦截
-  gallery.addEventListener("click", (e) => {
-    console.log("[gallery click CAPTURE]", e.target, "editMode:", editMode);
-  }, { capture: true });
-
   // 点击选中/查看/添加（删除按钮由 attachImgDragHandlers 单独处理）
   gallery.addEventListener("click", (e) => {
-    console.log("[gallery click BUBBLE]", e.target, "editMode:", editMode);
     if (e.target.closest(".img-del")) return; // 删除按钮由拖拽 handler 处理
     const thumb = e.target.closest(".img-thumb");
-    console.log("[gallery click] thumb:", thumb);
-    if (thumb && editMode) {
+    if (!thumb) return;
+    if (editMode) {
       // 编辑态：单击图片 → 弹全屏大图
       e.stopPropagation();
       openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
       return;
     }
-    if (thumb && !editMode) {
-      e.stopPropagation();
-      openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
-      return;
-    }
+    // 非编辑态：点击图片 → 弹全屏大图
+    e.stopPropagation();
+    openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
   });
 
   // 点击"添加图片"框 → 等待粘贴
