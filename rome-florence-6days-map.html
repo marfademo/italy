@@ -1060,14 +1060,12 @@ function attachRowHandlers(row){
   if (icon && !icon.dataset.iconHandlerBound) {
     icon.dataset.iconHandlerBound = "1";
     icon.addEventListener("click", (e) => {
-      console.log("[attachRowHandlers icon click]", editMode, row.querySelector(".name-text")?.textContent?.trim());
-      // 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
+      // ✅ 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
       if (editMode) {
         e.stopPropagation();
         showIconPopover(icon, row);
-        return;
       }
-      // 非编辑态：不阻止冒泡，让 bindAllIconFlyTo 处理 flyTo + popup
+      // ✅ 非编辑态：不阻止冒泡，让 bindAllIconFlyTo 处理 flyTo + popup
     });
   }
   let delBtn = row.querySelector(".del-row");
@@ -1608,33 +1606,26 @@ function activateDay(d){
   if (editMode) attachEditHandlers();
 }
 
-// 全局给所有 .list-icon 绑 onclick（一次绑定，无关 editMode）
+// 全局给所有 .list-icon 绑 flyTo（一次绑定，无关 editMode）
 let _flyBoundCount = 0;
 function bindAllIconFlyTo(){
   const allIcons = document.querySelectorAll(".day-panel .list-row .list-icon");
-  console.log(`[bindAllIconFlyTo] total icons: ${allIcons.length}, already bound: ${document.querySelectorAll('.list-icon[data-fly-bound="1"]').length}`);
   allIcons.forEach((icon, idx) => {
     if (icon.dataset.flyBound === "1") return;
     icon.dataset.flyBound = "1";
     _flyBoundCount++;
     const row = icon.closest(".list-row");
     icon.addEventListener("click", (e) => {
-      console.log(`[bindAllIconFlyTo click #${_flyBoundCount}] editMode:`, editMode, "name:", row.querySelector(".name-text")?.textContent?.trim());
-      // 编辑态：弹类型切换浮窗（不定位地图）
-      if (editMode) {
-        console.log("[bindAllIconFlyTo] returning early because editMode=true");
-        return;
+      // ✅ 非编辑态：flyTo + popup
+      if (!editMode) {
+        const name = row.querySelector(".name-text")?.textContent?.trim();
+        if (name && !isPendingName(name) && typeof focusSpotByName === "function") {
+          focusSpotByName(name);
+        }
       }
-      e.stopPropagation();
-      // 非编辑态：定位地图 + 弹 popup
-      const name = row.querySelector(".name-text")?.textContent?.trim();
-      if (name && !isPendingName(name) && typeof focusSpotByName === "function") {
-        console.log("[bindAllIconFlyTo] calling focusSpotByName:", name);
-        focusSpotByName(name);
-      }
+      // ✅ 编辑态：什么都不做，由 attachRowHandlers 的 listener 处理分类 popover
     });
   });
-  console.log(`[bindAllIconFlyTo] newly bound: ${_flyBoundCount}`);
 }
 
 // 全局给所有 .img-gallery 绑 click（弹大图、拖拽等），无论编辑态
