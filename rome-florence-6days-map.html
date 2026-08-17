@@ -1057,9 +1057,10 @@ function attachRowHandlers(row){
   row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
     .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   const icon = row.querySelector(".list-icon");
-  if (icon) {
-    icon.onclick = (e) => {
-      console.log("[attachRowHandlers icon.onclick]", editMode, row.querySelector(".name-text")?.textContent?.trim());
+  if (icon && !icon.dataset.iconHandlerBound) {
+    icon.dataset.iconHandlerBound = "1";
+    icon.addEventListener("click", (e) => {
+      console.log("[attachRowHandlers icon click]", editMode, row.querySelector(".name-text")?.textContent?.trim());
       // 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
       if (editMode) {
         e.stopPropagation();
@@ -1067,7 +1068,7 @@ function attachRowHandlers(row){
         return;
       }
       // 非编辑态：不阻止冒泡，让 bindAllIconFlyTo 处理 flyTo + popup
-    };
+    });
   }
   let delBtn = row.querySelector(".del-row");
   if (!delBtn) {
