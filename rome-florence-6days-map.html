@@ -432,7 +432,13 @@
   body.edit-mode .img-add.drag-over{display:flex;background:#dcfce7;border-color:#3a8a2c;color:#3a8a2c;}
   /* ✅ 非编辑态：完全隐藏 +添加图片 框 */
   body:not(.edit-mode) .img-add{display:none !important;}
-  .img-thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none;}
+  .img-thumb img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;}
+  /* 非编辑态展开图：确保图片可点击 */
+  body:not(.edit-mode) .img-gallery:not(.collapsed) .img-thumb,
+  body:not(.edit-mode) .img-gallery:not(.collapsed) .img-thumb img{
+    pointer-events:auto !important;
+    cursor:pointer !important;
+  }
 
   .img-del{
     position:absolute;top:2px;right:2px;
@@ -2917,9 +2923,9 @@ function addImgToGallery(gallery, src){
   const idx = gallery.querySelectorAll(".img-thumb:not(.img-placeholder):not(.img-clone)").length;
   const wrap = document.createElement("div");
   wrap.innerHTML = `
-    <div class="img-thumb" tabindex="-1" data-img-url="${src.replace(/"/g, "&quot;")}" data-img-idx="${idx}">
+    <div class="img-thumb" tabindex="-1" data-img-url="${src.replace(/"/g, "&quot;")}" data-img-idx="${idx}" onmousedown="console.log('[img-thumb mousedown]', this.dataset.imgIdx)">
       <img src="${src}" referrerpolicy="no-referrer" alt=""/>
-      <button class="img-del" title="删除此图" type="button" onclick="handleImgDelClick(event, this)">✕</button>
+      <button class="img-del" title="删除此图" type="button" onclick="handleImgDelClick(event, this)"></button>
     </div>`;
   const addBox = gallery.querySelector(".img-add");
   gallery.insertBefore(wrap.firstElementChild, addBox);
