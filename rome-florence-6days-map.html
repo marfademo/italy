@@ -1608,14 +1608,17 @@ function activateDay(d){
 }
 
 // 全局给所有 .list-icon 绑 onclick（一次绑定，无关 editMode）
+let _flyBoundCount = 0;
 function bindAllIconFlyTo(){
-  document.querySelectorAll(".day-panel .list-row").forEach(row => {
-    const icon = row.querySelector(".list-icon");
-    if (!icon) return;
+  const allIcons = document.querySelectorAll(".day-panel .list-row .list-icon");
+  console.log(`[bindAllIconFlyTo] total icons: ${allIcons.length}, already bound: ${document.querySelectorAll('.list-icon[data-fly-bound="1"]').length}`);
+  allIcons.forEach((icon, idx) => {
     if (icon.dataset.flyBound === "1") return;
     icon.dataset.flyBound = "1";
+    _flyBoundCount++;
+    const row = icon.closest(".list-row");
     icon.addEventListener("click", (e) => {
-      console.log("[bindAllIconFlyTo click]", editMode, row.querySelector(".name-text")?.textContent?.trim());
+      console.log(`[bindAllIconFlyTo click #${_flyBoundCount}] editMode:`, editMode, "name:", row.querySelector(".name-text")?.textContent?.trim());
       e.stopPropagation();
       // 编辑态：弹类型切换浮窗（不定位地图）
       // 非编辑态：定位地图 + 弹 popup
@@ -1627,6 +1630,7 @@ function bindAllIconFlyTo(){
       }
     });
   });
+  console.log(`[bindAllIconFlyTo] newly bound: ${_flyBoundCount}`);
 }
 
 // 全局给所有 .img-gallery 绑 click（弹大图、拖拽等），无论编辑态
