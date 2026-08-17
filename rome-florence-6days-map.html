@@ -1059,13 +1059,13 @@ function attachRowHandlers(row){
   const icon = row.querySelector(".list-icon");
   if (icon) {
     icon.onclick = (e) => {
-      e.stopPropagation();
-      // 编辑态：弹类型切换浮窗（不定位地图）
+      // 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
       if (editMode) {
+        e.stopPropagation();
         showIconPopover(icon, row);
         return;
       }
-      // 非编辑态：地图 flyTo + popup（由 bindAllIconFlyTo 全局绑定处理）
+      // 非编辑态：不阻止冒泡，让 bindAllIconFlyTo 处理 flyTo + popup
     };
   }
   let delBtn = row.querySelector(".del-row");
