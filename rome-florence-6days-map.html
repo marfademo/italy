@@ -133,7 +133,7 @@
   .leaflet-popup-content small{color:#888;display:block;margin-top:2px;}
 
   /* ===== Day 1 跨境/航班抽象图 ===== */
-  .transit-board{flex:1;background:#fbf5e3;border:2px solid #f3d9a4;border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:380px;}
+  .transit-board{flex:1;background:#fbf5e3;border:2px solid #f3d9a4;border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:400px;}
   .transit-board svg{width:100%;max-width:500px;height:auto;}
 
   /* ===== 编辑模式高亮 ===== */
@@ -1246,8 +1246,8 @@ function renderDayPanel(d){
 
 function renderTransitBoard(){
   return `
-        <div class="transit-board">
-      <svg viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
+            <div class="transit-board">
+      <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrow" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="9" markerHeight="9" orient="auto">
             <path d="M0 0 L12 6 L0 12 Z" fill="#e63475"/>
@@ -1260,9 +1260,9 @@ function renderTransitBoard(){
           <text x="100" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳</text>
           <text x="100" y="116" text-anchor="middle" font-size="22"></text>
         </g>
-        <!-- 深圳 → 香港 水平箭头 -->
-        <path d="M152 80 Q 185 80 208 80" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(185,55)">
+        <!-- 深圳 → 香港 水平箭头 (从深圳圆右边缘 x=152 到香港圆左边缘 x=208) -->
+        <path d="M152 80 Q 180 80 208 80" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(180,52)">
           <rect x="-38" y="-11" width="76" height="22" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.4"/>
           <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#e63475">🚌 跨境巴士</text>
         </g>
@@ -1273,9 +1273,9 @@ function renderTransitBoard(){
           <text x="260" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港</text>
           <text x="260" y="116" text-anchor="middle" font-size="22">✈️</text>
         </g>
-        <!-- 香港 ↓ 伊斯坦布尔 垂直箭头 -->
-        <path d="M260 132 Q 260 165 260 198" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(355,165)">
+        <!-- 香港 ↓ 伊斯坦布尔 垂直箭头 (从香港圆底部 y=132 到伊斯坦布尔圆顶部 y=218) -->
+        <path d="M260 132 Q 260 175 260 218" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(340,175)">
           <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
           <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK0171</text>
           <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">09:20 – 15:45</text>
@@ -1287,9 +1287,9 @@ function renderTransitBoard(){
           <text x="100" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">伊斯坦布尔</text>
           <text x="100" y="306" text-anchor="middle" font-size="22">🕌</text>
         </g>
-        <!-- 伊斯坦布尔 → 罗马 水平箭头 -->
-        <path d="M152 270 Q 185 270 208 270" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(185,245)">
+        <!-- 伊斯坦布尔 → 罗马 水平箭头 (从伊斯坦布尔圆右边缘 x=152 到罗马圆左边缘 x=208) -->
+        <path d="M152 270 Q 180 270 208 270" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+        <g transform="translate(180,242)">
           <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
           <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK1361</text>
           <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">21:50 – 23:35</text>
