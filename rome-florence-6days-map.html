@@ -1677,6 +1677,18 @@ function init(){
       return e.returnValue;
     }
   });
+
+  // ✅ 全局兜底：document 级 click 委托，处理所有 .img-thumb 点击（无论是否动态添加）
+  document.addEventListener("click", (e) => {
+    const thumb = e.target.closest(".img-thumb");
+    if (!thumb) return;
+    // 如果已被 gallery 自身 handler 处理过（通过 editMode 判断），跳过避免重复
+    const gallery = thumb.closest(".img-gallery");
+    if (gallery && gallery.dataset.galleryClickBound === "1") return; // 已由 gallery 自身 handler 处理
+    const row = thumb.closest(".list-row");
+    if (!row) return;
+    openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
+  });
 }
 
 window.addEventListener("DOMContentLoaded", init);
@@ -2643,44 +2655,26 @@ function ensureImgToggle(row){
   };
 }
 
-// 装上图片画廊的所有交互（含 document 级兜底委托）
+// 装上图片画廊的所有交互
 function attachImgGalleryHandlers(gallery, row){
-  // ✅ 用 document 级别的事件委托，确保不被任何 stopPropagation 拦截
   // 标记这个 gallery 已绑定
-  gallery.dataset.clickBound = "1";
+  gallery.dataset.galleryClickBound = "1";
 
   // 点击选中/查看/添加（删除按钮由 attachImgDragHandlers 单独处理）
   gallery.addEventListener("click", (e) => {
     if (e.target.closest(".img-del")) return; // 删除按钮由拖拽 handler 处理
     const thumb = e.target.closest(".img-thumb");
     if (!thumb) return;
-    // 非编辑态 + 展开态：直接打开模态框
-    if (!editMode && !gallery.classList.contains("collapsed")) {
-      e.stopPropagation();
-      openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
-      return;
-    }
-    // 编辑态：单击图片 → 弹全屏大图
     if (editMode) {
+      // 编辑态：单击图片 → 弹全屏大图
       e.stopPropagation();
       openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
       return;
     }
-  }, { capture: false });
-
-  // ✅ 兜底：document 级委托，捕获所有 .img-thumb 点击（防止 gallery 自身 handler 被覆盖）
-  document.addEventListener("click", (e) => {
-    const thumb = e.target.closest(".img-thumb");
-    if (!thumb) return;
-    const parentGallery = thumb.closest(".img-gallery");
-    if (!parentGallery || parentGallery !== gallery) return; // 只处理当前 gallery
-    if (e.defaultPrevented) return; // 已被其他 handler 处理则跳过
-    console.log("[doc-level click]", !editMode, gallery.classList.contains("collapsed"));
-    if (!editMode && !gallery.classList.contains("collapsed")) {
-      console.log("[doc-level] opening modal for idx:", thumb.dataset.imgIdx);
-      openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
-    }
-  }, { capture: true });
+    // 非编辑态：点击图片 → 弹全屏大图
+    e.stopPropagation();
+    openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
+  });
 
   // 点击"添加图片"框 → 等待粘贴
   const addBox = gallery.querySelector(".img-add");
