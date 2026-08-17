@@ -465,6 +465,20 @@
   .img-add.active{background:#fff;border:2px solid #ef4444;color:#dc2626;box-shadow:0 0 0 3px rgba(239,68,68,.18);font-weight:900;}
   .img-add.dropping{background:#dcfce7;border:2px solid #3a8a2c;color:#3a8a2c;}
 
+  /* 编辑态「🔄 重拉图片」按钮：紧跟 .img-add，只在编辑态显示 */
+  .img-refetch{
+    width:88px;height:28px;
+    border-radius:6px;border:1px solid #93c5fd;
+    background:#eff6ff;color:#2563eb;
+    font-size:11px;font-weight:700;cursor:pointer;
+    flex-shrink:0;text-align:center;padding:0;
+    margin-left:6px;display:none;
+  }
+  body.edit-mode .img-refetch{display:inline-flex;align-items:center;justify-content:center;}
+  .img-refetch:hover{background:#dbeafe;}
+  .img-refetch:active{background:#bfdbfe;}
+  .img-refetch.flash{background:#dcfce7;border-color:#3a8a2c;color:#3a8a2c;}
+
   .img-toggle{
     width:32px;height:32px;border-radius:50%;
     background:var(--pink-deep);color:#fff;
@@ -598,7 +612,7 @@
     </div>
     <div class="toolbar">
       <button id="edit-toggle" class="tool-btn" type="button">✏️ 编辑</button>
-      <button id="refetch-btn" class="tool-btn ghost" type="button" title="清除联网拉的图片缓存并重新加载（手动粘贴的图保留）">🔄 重拉图片</button>
+      <button id="refetch-btn" class="tool-btn ghost" type="button" title="清除联网拉的图片缓存并重新加载（手动粘贴的图保留）" style="display:none;">🔄 重拉图片</button>
     </div>
   </header>
 
@@ -2555,10 +2569,10 @@ function imgGalleryHTML(images = []){
       <img src="${src}" loading="lazy" referrerpolicy="no-referrer" alt=""/>
       <button class="img-del" title="删除此图" type="button" onclick="handleImgDelClick(event, this)">✕</button>
     </div>`).join("");
-  // 占位文案：只在编辑态渲染「+ 添加图片」框；
+  // 占位文案：只在编辑态渲染「+ 添加图片」框和「🔄 重拉图片」按钮；
   // 非编辑态连占位都不渲染（避免出现「点 ✏️ 编辑后粘贴」提示）
   const addBoxHTML = editMode
-    ? `<div class="img-add" tabindex="0" title="点击后复制图片粘贴上传">+ 添加图片</div>`
+    ? `<div class="img-add" tabindex="0" title="点击后复制图片粘贴上传">+ 添加图片</div><button class="img-refetch" type="button" title="重新从 Wikipedia 拉取图片">🔄 重拉</button>`
     : "";
   return `<div class="img-gallery" data-collapsed="${images.length > 1 ? "1" : "0"}">${thumbs}${addBoxHTML}</div>`;
 }
@@ -2692,6 +2706,38 @@ function attachImgGalleryHandlers(gallery, row){
       gallery.tabIndex = 0;
       gallery.focus({ preventScroll: true });
       setTimeout(() => addBox.classList.remove("flash"), 3000);
+    });
+  }
+
+  // ✅ 点击"🔄 重拉图片"按钮 → 清除缓存并重新从 Wikipedia 拉图（仅当前 list）
+  const refetchBtn = gallery.querySelector(".img-refetch");
+  if (refetchBtn) {
+    refetchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const name = row.querySelector(".name-text")?.textContent?.trim();
+      if (!name || isPendingName(name)) return;
+      // 显示 loading 状态
+      refetchBtn.classList.add("flash");
+      refetchBtn.textContent = "⏳ 拉取中…";
+      // 清除该景点的 Wikipedia 图片缓存
+      const cacheKey = `wikiimg6-cache-v4:${name}`;
+      localStorage.removeItem(cacheKey);
+      // 清空当前画廊的真实图片（保留占位符和克隆体不删）
+      gallery.querySelectorAll(".img-thumb:not(.img-placeholder):not(.img-clone)").forEach(t => t.remove());
+      // 重新拉图
+      fetchWikiImages(name, 3).then(imgs => {
+        imgs.forEach(src => addImgToGallery(gallery, src));
+        applyImgGalleryCollapse(gallery);
+        applyEmptyFlag(gallery);
+        saveRowImages(row);
+        refreshMarkerPopups(currentDay);
+        refetchBtn.classList.remove("flash");
+        refetchBtn.textContent = "🔄 重拉";
+      }).catch(() => {
+        refetchBtn.classList.remove("flash");
+        refetchBtn.textContent = "❌ 失败";
+        setTimeout(() => { refetchBtn.textContent = "🔄 重拉"; }, 2000);
+      });
     });
   }
 
