@@ -1059,6 +1059,7 @@ function attachRowHandlers(row){
   const icon = row.querySelector(".list-icon");
   if (icon) {
     icon.onclick = (e) => {
+      console.log("[attachRowHandlers icon.onclick]", editMode, row.querySelector(".name-text")?.textContent?.trim());
       // 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
       if (editMode) {
         e.stopPropagation();
@@ -1608,18 +1609,20 @@ function activateDay(d){
 
 // 全局给所有 .list-icon 绑 onclick（一次绑定，无关 editMode）
 function bindAllIconFlyTo(){
-  document.querySelectorAll(".list-row").forEach(row => {
+  document.querySelectorAll(".day-panel .list-row").forEach(row => {
     const icon = row.querySelector(".list-icon");
     if (!icon) return;
     if (icon.dataset.flyBound === "1") return;
     icon.dataset.flyBound = "1";
     icon.addEventListener("click", (e) => {
+      console.log("[bindAllIconFlyTo click]", editMode, row.querySelector(".name-text")?.textContent?.trim());
       e.stopPropagation();
       // 编辑态：弹类型切换浮窗（不定位地图）
       // 非编辑态：定位地图 + 弹 popup
       if (editMode) return; // 编辑态由 attachRowHandlers 的 onclick 处理类型浮窗
       const name = row.querySelector(".name-text")?.textContent?.trim();
       if (name && !isPendingName(name) && typeof focusSpotByName === "function") {
+        console.log("[bindAllIconFlyTo] calling focusSpotByName:", name);
         focusSpotByName(name);
       }
     });
