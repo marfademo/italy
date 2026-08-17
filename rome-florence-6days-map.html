@@ -2669,7 +2669,9 @@ function attachImgGalleryHandlers(gallery, row){
     const parentGallery = thumb.closest(".img-gallery");
     if (!parentGallery || parentGallery !== gallery) return; // 只处理当前 gallery
     if (e.defaultPrevented) return; // 已被其他 handler 处理则跳过
+    console.log("[doc-level click]", !editMode, gallery.classList.contains("collapsed"));
     if (!editMode && !gallery.classList.contains("collapsed")) {
+      console.log("[doc-level] opening modal for idx:", thumb.dataset.imgIdx);
       openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
     }
   }, { capture: true });
@@ -2929,6 +2931,7 @@ function addImgToGallery(gallery, src){
 
 // 全屏看图模态
 function openImgModal(row, startIdx){
+  console.log("[openImgModal CALLED]", row, startIdx);
   const thumbs = Array.from(row.querySelectorAll(".img-thumb"));
   if (thumbs.length === 0) return;
   const modal = document.createElement("div");
