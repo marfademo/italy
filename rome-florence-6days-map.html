@@ -1123,43 +1123,8 @@ function attachRowHandlers(row){
     gallery.dataset.handlersBound = "1";
   }
 
-  // 标题变更 → 触发 Wikipedia 自动取图（编辑态 + name 已稳定且无图时）
-  // 触发时机：input（节流）+ blur（兜底）
-  const titleEl = row.querySelector(".name-text");
-  if (titleEl && !titleEl.dataset.wikiBound) {
-    titleEl.dataset.wikiBound = "1";
-    let wikiTimer = null;
-    const tryFetch = async () => {
-      if (!editMode) return;
-      const name = titleEl.textContent.trim();
-      if (isPendingName(name)) return;
-      const gallery = ensureImgGallery(row);
-      if (gallery.querySelectorAll(".img-thumb").length > 0) return;
-      // 防重入：同一名字在飞
-      const lastKey = row.dataset.wikiLastName || "";
-      if (lastKey === name) return;
-      row.dataset.wikiLastName = name;
-      const addBox = gallery.querySelector(".img-add");
-      if (addBox) { addBox.classList.add("flash"); addBox.textContent = "🔄 加载中…"; }
-      const imgs = await fetchWikiImages(name, 3);
-      imgs.forEach(src => addImgToGallery(gallery, src));
-      applyEmptyFlag(gallery);
-      applyImgGalleryCollapse(gallery);
-      if (addBox) { addBox.classList.remove("flash"); addBox.textContent = "+ 添加图片"; }
-      saveRowImages(row);
-    };
-    titleEl.addEventListener("input", () => {
-      // 改名时清掉上次锁定，让新名能取图
-      const name = titleEl.textContent.trim();
-      if (name !== row.dataset.wikiLastName) row.dataset.wikiLastName = "";
-      if (wikiTimer) clearTimeout(wikiTimer);
-      wikiTimer = setTimeout(tryFetch, 600);
-    });
-    titleEl.addEventListener("blur", () => {
-      if (wikiTimer) { clearTimeout(wikiTimer); wikiTimer = null; }
-      tryFetch();
-    });
-  }
+  // 标题变更：不再自动拉图，用户需手动点击「🔄 重拉图片」
+  // (removed auto wiki fetch on input/blur)
 }
 
 // 同步定位 link（在 input 事件中）
