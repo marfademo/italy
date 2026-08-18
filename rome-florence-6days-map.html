@@ -1984,7 +1984,10 @@ function mergeOverrides(){
     if (d === "tips") return; // tips 单独处理
     if (DAYS[d] && typeof DAYS[d] === "object" && ov[d] && typeof ov[d] === "object") {
       if (ov[d].timelineHTML) {
-        DAYS[d].timeline = ov[d].timelineHTML;
+        // ✅ 清除 localStorage 中保存的 icon handler 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
+        let html = ov[d].timelineHTML;
+        html = html.replace(/ data-icon-handler-bound="[^"]*"/gi, "");
+        DAYS[d].timeline = html;
         delete ov[d].timelineHTML;
       }
       Object.assign(DAYS[d], ov[d]);
