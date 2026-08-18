@@ -1054,8 +1054,10 @@ function attachRowHandlers(row){
   } else {
     row.setAttribute("draggable", "true");
   }
-  row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
-    .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
+  if (editMode) {
+    row.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
+      .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
+  }
   const icon = row.querySelector(".list-icon");
   if (icon && !icon.dataset.iconHandlerBound) {
     icon.dataset.iconHandlerBound = "1";
@@ -1644,8 +1646,8 @@ function init(){
   // 全局绑定：所有 .list-icon 一次性绑 onclick（无论编辑态）
   bindAllIconFlyTo();
 
-  // 全局绑定：所有 .img-gallery 一次性绑 click（无论编辑态：弹大图）
-  bindAllImgGalleries();
+  // 全局绑定：所有 list-row 装 icon click handler（编辑态→popover，非编辑态→flyTo+popup）
+  document.querySelectorAll(".day-panel .list-row").forEach(row => attachRowHandlers(row));
 
   // 如果用户曾编辑过 timeline，写入 panel DOM
   const ov = loadOverrides();
