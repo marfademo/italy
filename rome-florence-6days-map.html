@@ -934,8 +934,7 @@ function locateRowOnMap(row){
 // 头部 icon 弹窗
 function showIconPopover(iconEl, row){
   // ✅ 编辑态：只弹分类浮窗，不触发地图
-  // locateRowOnMap(row);  ← 已移除
-
+  console.log("[showIconPopover] called", { type: row?.dataset?.type, name: row?.querySelector(".name-text")?.textContent });
   document.querySelectorAll(".icon-popover").forEach(p => p.remove());
   const type = row.dataset.type || "activity";
   const def = TYPE_DEFS[type];
