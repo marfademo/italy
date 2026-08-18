@@ -1649,6 +1649,9 @@ function init(){
   // 全局绑定：所有 list-row 装 icon click handler（编辑态→popover，非编辑态→flyTo+popup）
   document.querySelectorAll(".day-panel .list-row").forEach(row => attachRowHandlers(row));
 
+  // 全局绑定：所有 .img-gallery 绑 click（弹大图、拖拽等）
+  bindAllImgGalleries();
+
   // 如果用户曾编辑过 timeline，写入 panel DOM
   const ov = loadOverrides();
   Object.keys(ov).forEach(d => {
