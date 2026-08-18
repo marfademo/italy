@@ -1672,7 +1672,13 @@ function init(){
 
   // 渲染 Day 1–6 面板
   for (const d of [1,2,3,4,5,6]) {
-    if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
+    if (DAYS[d]) {
+      const html = renderDayPanel(d);
+      console.log("[init] rendering day", d, "timeline length:", html.length);
+      root.insertAdjacentHTML("beforeend", html);
+    } else {
+      console.warn("[init] DAYS[", d, "] is undefined!");
+    }
   }
 
   // 全局绑定：所有 .list-icon 一次性绑 onclick（无论编辑态）
@@ -1680,7 +1686,14 @@ function init(){
 
   // 全局绑定：所有 list-row 装 icon click handler（编辑态→popover，非编辑态→flyTo+popup）
   const allRows = document.querySelectorAll(".day-panel .list-row");
-  console.log("[init] found rows to bind:", allRows.length, "attaching handlers...");
+  const rowsByDay = {};
+  allRows.forEach(row => {
+    const day = row.closest(".day-panel")?.dataset.day;
+    if (day) {
+      rowsByDay[day] = (rowsByDay[day] || 0) + 1;
+    }
+  });
+  console.log("[init] found rows to bind:", allRows.length, "by day:", rowsByDay, "attaching handlers...");
   allRows.forEach(row => attachRowHandlers(row));
   console.log("[init] done attaching handlers");
 
