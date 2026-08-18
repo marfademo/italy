@@ -2170,7 +2170,7 @@ function detachEditHandlers(){
     el.removeAttribute("contenteditable");
   });
   // 仅删除编辑模式专用控件（del-row 保留，靠 CSS 控制可点性）
-  document.querySelectorAll(".add-list, .add-li, .drag-handle, .icon-popover").forEach(b => b.remove());
+  document.querySelectorAll(".add-list, .add-li, .drag-handle, .icon-popover, .img-add, .img-refetch").forEach(b => b.remove());
   document.querySelectorAll('[draggable="true"]').forEach(el => el.removeAttribute("draggable"));
 }
 
@@ -2198,33 +2198,31 @@ function ensureAddBoxes(){
     if (row.dataset.type === "transport") return;
     const gallery = row.querySelector(".img-gallery");
     if (!gallery) return;
+    // ✅ 先移除从 localStorage 恢复的旧按钮（innerHTML 不保留 event listener）
+    gallery.querySelectorAll(".img-add, .img-refetch").forEach(el => el.remove());
     // 补 add-box
-    if (!gallery.querySelector(".img-add")) {
-      const box = document.createElement("div");
-      box.className = "img-add";
-      box.tabIndex = 0;
-      box.title = "点击后复制图片粘贴上传";
-      box.textContent = "+ 添加图片";
-      gallery.appendChild(box);
-      bindAddBoxClick(box, gallery, row);
-      if (gallery.dataset.handlersBound !== "1") {
-        attachImgGalleryHandlers(gallery, row);
-        gallery.dataset.handlersBound = "1";
-      }
+    const box = document.createElement("div");
+    box.className = "img-add";
+    box.tabIndex = 0;
+    box.title = "点击后复制图片粘贴上传";
+    box.textContent = "+ 添加图片";
+    gallery.appendChild(box);
+    bindAddBoxClick(box, gallery, row);
+    if (gallery.dataset.handlersBound !== "1") {
+      attachImgGalleryHandlers(gallery, row);
+      gallery.dataset.handlersBound = "1";
     }
     // 补「🔄 重拉图片」按钮（紧跟 add-box 后面）
-    if (!gallery.querySelector(".img-refetch")) {
-      const refetchBtn = document.createElement("button");
-      refetchBtn.className = "img-refetch";
-      refetchBtn.textContent = "🔄 重拉图片";
-      refetchBtn.title = "仅重拉当前行的图片";
-      refetchBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        refetchSingleRow(row);
-      });
-      gallery.appendChild(refetchBtn);
-    }
+    const refetchBtn = document.createElement("button");
+    refetchBtn.className = "img-refetch";
+    refetchBtn.textContent = "🔄 重拉图片";
+    refetchBtn.title = "仅重拉当前行的图片";
+    refetchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      refetchSingleRow(row);
+    });
+    gallery.appendChild(refetchBtn);
     applyEmptyFlag(gallery);
   });
 }
@@ -3264,11 +3262,13 @@ function scheduleSave(){
   pendingEdits[d] = pendingEdits[d] || {};
   const tl = dayPanel.querySelector(".timeline");
   if (tl) {
-    // ✅ 保存前清除所有 icon 的 dataset 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
-    tl.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
+    // ✅ 保存前清除编辑态临时元素和 icon 的 dataset 标记（用 clone 避免修改实时 DOM）
+    const clone = tl.cloneNode(true);
+    clone.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
       icon.removeAttribute("data-icon-handler-bound");
     });
-    pendingEdits[d].timelineHTML = tl.innerHTML;
+    clone.querySelectorAll(".img-add, .img-refetch").forEach(el => el.remove());
+    pendingEdits[d].timelineHTML = clone.innerHTML;
     DAYS[d].timeline = tl.innerHTML;
   }
   // 底部三个 textarea：每行作为一条记录
