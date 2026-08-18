@@ -1065,8 +1065,8 @@ function attachRowHandlers(row){
   const dayPanel = row.closest(".day-panel");
   const dayNum = dayPanel?.dataset.day;
   if (icon && !icon.dataset.iconHandlerBound) {
-    console.log("[attachRowHandlers] binding icon for day", dayNum, "row name:", row.querySelector(".name-text")?.textContent?.trim());
     icon.dataset.iconHandlerBound = "1";
+    console.log("[attachRowHandlers] binding icon for day", dayNum, "row name:", row.querySelector(".name-text")?.textContent?.trim());
     icon.addEventListener("click", (e) => {
       console.log("[icon click] day:", dayNum, "editMode:", editMode, "name:", row.querySelector(".name-text")?.textContent?.trim());
       e.stopPropagation();
@@ -1098,8 +1098,6 @@ function attachRowHandlers(row){
       }
       marker.openPopup();
     });
-  } else if (icon) {
-    console.log("[attachRowHandlers] SKIP day", dayNum, "(handler already bound)");
   }
   let delBtn = row.querySelector(".del-row");
   if (!delBtn) {
@@ -1665,6 +1663,10 @@ function init(){
   console.log("[init] starting, day-root children:", document.getElementById("day-root")?.children.length);
   // 加载 localStorage 覆盖（先加载，否则 DAYS 数据是初始的）
   mergeOverrides();
+  // ✅ 清除 localStorage 恢复的 icon dataset 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
+  document.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
+    icon.removeAttribute("data-icon-handler-bound");
+  });
   // 启动时清理旧版 wiki cache（v3/v4/v5）—— 保留用户手动上传的 trip-img-*
   cleanupLegacyImageCache();
 
@@ -3210,6 +3212,10 @@ function scheduleSave(){
   pendingEdits[d] = pendingEdits[d] || {};
   const tl = dayPanel.querySelector(".timeline");
   if (tl) {
+    // ✅ 保存前清除所有 icon 的 dataset 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
+    tl.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
+      icon.removeAttribute("data-icon-handler-bound");
+    });
     pendingEdits[d].timelineHTML = tl.innerHTML;
     DAYS[d].timeline = tl.innerHTML;
   }
