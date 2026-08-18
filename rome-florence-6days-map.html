@@ -2078,8 +2078,8 @@ function toggleEdit(){
       r.querySelectorAll(".name-text, .list-time, .list-transport-duration, .list-action, .list-note")
         .forEach(el => el.removeAttribute("contenteditable"));
     });
-    // 退出编辑时：对所有当前 Day 的活动 list，如果名称变了，重新联网取图
-    refetchEditedRowImages();
+    // 退出编辑时：不再自动重拉图片，用户需手动点击「🔄 重拉图片」
+    // (removed refetchEditedRowImages call)
   }
 }
 
@@ -2133,6 +2133,38 @@ async function refetchEditedRowImages(){
   refreshMarkerPopups(currentDay);
 }
 
+// 单行重拉图片（编辑态按钮触发）
+async function refetchSingleRow(row){
+  const type = row.dataset.type;
+  if (type === "transport") return;
+  const nameEl = row.querySelector(".name-text");
+  const name = nameEl?.textContent?.trim();
+  if (!name || isPendingName(name)) return;
+  const gallery = row.querySelector(".img-gallery");
+  if (!gallery) return;
+  const btn = gallery.querySelector(".img-refetch");
+  if (btn) {
+    btn.textContent = "⏳ 拉取中...";
+    btn.disabled = true;
+  }
+  // 清空当前图片（保留占位符）
+  gallery.querySelectorAll(".img-thumb:not(.img-placeholder):not(.img-clone)").forEach(t => t.remove());
+  // 清除缓存标记
+  delete gallery.dataset.userCleared;
+  localStorage.removeItem(`trip-img-${name}`);
+  const imgs = await fetchWikiImages(name, 3);
+  imgs.forEach(src => addImgToGallery(gallery, src));
+  applyImgGalleryCollapse(gallery);
+  applyEmptyFlag(gallery);
+  saveRowImages(row);
+  // 刷新 marker popup
+  refreshMarkerPopups(currentDay);
+  if (btn) {
+    btn.textContent = "🔄 重拉图片";
+    btn.disabled = false;
+  }
+}
+
 function detachEditHandlers(){
   document.querySelectorAll('[contenteditable="true"]').forEach(el => {
     el.removeAttribute("contenteditable");
@@ -2160,25 +2192,38 @@ function refreshEmptyField(el){
   el.classList.toggle("empty-field", empty);
 }
 
-// 编辑态下，给"非交通 + 无 + 添加图片框"的画廊补上 add-box
+// 编辑态下，给"非交通 + 无 + 添加图片框"的画廊补上 add-box + 重拉图片按钮
 function ensureAddBoxes(){
   document.querySelectorAll(".day-panel.active .list-row").forEach(row => {
     if (row.dataset.type === "transport") return;
     const gallery = row.querySelector(".img-gallery");
     if (!gallery) return;
-    if (gallery.querySelector(".img-add")) return;
-    const box = document.createElement("div");
-    box.className = "img-add";
-    box.tabIndex = 0;
-    box.title = "点击后复制图片粘贴上传";
-    box.textContent = "+ 添加图片";
-    gallery.appendChild(box);
-    // 直接绑 click（不用 attachImgGalleryHandlers 内部 if 判断）
-    bindAddBoxClick(box, gallery, row);
-    // 绑 paste / drop 监听
-    if (gallery.dataset.handlersBound !== "1") {
-      attachImgGalleryHandlers(gallery, row);
-      gallery.dataset.handlersBound = "1";
+    // 补 add-box
+    if (!gallery.querySelector(".img-add")) {
+      const box = document.createElement("div");
+      box.className = "img-add";
+      box.tabIndex = 0;
+      box.title = "点击后复制图片粘贴上传";
+      box.textContent = "+ 添加图片";
+      gallery.appendChild(box);
+      bindAddBoxClick(box, gallery, row);
+      if (gallery.dataset.handlersBound !== "1") {
+        attachImgGalleryHandlers(gallery, row);
+        gallery.dataset.handlersBound = "1";
+      }
+    }
+    // 补「🔄 重拉图片」按钮（紧跟 add-box 后面）
+    if (!gallery.querySelector(".img-refetch")) {
+      const refetchBtn = document.createElement("button");
+      refetchBtn.className = "img-refetch";
+      refetchBtn.textContent = "🔄 重拉图片";
+      refetchBtn.title = "仅重拉当前行的图片";
+      refetchBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        refetchSingleRow(row);
+      });
+      gallery.appendChild(refetchBtn);
     }
     applyEmptyFlag(gallery);
   });
@@ -2311,10 +2356,8 @@ function addListRowAfter(timeline){
 
   // 装上交互
   attachRowHandlers(newRow);
-  // ✅ 新增 list 标记为"需要自动取图"（只对新增的拉图，已存在的不拉）
-  if (newRow.dataset.type !== "transport") {
-    newRow.dataset.needFetch = "1";
-  }
+  // ✅ 新增 list 不再自动拉图，用户需手动点击「🔄 重拉图片」
+
   // 装图片画廊交互（listRowHTML 已含空 .img-gallery 容器）
   const newGallery = newRow.querySelector(".img-gallery");
   if (newGallery) {
