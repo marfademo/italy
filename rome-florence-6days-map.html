@@ -885,8 +885,10 @@ async function geocodeAndUpdateMarkers(d){
     const name = nameEl?.textContent?.trim();
     if (!name || isPendingName(name)) return; // 跳过模糊名称
 
-    // ✅ 先尝试从已有 nodes 中查找（快速路径）
-    const existingNode = cfg.nodes.find(n => n.name && (n.name === name || name.includes(n.name) || n.name.includes(name)));
+    // ✅ 先尝试从已有 nodes 中查找（快速路径，规范化 & 编码差异）
+    const norm = (s) => s.replace(/&amp;/g, "&");
+    const normalizedName = norm(name);
+    const existingNode = cfg.nodes.find(n => n.name && (norm(n.name) === normalizedName || normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
     if (existingNode) {
       row.dataset.lat = existingNode.lat;
       row.dataset.lng = existingNode.lng;
@@ -951,14 +953,16 @@ function findNodeIndexByName(name){
   if (!name) return -1;
   const cfg = DAYS[currentDay];
   if (!cfg || !cfg.nodes) return -1;
-  // 严格匹配
-  let idx = cfg.nodes.findIndex(n => n.name && n.name === name);
+  const norm = (s) => s.replace(/&amp;/g, "&");
+  const normalizedName = norm(name);
+  // 严格匹配（规范化 & 编码差异）
+  let idx = cfg.nodes.findIndex(n => n.name && norm(n.name) === normalizedName);
   if (idx >= 0) return idx;
   // 前缀匹配（截取第一段）
-  const a = name.split(/[→·\s]/)[0];
+  const a = normalizedName.split(/[→·\s]/)[0];
   idx = cfg.nodes.findIndex(n => {
     if (!n.name) return false;
-    const b = n.name.split(/[→·\s]/)[0];
+    const b = norm(n.name).split(/[→·\s]/)[0];
     return a && b && a === b;
   });
   return idx;
@@ -1127,15 +1131,8 @@ function attachRowHandlers(row){
       const name = row.querySelector(".name-text")?.textContent?.trim();
       if (!name || isPendingName(name)) return;
       if (!currentLayer || !currentLayer.markers) return;
-      // ✅ 关键修复：直接用 currentLayer.nodes 查找索引，保证与 buildLayerFromRows 完全一致
-      const spotIdx = currentLayer.nodes.findIndex(n => n.name === name);
-      if (spotIdx === -1) return;
-      const marker = currentLayer.markers[spotIdx];
-      if (!marker) return;
-      if (map) {
-        map.flyTo([marker.getLatLng().lat, marker.getLatLng().lng], Math.max(map.getZoom(), 16), { duration: .6 });
-      }
-      marker.openPopup();
+      // ✅ 直接复用 focusSpotByName 的匹配逻辑，保证一致性
+      focusSpotByName(name);
     });
   }
   let delBtn = row.querySelector(".del-row");
@@ -1385,12 +1382,12 @@ function buildLayerFromRows(d){
     const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
     let nodeInfo = cfg.nodes.find(n => {
       if (!n.name) return false;
-      // 精确匹配
-      if (n.name === name) return true;
-      // 子串反向包含
-      if (name.includes(n.name) || n.name.includes(name)) return true;
-      // 任一关键词片段匹配
-      return nameParts.some(part => n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0]));
+      // 精确匹配（同时规范 & 差异）
+      if (n.name === name || n.name.replace(/&amp;/g, '&') === name.replace(/&amp;/g, '&')) return true;
+      // 子串反向包含（同时规范 & 差异）
+      if (name.includes(n.name) || n.name.includes(name) || name.includes(n.name.replace(/&amp;/g, '&')) || n.name.replace(/&amp;/g, '&').includes(name)) return true;
+      // 任一关键词片段匹配（过滤短片段避免 & 等单字符干扰）
+      return nameParts.some(part => part.length > 2 && (n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0])));
     });
     // ✅ 优先使用 geocode 结果（data-lat/data-lng）
     if (!nodeInfo && row.dataset.lat && row.dataset.lng) {
@@ -1556,11 +1553,13 @@ function focusSpot(idx, fly=true){
 function focusSpotByName(name){
   if (!name || !currentLayer || !currentLayer.markers) return;
   // ✅ 用 currentLayer.nodes 查找（与 buildLayerFromRows 的 placeRows 顺序一致）
-  let idx = currentLayer.nodes.findIndex(n => n.name === name);
+  // 规范化 & 编码差异
+  const norm = (s) => s.replace(/&amp;/g, "&");
+  let idx = currentLayer.nodes.findIndex(n => norm(n.name) === norm(name));
   if (idx === -1) {
-    const a = name.split(/[·\s（(]/)[0];
+    const a = norm(name).split(/[·\s（(]/)[0];
     idx = currentLayer.nodes.findIndex(n => {
-      const b = n.name.split(/[·\s（(]/)[0];
+      const b = norm(n.name).split(/[·\s（(]/)[0];
       return a && b && a === b;
     });
   }
