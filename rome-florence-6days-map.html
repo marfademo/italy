@@ -1059,13 +1059,20 @@ function attachRowHandlers(row){
       .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   }
   const icon = row.querySelector(".list-icon");
-  if (icon && !icon.dataset.iconHandlerBound) {
-    icon.dataset.iconHandlerBound = "1";
-    icon.addEventListener("click", (e) => {
+  if (icon) {
+    // ✅ 每次调用都重新绑定（先清除旧标记），确保编辑态切换后 handler 能正确更新
+    if (icon.dataset.iconHandlerBound === "1") {
+      // 移除旧的 click listener（通过 cloneNode 替换元素来清除所有 listener）
+      const newIcon = icon.cloneNode(true);
+      icon.parentNode.replaceChild(newIcon, icon);
+    }
+    newIcon = row.querySelector(".list-icon");
+    newIcon.dataset.iconHandlerBound = "1";
+    newIcon.addEventListener("click", (e) => {
       e.stopPropagation();
       if (editMode) {
         // 编辑态：弹出类型切换浮窗
-        showIconPopover(icon, row);
+        showIconPopover(newIcon, row);
         return;
       }
       // 非编辑态：地图 flyTo + popup
@@ -1076,7 +1083,6 @@ function attachRowHandlers(row){
       const dayPanel = row.closest(".day-panel");
       if (!dayPanel || !dayPanel.classList.contains("active")) return;
       // 按行程单 list-row 顺序定位 marker（跳过 transport + pending name）
-      if (!dayPanel) return;
       const allRows = Array.from(dayPanel.querySelectorAll(".list-row"));
       // 过滤规则：跳过 transport + 跳过 pending name（与 buildLayerFromRows 第 1366/1369 行一致）
       const placeRows = allRows.filter(r => {
@@ -1090,8 +1096,7 @@ function attachRowHandlers(row){
       const marker = currentLayer.markers[spotIdx];
       if (!marker) return;
       // flyTo + openPopup
-      const cfg = DAYS[currentDay];
-      if (cfg && map) {
+      if (map) {
         map.flyTo([marker.getLatLng().lat, marker.getLatLng().lng], Math.max(map.getZoom(), 16), { duration: .6 });
       }
       marker.openPopup();
