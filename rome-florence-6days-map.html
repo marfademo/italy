@@ -1060,12 +1060,17 @@ function attachRowHandlers(row){
   if (icon && !icon.dataset.iconHandlerBound) {
     icon.dataset.iconHandlerBound = "1";
     icon.addEventListener("click", (e) => {
-      // ✅ 编辑态：弹类型切换浮窗（不定位地图），阻止冒泡
+      e.stopPropagation();
       if (editMode) {
-        e.stopPropagation();
+        // 编辑态：弹出类型切换浮窗
         showIconPopover(icon, row);
+        return;
       }
-      // ✅ 非编辑态：不阻止冒泡，让 bindAllIconFlyTo 处理 flyTo + popup
+      // 非编辑态：地图 flyTo + popup
+      const name = row.querySelector(".name-text")?.textContent?.trim();
+      if (name && !isPendingName(name) && typeof focusSpotByName === "function") {
+        focusSpotByName(name);
+      }
     });
   }
   let delBtn = row.querySelector(".del-row");
@@ -1606,26 +1611,10 @@ function activateDay(d){
   if (editMode) attachEditHandlers();
 }
 
-// 全局给所有 .list-icon 绑 flyTo（一次绑定，无关 editMode）
-let _flyBoundCount = 0;
+// ✅ 全局绑定已废弃，icon 点击逻辑统一由 attachRowHandlers 处理
+// 保留此函数以防其他地方调用，但不再绑定 click listener
 function bindAllIconFlyTo(){
-  const allIcons = document.querySelectorAll(".day-panel .list-row .list-icon");
-  allIcons.forEach((icon, idx) => {
-    if (icon.dataset.flyBound === "1") return;
-    icon.dataset.flyBound = "1";
-    _flyBoundCount++;
-    const row = icon.closest(".list-row");
-    icon.addEventListener("click", (e) => {
-      // ✅ 非编辑态：flyTo + popup
-      if (!editMode) {
-        const name = row.querySelector(".name-text")?.textContent?.trim();
-        if (name && !isPendingName(name) && typeof focusSpotByName === "function") {
-          focusSpotByName(name);
-        }
-      }
-      // ✅ 编辑态：什么都不做，由 attachRowHandlers 的 listener 处理分类 popover
-    });
-  });
+  // icon 点击由 attachRowHandlers 统一处理（编辑态→popover，非编辑态→flyTo+popup）
 }
 
 // 全局给所有 .img-gallery 绑 click（弹大图、拖拽等），无论编辑态
