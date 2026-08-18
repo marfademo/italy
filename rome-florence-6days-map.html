@@ -1662,6 +1662,7 @@ function bindAllImgGalleries(){
 }
 
 function init(){
+  console.log("[init] starting, day-root children:", document.getElementById("day-root")?.children.length);
   // 加载 localStorage 覆盖（先加载，否则 DAYS 数据是初始的）
   mergeOverrides();
   // 启动时清理旧版 wiki cache（v3/v4/v5）—— 保留用户手动上传的 trip-img-*
@@ -1676,7 +1677,10 @@ function init(){
   bindAllIconFlyTo();
 
   // 全局绑定：所有 list-row 装 icon click handler（编辑态→popover，非编辑态→flyTo+popup）
-  document.querySelectorAll(".day-panel .list-row").forEach(row => attachRowHandlers(row));
+  const allRows = document.querySelectorAll(".day-panel .list-row");
+  console.log("[init] found rows to bind:", allRows.length, "attaching handlers...");
+  allRows.forEach(row => attachRowHandlers(row));
+  console.log("[init] done attaching handlers");
 
   // 全局绑定：所有 .img-gallery 绑 click（弹大图、拖拽等）
   bindAllImgGalleries();
