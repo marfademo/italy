@@ -1384,12 +1384,13 @@ function buildLayerFromRows(d){
     placeRows.push({ row, name, ...nodeInfo });
   });
 
-  // ② 确定 marker 编号：main 类从 1 开始递增，其他为 null
-  let mainCount = 0;
+  //  确定 marker 编号：从对应 row 的 .list-icon 文本直接读取（保持与行程单一致）
   const nodes = placeRows.map(pr => {
-    if (pr.kind === "main") mainCount++;
+    const iconText = pr.row.querySelector(".list-icon")?.textContent?.trim() || "";
+    // 如果 icon 是数字（"1"-"9"），用这个数字作为 marker 编号；否则用 null
+    const num = /^\d+$/.test(iconText) ? parseInt(iconText) : null;
     return {
-      num: pr.kind === "main" ? mainCount : null,
+      num,
       kind: pr.kind,
       name: pr.name,
       lat: pr.lat,
