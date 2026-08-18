@@ -1342,11 +1342,20 @@ function buildLayerFromRows(d){
     const nameEl = row.querySelector(".name-text");
     const name = nameEl ? nameEl.textContent.trim() : "";
     if (!name || name === "新条目" || isPendingName(name)) return;
-    // 尝试从静态 nodes 中查找已有坐标（fallback：用酒店位置或默认中心点）
-    let nodeInfo = cfg.nodes.find(n => n.name && (n.name === name || n.name.includes(name.split(/[·\s]/)[0])));
+    // 尝试从静态 nodes 中查找已有坐标（支持前缀匹配和子串匹配）
+    const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
+    let nodeInfo = cfg.nodes.find(n => {
+      if (!n.name) return false;
+      // 精确匹配
+      if (n.name === name) return true;
+      // 子串反向包含
+      if (name.includes(n.name) || n.name.includes(name)) return true;
+      // 任一关键词片段匹配
+      return nameParts.some(part => n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0]));
+    });
     if (!nodeInfo) {
-      // fallback：用酒店位置作为占位（避免报错）
-      nodeInfo = { lat: cfg.center[0], lng: cfg.center[1], kind: "view", num: null };
+      // ✅ 改进：用 cfg.hotel.lat/lng 作为 fallback（比 center 更接近实际区域）
+      nodeInfo = { lat: cfg.hotel?.lat || cfg.center[0], lng: cfg.hotel?.lng || cfg.center[1], kind: "view", num: null };
     }
     placeRows.push({ row, name, ...nodeInfo });
   });
