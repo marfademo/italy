@@ -1127,27 +1127,9 @@ function attachRowHandlers(row){
       const name = row.querySelector(".name-text")?.textContent?.trim();
       if (!name || isPendingName(name)) return;
       if (!currentLayer || !currentLayer.markers) return;
-      const dayPanel = row.closest(".day-panel");
-      if (!dayPanel || !dayPanel.classList.contains("active")) return;
-      const allRows = Array.from(dayPanel.querySelectorAll(".list-row"));
-      const cfg = DAYS[currentDay];
-      // ✅ 与 buildLayerFromRows 保持一致的过滤逻辑（含坐标检查）
-      const placeRows = allRows.filter(r => {
-        if (r.dataset.type === "transport") return false;
-        const n = r.querySelector(".name-text")?.textContent?.trim();
-        if (!n || n === "新条目" || isPendingName(n)) return false;
-        // 检查是否有坐标（与 buildLayerFromRows 一致）
-        const nameParts = n.split(/[·\s（(]/).filter(Boolean);
-        const found = cfg && cfg.nodes.find(nd => {
-          if (!nd.name) return false;
-          if (nd.name === n) return true;
-          if (n.includes(nd.name) || nd.name.includes(n)) return true;
-          return nameParts.some(part => nd.name.includes(part) || part.includes(nd.name.split(/[\s（(]/)[0]));
-        });
-        return found || (r.dataset.lat && r.dataset.lng);
-      });
-      const spotIdx = placeRows.indexOf(row);
-      if (spotIdx === -1 || spotIdx >= currentLayer.markers.length) return;
+      // ✅ 关键修复：直接用 currentLayer.nodes 查找索引，保证与 buildLayerFromRows 完全一致
+      const spotIdx = currentLayer.nodes.findIndex(n => n.name === name);
+      if (spotIdx === -1) return;
       const marker = currentLayer.markers[spotIdx];
       if (!marker) return;
       if (map) {
