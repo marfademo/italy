@@ -1389,9 +1389,11 @@ function buildLayerFromRows(d){
     const iconText = pr.row.querySelector(".list-icon")?.textContent?.trim() || "";
     // 如果 icon 是数字（"1"-"9"），用这个数字作为 marker 编号；否则用 null
     const num = /^\d+$/.test(iconText) ? parseInt(iconText) : null;
+    // ✅ 关键修复：有数字编号的 activity 统一用 "main" kind（粉色默认样式），避免颜色错位
+    const kind = num !== null ? "main" : (pr.kind || "view");
     return {
       num,
-      kind: pr.kind,
+      kind,
       name: pr.name,
       lat: pr.lat,
       lng: pr.lng,
