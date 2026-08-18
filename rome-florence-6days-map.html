@@ -933,8 +933,8 @@ function locateRowOnMap(row){
 
 // 头部 icon 弹窗
 function showIconPopover(iconEl, row){
-  // 先触发地图定位 + 弹 popup
-  locateRowOnMap(row);
+  // ✅ 编辑态：只弹分类浮窗，不触发地图
+  // locateRowOnMap(row);  ← 已移除
 
   document.querySelectorAll(".icon-popover").forEach(p => p.remove());
   const type = row.dataset.type || "activity";
@@ -978,11 +978,15 @@ function showIconPopover(iconEl, row){
     pop.appendChild(item);
   });
 
-  // fixed 定位：用 icon 的屏幕坐标
+  // ✅ fixed 定位：紧贴 icon 下方，考虑滚动偏移
   document.body.appendChild(pop);
   const rect = iconEl.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  pop.style.position = "fixed";
   pop.style.top = (rect.bottom + 4) + "px";
-  pop.style.left = (rect.left - 8) + "px";
+  pop.style.left = Math.max(4, rect.left - 8) + "px";
+  pop.style.zIndex = "99999";
 
   setTimeout(() => {
     const closeFn = (ev) => {
@@ -1059,32 +1063,23 @@ function attachRowHandlers(row){
       .forEach(el => { el.contentEditable = "true"; el.spellcheck = false; });
   }
   const icon = row.querySelector(".list-icon");
-  if (icon) {
-    // ✅ 每次调用都重新绑定（先清除旧标记），确保编辑态切换后 handler 能正确更新
-    if (icon.dataset.iconHandlerBound === "1") {
-      // 移除旧的 click listener（通过 cloneNode 替换元素来清除所有 listener）
-      const newIcon = icon.cloneNode(true);
-      icon.parentNode.replaceChild(newIcon, icon);
-    }
-    newIcon = row.querySelector(".list-icon");
-    newIcon.dataset.iconHandlerBound = "1";
-    newIcon.addEventListener("click", (e) => {
+  if (icon && !icon.dataset.iconHandlerBound) {
+    icon.dataset.iconHandlerBound = "1";
+    icon.addEventListener("click", (e) => {
       e.stopPropagation();
+      // ✅ 统一 handler：根据当前 editMode 自动走对应分支
       if (editMode) {
-        // 编辑态：弹出类型切换浮窗
-        showIconPopover(newIcon, row);
+        // 编辑态：弹出类型切换浮窗（不触发地图）
+        showIconPopover(icon, row);
         return;
       }
       // 非编辑态：地图 flyTo + popup
       const name = row.querySelector(".name-text")?.textContent?.trim();
       if (!name || isPendingName(name)) return;
       if (!currentLayer || !currentLayer.markers) return;
-      // ✅ 只处理当前 active day 的 row（未切换 tab 时 currentLayer 可能指向上一个 day）
       const dayPanel = row.closest(".day-panel");
       if (!dayPanel || !dayPanel.classList.contains("active")) return;
-      // 按行程单 list-row 顺序定位 marker（跳过 transport + pending name）
       const allRows = Array.from(dayPanel.querySelectorAll(".list-row"));
-      // 过滤规则：跳过 transport + 跳过 pending name（与 buildLayerFromRows 第 1366/1369 行一致）
       const placeRows = allRows.filter(r => {
         if (r.dataset.type === "transport") return false;
         const n = r.querySelector(".name-text")?.textContent?.trim();
@@ -1095,7 +1090,6 @@ function attachRowHandlers(row){
       if (spotIdx === -1 || spotIdx >= currentLayer.markers.length) return;
       const marker = currentLayer.markers[spotIdx];
       if (!marker) return;
-      // flyTo + openPopup
       if (map) {
         map.flyTo([marker.getLatLng().lat, marker.getLatLng().lng], Math.max(map.getZoom(), 16), { duration: .6 });
       }
