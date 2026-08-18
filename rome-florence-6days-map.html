@@ -1671,7 +1671,22 @@ function init(){
     if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
   }
 
-  // ✅ 清除 DOM 中已渲染的 icon dataset 标记（localStorage restore + innerHTML 序列化会带入旧标记）
+  // 如果用户曾编辑过 timeline，写入 panel DOM（必须在 handler 绑定之前！）
+  const ov = loadOverrides();
+  Object.keys(ov).forEach(d => {
+    if (d === "tips") return;
+    if (ov[d] && ov[d].timelineHTML) {
+      const tl = document.querySelector(`.day-panel[data-day="${d}"] .timeline`);
+      if (tl) {
+        // ✅ 清除 localStorage 中保存的 icon handler 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
+        let html = ov[d].timelineHTML;
+        html = html.replace(/ data-icon-handler-bound="[^"]*"/gi, "");
+        tl.innerHTML = html;
+      }
+    }
+  });
+
+  // ✅ 清除 DOM 中已渲染的 icon dataset 标记（两次清除确保万无一失）
   document.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
     icon.removeAttribute("data-icon-handler-bound");
   });
@@ -1687,16 +1702,6 @@ function init(){
 
   // 全局绑定：所有 .img-gallery 绑 click（弹大图、拖拽等）
   bindAllImgGalleries();
-
-  // 如果用户曾编辑过 timeline，写入 panel DOM
-  const ov = loadOverrides();
-  Object.keys(ov).forEach(d => {
-    if (d === "tips") return;
-    if (ov[d] && ov[d].timelineHTML) {
-      const tl = document.querySelector(`.day-panel[data-day="${d}"] .timeline`);
-      if (tl) tl.innerHTML = ov[d].timelineHTML;
-    }
-  });
 
   // 绑定 tab（统一处理，Day 1 也走 activateDay 的 transit 分支）
   document.querySelectorAll("#tabs .tab").forEach(t => {
