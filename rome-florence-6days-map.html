@@ -1048,10 +1048,6 @@ function changeRowType(row, newType){
 
 // 给一个 row 装上编辑相关（contenteditable + delete + icon click + drag）
 function attachRowHandlers(row){
-  const dayPanel = row.closest(".day-panel");
-  const dayNum = dayPanel?.dataset.day;
-  const nameText = row.querySelector(".name-text")?.textContent?.trim();
-  console.log("[attachRowHandlers] ENTER day:", dayNum, "name:", nameText);
   // ✅ 非编辑态：拦截 dragstart 阻止原生拖拽 ghost，但不影响 click 事件（图片查看模态框）
   if (!editMode) {
     row.removeAttribute("draggable");
@@ -1676,13 +1672,7 @@ function init(){
 
   // 渲染 Day 1–6 面板
   for (const d of [1,2,3,4,5,6]) {
-    if (DAYS[d]) {
-      const html = renderDayPanel(d);
-      console.log("[init] rendering day", d, "timeline length:", html.length);
-      root.insertAdjacentHTML("beforeend", html);
-    } else {
-      console.warn("[init] DAYS[", d, "] is undefined!");
-    }
+    if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
   }
 
   // 全局绑定：所有 .list-icon 一次性绑 onclick（无论编辑态）
@@ -1690,14 +1680,7 @@ function init(){
 
   // 全局绑定：所有 list-row 装 icon click handler（编辑态→popover，非编辑态→flyTo+popup）
   const allRows = document.querySelectorAll(".day-panel .list-row");
-  const rowsByDay = {};
-  allRows.forEach(row => {
-    const day = row.closest(".day-panel")?.dataset.day;
-    if (day) {
-      rowsByDay[day] = (rowsByDay[day] || 0) + 1;
-    }
-  });
-  console.log("[init] found rows to bind:", allRows.length, "by day:", rowsByDay, "attaching handlers...");
+  console.log("[init] found rows to bind:", allRows.length, "attaching handlers...");
   allRows.forEach(row => attachRowHandlers(row));
   console.log("[init] done attaching handlers");
 
