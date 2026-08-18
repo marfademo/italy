@@ -735,28 +735,31 @@ const DAYS = {
     ],
     timeline: dayTimeline(3),
   },
-  /* ---------- Day 4 佛罗伦萨初印象（重建自 Day5 结构）---------- */
+
+  /* ---------- Day 4 佛罗伦萨初印象 ---------- */
   4: {
     hotel: { name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526 },
-    center: [43.7730, 11.2540],
+    center: [43.7720, 11.2550],
     zoom: 15,
-    bounds: [[43.7680,11.2480],[43.7780,11.2600]],
+    bounds: [[43.7660,11.2440],[43.7800,11.2660]],
     title: "佛罗伦萨初印象",
     badge: "DAY 4",
     date: "10.4 · FIRENZE",
-    line: " 罗马 → 佛罗伦萨 · 入住老城核心区",
+    line: "🚄 罗马 → 佛罗伦萨 · 入住老城核心区",
     nodes: [
       { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "高铁约 1.5h，寄存酒店" },
       { num: 1, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "14:00–15:00 · 画小猫的爷爷", pills: ["🚶 5min","10:15–16:00"] },
       { num: 2, kind: "main", name: "圣洛伦佐大殿", lat: 43.7750, lng: 11.2540, hint: "15:00–16:00", pills: ["🚶 4min","10:00–17:30"] },
+      { num: null, kind: "hotel", name: "回酒店办理入住", lat: 43.7752, lng: 11.2526, hint: "16:00–16:30", pills: ["🚶 1min"] },
       { num: 3, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:30–18:30 · 逛街", pills: ["🚶 7min"] },
-      { num: 4, kind: "view", name: "领主广场（可选）", lat: 43.7696, lng: 11.2559, hint: "无门票" },
+      { num: null, kind: "view", name: "领主广场（可选）", lat: 43.7696, lng: 11.2559, hint: "无门票" },
     ],
     route: [
       { mode: "walk", from: 0, to: 1 },
       { mode: "walk", from: 1, to: 2 },
       { mode: "walk", from: 2, to: 3 },
       { mode: "walk", from: 3, to: 4 },
+      { mode: "walk", from: 4, to: 5 },
     ],
     timeline: dayTimeline(4),
   },
@@ -1206,19 +1209,21 @@ function dayTimeline(d){
     listRowHTML({ type:"activity", icon:"·", name:"斗兽场拍夜景", time:"20:30 - 21:30", action:"夜景黄金时段" }),
   ].join("");
 
-  // ===== Day 4：佛罗伦萨初印象（重建）=====
+  // ===== Day 4：佛罗伦萨初印象 =====
   if (d===4) return [
-    listRowHTML({ type:"transport", icon:"🚄", name:"罗马 → 佛罗伦萨", duration:"1h30m", action:"Frecciarossa 高铁", note:"寄存酒店行李" }),
+    listRowHTML({ type:"transport", icon:"🚄", name:"罗马 → 佛罗伦萨", duration:"1h30m", action:"Frecciararsra 高铁", note:"寄存酒店行李" }),
     listRowHTML({ type:"transport", icon:"🚶", name:"抵达 + 寄存", duration:"5min", action:"Via Faenza 7" }),
     listRowHTML({ type:"meal", icon:"🍝", name:"午餐", action:"中央市场一层美食" }),
     listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 圣母百花", duration:"5min" }),
     listRowHTML({ type:"activity", icon:"1", name:"圣母百花大教堂", time:"14:00 - 15:00", action:"画小猫的爷爷 · 登穹顶 463 阶", note:"10:15–16:00" }),
     listRowHTML({ type:"transport", icon:"🚶", name:"圣母百花 → 圣洛伦佐", duration:"4min" }),
     listRowHTML({ type:"activity", icon:"2", name:"圣洛伦佐大殿", time:"15:00 - 16:00", action:"美第奇家族礼拜堂", note:"10:00–17:30" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣洛伦佐 → 共和广场", duration:"7min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"共和广场 Piazza Repubblica", time:"16:30 - 18:30", action:"逛街" }),
-    listRowHTML({ type:"activity", icon:"4", name:"领主广场（可选）", time:"18:30 - 19:00", action:"无门票" }),
-    listRowHTML({ type:"meal", icon:"", name:"晚饭", action:"Bistecca alla Fiorentina" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣洛伦佐 → 酒店", duration:"1min" }),
+    listRowHTML({ type:"activity", icon:"3", name:"回酒店办理入住", time:"16:00 - 16:30", action:"休整" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 共和广场", duration:"7min" }),
+    listRowHTML({ type:"activity", icon:"4", name:"共和广场 Piazza Repubblica", time:"16:30 - 18:30", action:"沿 Via dei Calzaiaioli、Via Roma 逛街" }),
+    listRowHTML({ type:"activity", icon:"·", name:"领主广场（可选）", action:"无门票" }),
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"Bistecca alla Fiorentina" }),
   ].join("");
 
   // ===== Day 5：市场 + 日落 =====
