@@ -2361,6 +2361,28 @@ function addListRowAfter(timeline){
   if (newGallery) {
     attachImgGalleryHandlers(newGallery, newRow);
     applyEmptyFlag(newGallery);  // 新行初始为空，打 empty 标记
+    // ✅ 编辑态下：给新增行补上「添加图片」框 + 「重拉图片」按钮
+    if (editMode && !newGallery.querySelector(".img-add")) {
+      const box = document.createElement("div");
+      box.className = "img-add";
+      box.tabIndex = 0;
+      box.title = "点击后复制图片粘贴上传";
+      box.textContent = "+ 添加图片";
+      newGallery.appendChild(box);
+      bindAddBoxClick(box, newGallery, newRow);
+    }
+    if (editMode && !newGallery.querySelector(".img-refetch")) {
+      const refetchBtn = document.createElement("button");
+      refetchBtn.className = "img-refetch";
+      refetchBtn.textContent = "🔄 重拉图片";
+      refetchBtn.title = "仅重拉当前行的图片";
+      refetchBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        refetchSingleRow(newRow);
+      });
+      newGallery.appendChild(refetchBtn);
+    }
   }
 
   // 选中标题
