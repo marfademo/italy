@@ -1663,10 +1663,6 @@ function init(){
   console.log("[init] starting, day-root children:", document.getElementById("day-root")?.children.length);
   // 加载 localStorage 覆盖（先加载，否则 DAYS 数据是初始的）
   mergeOverrides();
-  // ✅ 清除 localStorage 恢复的 icon dataset 标记（innerHTML 会序列化 dataset，但 event listener 不会保留）
-  document.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
-    icon.removeAttribute("data-icon-handler-bound");
-  });
   // 启动时清理旧版 wiki cache（v3/v4/v5）—— 保留用户手动上传的 trip-img-*
   cleanupLegacyImageCache();
 
@@ -1674,6 +1670,11 @@ function init(){
   for (const d of [1,2,3,4,5,6]) {
     if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
   }
+
+  // ✅ 清除 DOM 中已渲染的 icon dataset 标记（localStorage restore + innerHTML 序列化会带入旧标记）
+  document.querySelectorAll(".list-icon[data-icon-handler-bound]").forEach(icon => {
+    icon.removeAttribute("data-icon-handler-bound");
+  });
 
   // 全局绑定：所有 .list-icon 一次性绑 onclick（无论编辑态）
   bindAllIconFlyTo();
