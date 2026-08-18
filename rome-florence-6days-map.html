@@ -1076,7 +1076,13 @@ function attachRowHandlers(row){
       const dayPanel = row.closest(".day-panel");
       if (!dayPanel) return;
       const allRows = Array.from(dayPanel.querySelectorAll(".list-row"));
-      const placeRows = allRows.filter(r => r.dataset.type !== "transport");
+      // 过滤规则：跳过 transport + 跳过 pending name（与 buildLayerFromRows 第 1366/1369 行一致）
+      const placeRows = allRows.filter(r => {
+        if (r.dataset.type === "transport") return false;
+        const n = r.querySelector(".name-text")?.textContent?.trim();
+        if (!n || n === "新条目" || isPendingName(n)) return false;
+        return true;
+      });
       const spotIdx = placeRows.indexOf(row);
       if (spotIdx === -1 || spotIdx >= currentLayer.markers.length) return;
       const marker = currentLayer.markers[spotIdx];
