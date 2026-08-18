@@ -870,6 +870,53 @@ function gmapUrl(name){
   return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(name);
 }
 
+// ✅ 用 OpenStreetMap Nominatim 地理编码景点名，更新 row 的 data-lat/data-lng
+async function geocodeAndUpdateMarkers(d){
+  const cfg = DAYS[d];
+  if (!cfg) return;
+  const dayPanel = document.querySelector(`.day-panel[data-day="${d}"]`);
+  if (!dayPanel) return;
+  const rows = Array.from(dayPanel.querySelectorAll(".list-row"));
+
+  const tasks = rows.map(async (row) => {
+    const type = row.dataset.type;
+    if (type === "transport") return; // 交通不标记
+    const nameEl = row.querySelector(".name-text");
+    const name = nameEl?.textContent?.trim();
+    if (!name || isPendingName(name)) return; // 跳过模糊名称
+
+    // ✅ 先尝试从已有 nodes 中查找（快速路径）
+    const existingNode = cfg.nodes.find(n => n.name && (n.name === name || name.includes(n.name) || n.name.includes(name)));
+    if (existingNode) {
+      row.dataset.lat = existingNode.lat;
+      row.dataset.lng = existingNode.lng;
+      return;
+    }
+
+    // ✅ 调用 Nominatim API 地理编码
+    try {
+      const query = `${name}, ${d <= 3 ? 'Rome, Italy' : 'Florence, Italy'}`; // 根据 Day 限定城市
+      const resp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`, {
+        headers: { 'Accept-Language': 'zh-CN,en' }
+      });
+      const data = await resp.json();
+      if (data && data.length > 0) {
+        const lat = parseFloat(data[0].lat);
+        const lng = parseFloat(data[0].lon);
+        row.dataset.lat = lat;
+        row.dataset.lng = lng;
+        console.log(`[geocode] "${name}" → [${lat}, ${lng}]`);
+      } else {
+        console.log(`[geocode] "${name}" → NOT FOUND, skipping marker`);
+      }
+    } catch (e) {
+      console.warn(`[geocode] "${name}" → ERROR:`, e.message);
+    }
+  });
+
+  await Promise.allSettled(tasks);
+}
+
 // 单个 list-row HTML（工厂）
 function listRowHTML({ type = "activity", icon = "·", name = "新条目",
                      time = "", duration = "", action = "", note = "" }){
@@ -1353,9 +1400,14 @@ function buildLayerFromRows(d){
       // 任一关键词片段匹配
       return nameParts.some(part => n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0]));
     });
+    // ✅ 优先使用 geocode 结果（data-lat/data-lng）
+    if (!nodeInfo && row.dataset.lat && row.dataset.lng) {
+      nodeInfo = { lat: parseFloat(row.dataset.lat), lng: parseFloat(row.dataset.lng), kind: "main", num: null };
+    }
     if (!nodeInfo) {
-      // ✅ 改进：用 cfg.hotel.lat/lng 作为 fallback（比 center 更接近实际区域）
-      nodeInfo = { lat: cfg.hotel?.lat || cfg.center[0], lng: cfg.hotel?.lng || cfg.center[1], kind: "view", num: null };
+      // ❌ 找不到坐标 → 跳过该节点（不显示标记）
+      console.log(`[buildLayerFromRows] "${name}" → no coordinate found, skipping marker`);
+      return;
     }
     placeRows.push({ row, name, ...nodeInfo });
   });
@@ -2056,16 +2108,17 @@ function toggleEdit(){
     // (removed refetchEditedRowImages call)
     // ✅ 退出编辑后重建地图标记点（反映新增/删除/改名等编辑）
     if (map && currentDay && !DAYS[currentDay]?.isTransit) {
-      if (currentLayer) {
-        currentLayer.markers.forEach(m => m.remove());
-        currentLayer.polylines.forEach(p => p.remove());
-      }
-      currentLayer = buildLayerFromRows(currentDay);
-      // 刷新 popup 中的图片
-      refreshMarkerPopups(currentDay);
-      // 重新绑定所有 icon 的 flyTo handler（因为 DOM 可能已变化）
-      bindAllIconFlyTo();
-      document.querySelectorAll(`.day-panel[data-day="${currentDay}"] .list-row`).forEach(row => attachRowHandlers(row));
+      // 先异步地理编码所有 list-row 的景点名，再重建地图
+      geocodeAndUpdateMarkers(currentDay).then(() => {
+        if (currentLayer) {
+          currentLayer.markers.forEach(m => m.remove());
+          currentLayer.polylines.forEach(p => p.remove());
+        }
+        currentLayer = buildLayerFromRows(currentDay);
+        refreshMarkerPopups(currentDay);
+        bindAllIconFlyTo();
+        document.querySelectorAll(`.day-panel[data-day="${currentDay}"] .list-row`).forEach(row => attachRowHandlers(row));
+      });
     }
   }
 }
