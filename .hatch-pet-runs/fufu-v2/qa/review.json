@@ -1,0 +1,973 @@
+{
+  "ok": true,
+  "frames_root": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames",
+  "states": [
+    "idle",
+    "running-right",
+    "running-left",
+    "waving",
+    "jumping",
+    "failed",
+    "waiting",
+    "running",
+    "review"
+  ],
+  "errors": [],
+  "warnings": [],
+  "rows": [
+    {
+      "state": "idle",
+      "expected_frames": 6,
+      "actual_frames": 6,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21346,
+          "bbox": [
+            20,
+            5,
+            171,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 148
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21349,
+          "bbox": [
+            20,
+            5,
+            171,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 159
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22136,
+          "bbox": [
+            19,
+            5,
+            173,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21453,
+          "bbox": [
+            20,
+            5,
+            172,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 162
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21501,
+          "bbox": [
+            20,
+            5,
+            172,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 168
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/idle/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21370,
+          "bbox": [
+            20,
+            5,
+            172,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 187
+        }
+      ]
+    },
+    {
+      "state": "running-right",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16717,
+          "bbox": [
+            5,
+            23,
+            187,
+            185
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 39
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15511,
+          "bbox": [
+            5,
+            33,
+            187,
+            174
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 23
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15214,
+          "bbox": [
+            5,
+            33,
+            187,
+            175
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 41
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14767,
+          "bbox": [
+            5,
+            30,
+            187,
+            178
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 24
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15268,
+          "bbox": [
+            5,
+            29,
+            187,
+            178
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 29
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16400,
+          "bbox": [
+            5,
+            26,
+            187,
+            181
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 34
+        },
+        {
+          "index": 6,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16060,
+          "bbox": [
+            5,
+            25,
+            187,
+            183
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 31
+        },
+        {
+          "index": 7,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-right/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16468,
+          "bbox": [
+            5,
+            24,
+            187,
+            183
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 39
+        }
+      ]
+    },
+    {
+      "state": "running-left",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17201,
+          "bbox": [
+            5,
+            22,
+            187,
+            186
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 38
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15888,
+          "bbox": [
+            5,
+            32,
+            187,
+            175
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 24
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15588,
+          "bbox": [
+            5,
+            32,
+            187,
+            176
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 41
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15217,
+          "bbox": [
+            5,
+            28,
+            187,
+            179
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 25
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15337,
+          "bbox": [
+            5,
+            29,
+            187,
+            178
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 29
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 15796,
+          "bbox": [
+            5,
+            28,
+            187,
+            180
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 30
+        },
+        {
+          "index": 6,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16060,
+          "bbox": [
+            5,
+            25,
+            187,
+            183
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 31
+        },
+        {
+          "index": 7,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running-left/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 16468,
+          "bbox": [
+            5,
+            24,
+            187,
+            183
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 39
+        }
+      ]
+    },
+    {
+      "state": "waving",
+      "expected_frames": 4,
+      "actual_frames": 4,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waving/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22307,
+          "bbox": [
+            11,
+            5,
+            180,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 128
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waving/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19786,
+          "bbox": [
+            5,
+            11,
+            187,
+            197
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 107
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waving/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19918,
+          "bbox": [
+            5,
+            10,
+            187,
+            198
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 112
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waving/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21648,
+          "bbox": [
+            12,
+            5,
+            180,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 135
+        }
+      ]
+    },
+    {
+      "state": "jumping",
+      "expected_frames": 5,
+      "actual_frames": 5,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/jumping/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17828,
+          "bbox": [
+            5,
+            36,
+            187,
+            172
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 114
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/jumping/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19422,
+          "bbox": [
+            15,
+            5,
+            176,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 89
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/jumping/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19274,
+          "bbox": [
+            5,
+            18,
+            187,
+            189
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 95
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/jumping/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22793,
+          "bbox": [
+            5,
+            5,
+            187,
+            202
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 122
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/jumping/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 23023,
+          "bbox": [
+            7,
+            5,
+            184,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 143
+        }
+      ]
+    },
+    {
+      "state": "failed",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 23700,
+          "bbox": [
+            7,
+            5,
+            185,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 100
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22683,
+          "bbox": [
+            5,
+            7,
+            187,
+            200
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 48
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21170,
+          "bbox": [
+            5,
+            16,
+            187,
+            191
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19344,
+          "bbox": [
+            5,
+            28,
+            187,
+            179
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22603,
+          "bbox": [
+            5,
+            9,
+            187,
+            199
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 74
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17376,
+          "bbox": [
+            5,
+            39,
+            187,
+            169
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 81
+        },
+        {
+          "index": 6,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 20975,
+          "bbox": [
+            5,
+            14,
+            187,
+            194
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/failed/07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22778,
+          "bbox": [
+            5,
+            10,
+            187,
+            198
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 135
+        }
+      ]
+    },
+    {
+      "state": "waiting",
+      "expected_frames": 6,
+      "actual_frames": 6,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17107,
+          "bbox": [
+            22,
+            5,
+            170,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 61
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19566,
+          "bbox": [
+            27,
+            5,
+            165,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 78
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17233,
+          "bbox": [
+            23,
+            5,
+            169,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 60
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19768,
+          "bbox": [
+            26,
+            5,
+            165,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 92
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 17470,
+          "bbox": [
+            31,
+            5,
+            160,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 58
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/waiting/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 19596,
+          "bbox": [
+            27,
+            5,
+            165,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 73
+        }
+      ]
+    },
+    {
+      "state": "running",
+      "expected_frames": 6,
+      "actual_frames": 6,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21852,
+          "bbox": [
+            10,
+            5,
+            181,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 175
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21824,
+          "bbox": [
+            9,
+            5,
+            183,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 94
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21336,
+          "bbox": [
+            11,
+            5,
+            181,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 160
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 24097,
+          "bbox": [
+            5,
+            5,
+            186,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 103
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22130,
+          "bbox": [
+            5,
+            8,
+            187,
+            200
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 126
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/running/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22361,
+          "bbox": [
+            7,
+            5,
+            184,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 174
+        }
+      ]
+    },
+    {
+      "state": "review",
+      "expected_frames": 6,
+      "actual_frames": 6,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 21459,
+          "bbox": [
+            13,
+            5,
+            178,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 166
+        },
+        {
+          "index": 1,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 20072,
+          "bbox": [
+            20,
+            5,
+            172,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 119
+        },
+        {
+          "index": 2,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 22632,
+          "bbox": [
+            5,
+            9,
+            187,
+            198
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 63
+        },
+        {
+          "index": 3,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 20311,
+          "bbox": [
+            18,
+            5,
+            174,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 72
+        },
+        {
+          "index": 4,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 20876,
+          "bbox": [
+            15,
+            5,
+            177,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "/Users/11154023/BlueCode/.hatch-pet-runs/fufu-v2/frames/review/05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 18425,
+          "bbox": [
+            24,
+            5,
+            167,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 142
+        }
+      ]
+    }
+  ]
+}
