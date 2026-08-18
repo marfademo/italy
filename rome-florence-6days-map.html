@@ -1072,8 +1072,10 @@ function attachRowHandlers(row){
       const name = row.querySelector(".name-text")?.textContent?.trim();
       if (!name || isPendingName(name)) return;
       if (!currentLayer || !currentLayer.markers) return;
-      // ✅ 关键修复：按行程单 list-row 顺序定位 marker（跳过 transport）
+      // ✅ 只处理当前 active day 的 row（未切换 tab 时 currentLayer 可能指向上一个 day）
       const dayPanel = row.closest(".day-panel");
+      if (!dayPanel || !dayPanel.classList.contains("active")) return;
+      // 按行程单 list-row 顺序定位 marker（跳过 transport + pending name）
       if (!dayPanel) return;
       const allRows = Array.from(dayPanel.querySelectorAll(".list-row"));
       // 过滤规则：跳过 transport + 跳过 pending name（与 buildLayerFromRows 第 1366/1369 行一致）
