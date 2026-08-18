@@ -2045,6 +2045,19 @@ function toggleEdit(){
     });
     // 退出编辑时：不再自动重拉图片，用户需手动点击「🔄 重拉图片」
     // (removed refetchEditedRowImages call)
+    // ✅ 退出编辑后重建地图标记点（反映新增/删除/改名等编辑）
+    if (map && currentDay && !DAYS[currentDay]?.isTransit) {
+      if (currentLayer) {
+        currentLayer.markers.forEach(m => m.remove());
+        currentLayer.polylines.forEach(p => p.remove());
+      }
+      currentLayer = buildLayerFromRows(currentDay);
+      // 刷新 popup 中的图片
+      refreshMarkerPopups(currentDay);
+      // 重新绑定所有 icon 的 flyTo handler（因为 DOM 可能已变化）
+      bindAllIconFlyTo();
+      document.querySelectorAll(`.day-panel[data-day="${currentDay}"] .list-row`).forEach(row => attachRowHandlers(row));
+    }
   }
 }
 
