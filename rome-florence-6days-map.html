@@ -877,7 +877,7 @@ async function geocodeAndUpdateMarkers(d){
   const dayPanel = document.querySelector(`.day-panel[data-day="${d}"]`);
   if (!dayPanel) return;
   const rows = Array.from(dayPanel.querySelectorAll(".list-row"));
-  // ✅ 收集所有 Day 的静态节点（新增景点可能不在当前 Day 的静态配置中）
+  // ✅ 收集所有 Day 的静态节点（仅用于精确匹配兜底）
   const allNodes = Object.values(DAYS).filter(v => v && v.nodes).flatMap(v => v.nodes);
 
   const tasks = rows.map(async (row) => {
@@ -887,10 +887,18 @@ async function geocodeAndUpdateMarkers(d){
     const name = nameEl?.textContent?.trim();
     if (!name || isPendingName(name)) return; // 跳过模糊名称
 
-    // ✅ 先尝试从已有 nodes 中查找（快速路径，跨所有 Day 搜索）
     const norm = (s) => s.replace(/&amp;/g, "&");
     const normalizedName = norm(name);
-    const existingNode = allNodes.find(n => n.name && (norm(n.name) === normalizedName || normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
+    // 步骤1：在当前 Day 的 nodes 中查找（模糊匹配）
+    let existingNode = cfg.nodes.find(n => n.name && (norm(n.name) === normalizedName || normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
+    // 步骤2：当前 Day 找不到时，跨所有 Day 精确匹配兜底
+    if (!existingNode) {
+      existingNode = allNodes.find(n => n.name && norm(n.name) === normalizedName);
+    }
+    // 步骤3：跨 Day 精确匹配也找不到，子串包含兜底
+    if (!existingNode) {
+      existingNode = allNodes.find(n => n.name && (normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
+    }
     if (existingNode) {
       row.dataset.lat = existingNode.lat;
       row.dataset.lng = existingNode.lng;
@@ -1372,7 +1380,7 @@ function buildLayerFromRows(d){
   if (!cfg) return { markers: [], polylines: [], nodes: [] };
   const dayPanel = document.querySelector(`.day-panel[data-day="${d}"]`);
   const rows = dayPanel ? Array.from(dayPanel.querySelectorAll(".list-row")) : [];
-  // ✅ 收集所有 Day 的静态节点（新增景点可能不在当前 Day 的静态配置中）
+  // ✅ 收集所有 Day 的静态节点（仅用于精确匹配兜底，新增景点可能不在当前 Day 的静态配置中）
   const allNodes = Object.values(DAYS).filter(v => v && v.nodes).flatMap(v => v.nodes);
 
   // ① 收集景点/餐饮节点（跳过 transport），按行程单从上到下顺序
@@ -1383,9 +1391,9 @@ function buildLayerFromRows(d){
     const nameEl = row.querySelector(".name-text");
     const name = nameEl ? nameEl.textContent.trim() : "";
     if (!name || name === "新条目" || isPendingName(name)) return;
-    // 尝试从静态 nodes 中查找已有坐标（跨所有 Day 搜索）
+    // 步骤1：在当前 Day 的静态 nodes 中查找（模糊匹配）
     const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
-    let nodeInfo = allNodes.find(n => {
+    let nodeInfo = cfg.nodes.find(n => {
       if (!n.name) return false;
       // 精确匹配（同时规范 & 差异）
       if (n.name === name || n.name.replace(/&amp;/g, '&') === name.replace(/&amp;/g, '&')) return true;
@@ -1394,6 +1402,18 @@ function buildLayerFromRows(d){
       // 任一关键词片段匹配（过滤短片段避免 & 等单字符干扰）
       return nameParts.some(part => part.length > 2 && (n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0])));
     });
+    // 步骤2：当前 Day 找不到时，跨所有 Day 精确匹配兜底（仅精确匹配，避免误匹配同名通用词）
+    if (!nodeInfo) {
+      const norm = (s) => s.replace(/&amp;/g, "&");
+      const normalizedName = norm(name);
+      nodeInfo = allNodes.find(n => n.name && norm(n.name) === normalizedName);
+    }
+    // 步骤3：跨 Day 精确匹配也找不到时，尝试子串包含（仅对 ≥3 字符的片段）
+    if (!nodeInfo) {
+      const norm = (s) => s.replace(/&amp;/g, "&");
+      const normalizedName = norm(name);
+      nodeInfo = allNodes.find(n => n.name && (normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
+    }
     // ✅ 优先使用 geocode 结果（data-lat/data-lng）
     if (!nodeInfo && row.dataset.lat && row.dataset.lng) {
       nodeInfo = { lat: parseFloat(row.dataset.lat), lng: parseFloat(row.dataset.lng), kind: "main", num: null };
