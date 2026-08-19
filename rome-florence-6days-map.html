@@ -877,6 +877,8 @@ async function geocodeAndUpdateMarkers(d){
   const dayPanel = document.querySelector(`.day-panel[data-day="${d}"]`);
   if (!dayPanel) return;
   const rows = Array.from(dayPanel.querySelectorAll(".list-row"));
+  // ✅ 收集所有 Day 的静态节点（新增景点可能不在当前 Day 的静态配置中）
+  const allNodes = Object.values(DAYS).filter(v => v && v.nodes).flatMap(v => v.nodes);
 
   const tasks = rows.map(async (row) => {
     const type = row.dataset.type;
@@ -885,21 +887,22 @@ async function geocodeAndUpdateMarkers(d){
     const name = nameEl?.textContent?.trim();
     if (!name || isPendingName(name)) return; // 跳过模糊名称
 
-    // ✅ 先尝试从已有 nodes 中查找（快速路径，规范化 & 编码差异）
+    // ✅ 先尝试从已有 nodes 中查找（快速路径，跨所有 Day 搜索）
     const norm = (s) => s.replace(/&amp;/g, "&");
     const normalizedName = norm(name);
-    const existingNode = cfg.nodes.find(n => n.name && (norm(n.name) === normalizedName || normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
+    const existingNode = allNodes.find(n => n.name && (norm(n.name) === normalizedName || normalizedName.includes(norm(n.name)) || norm(n.name).includes(normalizedName)));
     if (existingNode) {
       row.dataset.lat = existingNode.lat;
       row.dataset.lng = existingNode.lng;
       return;
     }
 
-    // ✅ 调用 Nominatim API 地理编码
+    // ✅ 调用 Nominatim API 地理编码（优先用英文名提高命中率）
     try {
-      const query = `${name}, ${d <= 3 ? 'Rome, Italy' : 'Florence, Italy'}`; // 根据 Day 限定城市
+      const enName = resolveEnAlias(name.replace(/\([^)]+\)/g, "").replace(/（[^）]+）/g, "").trim())[0] || name;
+      const query = `${enName}, ${d <= 3 ? 'Rome, Italy' : 'Florence, Italy'}`;
       const resp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`, {
-        headers: { 'Accept-Language': 'zh-CN,en' }
+        headers: { 'Accept-Language': 'en' }
       });
       const data = await resp.json();
       if (data && data.length > 0) {
@@ -1369,6 +1372,8 @@ function buildLayerFromRows(d){
   if (!cfg) return { markers: [], polylines: [], nodes: [] };
   const dayPanel = document.querySelector(`.day-panel[data-day="${d}"]`);
   const rows = dayPanel ? Array.from(dayPanel.querySelectorAll(".list-row")) : [];
+  // ✅ 收集所有 Day 的静态节点（新增景点可能不在当前 Day 的静态配置中）
+  const allNodes = Object.values(DAYS).filter(v => v && v.nodes).flatMap(v => v.nodes);
 
   // ① 收集景点/餐饮节点（跳过 transport），按行程单从上到下顺序
   const placeRows = []; // { row, name, lat, lng, kind }
@@ -1378,9 +1383,9 @@ function buildLayerFromRows(d){
     const nameEl = row.querySelector(".name-text");
     const name = nameEl ? nameEl.textContent.trim() : "";
     if (!name || name === "新条目" || isPendingName(name)) return;
-    // 尝试从静态 nodes 中查找已有坐标（支持前缀匹配和子串匹配）
+    // 尝试从静态 nodes 中查找已有坐标（跨所有 Day 搜索）
     const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
-    let nodeInfo = cfg.nodes.find(n => {
+    let nodeInfo = allNodes.find(n => {
       if (!n.name) return false;
       // 精确匹配（同时规范 & 差异）
       if (n.name === name || n.name.replace(/&amp;/g, '&') === name.replace(/&amp;/g, '&')) return true;
