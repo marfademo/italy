@@ -3253,7 +3253,9 @@ function loadRowImages(row){
       gallery.dataset.userCleared = "1";
       console.log(`[loadRowImages] "${name}" → 保留 wasUserCleared 标记`);
     } else {
-      console.log(`[loadRowImages] "${name}" → 无缓存，等待 autoFetch/refetch 拉图`);
+      // ✅ 标记 needFetch，让 autoFetchRowImages 为此行拉图
+      row.dataset.needFetch = "1";
+      console.log(`[loadRowImages] "${name}" → 无缓存，标记 needFetch 等待 autoFetch`);
     }
     applyEmptyFlag(gallery);
     return;
