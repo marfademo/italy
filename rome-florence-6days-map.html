@@ -1532,14 +1532,17 @@ function buildLayer(d){
 }
 
 function focusSpot(idx, fly=true){
-  const cfg = DAYS[currentDay];
-  if (!cfg || !cfg.nodes[idx]) return;
-  const n = cfg.nodes[idx];
+  if (!currentLayer || !currentLayer.nodes[idx]) return;
+  const n = currentLayer.nodes[idx];
   // 切换右侧 spot 高亮
   document.querySelectorAll(`.day-panel[data-day="${currentDay}"] .spot`).forEach(el => el.classList.remove("active"));
-  const el = document.querySelector(`.day-panel[data-day="${currentDay}"] .spot[data-spot="${idx}"]`);
+  // spot 高亮用静态 nodes 的索引（UI 中的 .spot 是静态的）
+  const staticCfg = DAYS[currentDay];
+  const staticNode = staticCfg && staticCfg.nodes ? staticCfg.nodes.find(sn => sn.name && sn.name.replace(/&amp;/g, "&") === n.name.replace(/&amp;/g, "&")) : null;
+  const staticIdx = staticNode ? staticCfg.nodes.indexOf(staticNode) : -1;
+  const el = document.querySelector(`.day-panel[data-day="${currentDay}"] .spot[data-spot="${staticIdx}"]`);
   if (el) el.classList.add("active");
-  // 打开地图 popup 并定位
+  // 打开地图 popup 并定位（使用 currentLayer 的坐标，不是 cfg.nodes）
   const m = currentLayer.markers[idx];
   if (m && fly) {
     map.flyTo([n.lat, n.lng], Math.max(map.getZoom(), 16), { duration: .6 });
