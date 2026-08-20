@@ -1412,12 +1412,12 @@ function dayTimeline(d){
     <div class="highlight">💡 推荐：买 1 块 Semistagionato（即食） + 1 块 Stagionato（带回国），真空包装可冷藏带 1 周。</div></div>`,
     `<!-- 皮恩扎必逛店铺 -->
     <div class="info-card"><h4>🛍️ 皮恩扎必逛店铺</h4>
-    <table><tr><th>店铺</th><th>地址</th><th>卖什么</th><th>备注</th></tr>
-    <tr><td>Bottega del Pecorino</td><td>Via del Casello 2</td><td>羊奶芝士（试吃 3–5 种熟成度）</td><td>真空包装可带回国，冷藏 1 周</td></tr>
-    <tr><td>La Bottega di Pienza</td><td>Corso Rossellino 35</td><td>Pecorino + 松露制品 + 橄榄油 + 蜂蜜</td><td>一站式手信店</td></tr>
-    <tr><td>Artigianato d'Arte</td><td>Corso Rossellino 18</td><td>手工皮革制品、陶瓷、托斯卡纳手工皂</td><td>皮具比佛罗伦萨便宜</td></tr>
-    <tr><td>L'Angolo delle Erbe</td><td>Via Gozzante 3</td><td>托斯卡纳香草、松露盐、橄榄油</td><td>小瓶装适合送礼</td></tr>
-    <tr><td>Antica Farmacia del Corso</td><td>Corso Rossellino 55</td><td>草药茶、薰衣草制品、天然护肤品</td><td>文艺复兴风格老药房</td></tr></table></div>`,
+    <table class="meal-table"><tr><th>店铺</th><th>地址</th><th>卖什么</th><th>备注</th></tr>
+    <tr><td><div>Bottega del Pecorino</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Bottega+del+Pecorino+Via+del+Casello+2+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via del Casello 2</td><td>羊奶芝士（试吃 3–5 种熟成度）</td><td>真空包装可带回国，冷藏 1 周</td></tr>
+    <tr><td><div>La Bottega di Pienza</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Bottega+di+Pienza+Corso+Rossellino+35+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Corso Rossellino 35</td><td>Pecorino + 松露制品 + 橄榄油 + 蜂蜜</td><td>一站式手信店</td></tr>
+    <tr><td><div>Artigianato d'Arte</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Artigianato+Arte+Corso+Rossellino+18+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Corso Rossellino 18</td><td>手工皮革制品、陶瓷、托斯卡纳手工皂</td><td>皮具比佛罗伦萨便宜</td></tr>
+    <tr><td><div>L'Angolo delle Erbe</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Angolo+delle+Erbe+Via+Gozzante+3+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Gozzante 3</td><td>托斯卡纳香草、松露盐、橄榄油</td><td>小瓶装适合送礼</td></tr>
+    <tr><td><div>Antica Farmacia del Corso</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Antica+Farmacia+del+Corso+Corso+Rossellino+55+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Corso Rossellino 55</td><td>草药茶、薰衣草制品、天然护肤品</td><td>文艺复兴风格老药房</td></tr></table></div>`,
     listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 皮恩扎", action:"Trattoria La Buca delle Fate (4.5★ €35–45) / Sette di Vino (4.8★ 米其林推荐 €40–55) / La Bottega di Pienza (4.2★ €20–30)", note:"Pici al Tartufo · Cinta Senese 烤猪肉 · Pecorino 拼盘 · Sette di Vino 须预约" }),
     `<!-- 皮恩扎午餐选择 -->
     <div class="info-card"><h4>🍝 皮恩扎午餐 · 3 选 1</h4>
@@ -1446,21 +1446,21 @@ function dayTimeline(d){
     listRowHTML({ type:"activity", icon:"·", name:"逛街 Corso Italia / Via di Città", action:"Antica Drogheria Manganelli · Pasticceria Nannini · Consorzio Agrario · Ceramiche Santa Caterina · Pelletteria Artigiana", note:"Panforte €12–18 · Ricciarelli €15–20 · 手工陶瓷 €10–30 · 松露盐 €8–12" }),
     `<!-- 锡耶纳：食品/手信 -->
     <div class="info-card"><h4>🛒 锡耶纳 · 食品 / 手信（必买）</h4>
-    <table><tr><th>店铺</th><th>地址</th><th>卖什么</th><th>为什么值得去</th></tr>
-    <tr><td>Antica Drogheria Manganelli <span class="star">⭐</span></td><td>Via di Città 71（从 Campo 走 3 分钟）</td><td>Panforte、Ricciarelli、Cavallucci、松露制品、橄榄油、香醋</td><td>1879 年开业的老药房改的食品店，天花板挂满火腿和萨拉米。Panforte 分 Margherita（经典款）和 Nera（巧克力款），推荐各买一块</td></tr>
-    <tr><td>Pasticceria Nannini</td><td>Banchi di Sopra 24（从 Campo 走 5 分钟）</td><td>Panforte、Ricciarelli、Cantuccini、手工巧克力</td><td>锡耶纳最有名的甜品店，Ricciarelli 是锡耶纳发明杏仁软饼的地方，新鲜现做</td></tr>
-    <tr><td>Consorzio Agrario di Siena</td><td>Via Pianigiani 9（Campo 附近）</td><td>本地葡萄酒 + 橄榄油 + 芝士</td><td>农业合作社直营，酒比蒙塔尔奇诺 Enoteca 便宜 10–15%</td></tr>
-    <tr><td>Enoteca Italiana</td><td>Fortezza Medicea（城墙堡垒内，步行 10 分钟）</td><td>意大利全境葡萄酒 + 品酒吧台</td><td>16 世纪美第奇要塞里，点一杯坐着喝，17:00–19:00 aperitivo 时段</td></tr></table></div>`,
+    <table class="meal-table"><tr><th>店铺</th><th>地址</th><th>卖什么</th><th>为什么值得去</th></tr>
+    <tr><td><div>Antica Drogheria Manganelli <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Antica+Drogheria+Manganelli+Via+di+Citta+71+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via di Città 71（从 Campo 走 3 分钟）</td><td>Panforte、Ricciarelli、Cavallucci、松露制品、橄榄油、香醋</td><td>1879 年开业的老药房改的食品店，天花板挂满火腿和萨拉米。Panforte 分 Margherita（经典款）和 Nera（巧克力款），推荐各买一块</td></tr>
+    <tr><td><div>Pasticceria Nannini</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pasticceria+Nannini+Banchi+di+Sopra+24+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Banchi di Sopra 24（从 Campo 走 5 分钟）</td><td>Panforte、Ricciarelli、Cantuccini、手工巧克力</td><td>锡耶纳最有名的甜品店，Ricciarelli 是锡耶纳发明杏仁软饼的地方，新鲜现做</td></tr>
+    <tr><td><div>Consorzio Agrario di Siena</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Consorzio+Agrario+di+Siena+Via+Pianigiani+9+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Pianigiani 9（Campo 附近）</td><td>本地葡萄酒 + 橄榄油 + 芝士</td><td>农业合作社直营，酒比蒙塔尔奇诺 Enoteca 便宜 10–15%</td></tr>
+    <tr><td><div>Enoteca Italiana</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Enoteca+Italiana+Fortezza+Medicea+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Fortezza Medicea（城墙堡垒内，步行 10 分钟）</td><td>意大利全境葡萄酒 + 品酒吧台</td><td>16 世纪美第奇要塞里，点一杯坐着喝，17:00–19:00 aperitivo 时段</td></tr></table></div>`,
     `<!-- 锡耶纳：手工陶瓷 -->
     <div class="info-card"><h4>🎨 锡耶纳 · 手工陶瓷</h4>
-    <table><tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
-    <tr><td>Ceramiche Santa Caterina</td><td>Via di Città 98</td><td>手工彩绘陶瓷盘、碗、瓷砖，锡耶纳风格（黄+蓝+橄榄绿）</td></tr>
-    <tr><td>La Bottega del Ceramista</td><td>Via dei Pellegrini 3（Duomo 附近）</td><td>小件陶瓷：冰箱贴、咖啡杯、橄榄油壶，价格友好</td></tr></table></div>`,
+    <table class="meal-table"><tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
+    <tr><td><div>Ceramiche Santa Caterina</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ceramiche+Santa+Caterina+Via+di+Citta+98+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via di Città 98</td><td>手工彩绘陶瓷盘、碗、瓷砖，锡耶纳风格（黄+蓝+橄榄绿）</td></tr>
+    <tr><td><div>La Bottega del Ceramista</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Bottega+del+Ceramista+Via+dei+Pellegrini+3+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via dei Pellegrini 3（Duomo 附近）</td><td>小件陶瓷：冰箱贴、咖啡杯、橄榄油壶，价格友好</td></tr></table></div>`,
     `<!-- 锡耶纳：皮具/手工 -->
     <div class="info-card"><h4>👜 锡耶纳 · 皮具 / 手工</h4>
-    <table><tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
-    <tr><td>Pelletteria Artigiana</td><td>Via di Città 51</td><td>手工皮包、钱包、皮带、笔记本套，托斯卡纳本地鞣制皮革</td></tr>
-    <tr><td>Il Borgo</td><td>Banchi di Sopra 37</td><td>皮具 + 围巾 + 羊绒，比佛罗伦萨便宜 20–30%</td></tr></table></div>`,
+    <table class="meal-table"><tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
+    <tr><td><div>Pelletteria Artigiana</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pelletteria+Artigiana+Via+di+Citta+51+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via di Città 51</td><td>手工皮包、钱包、皮带、笔记本套，托斯卡纳本地鞣制皮革</td></tr>
+    <tr><td><div>Il Borgo</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Il+Borgo+Banchi+di+Sopra+37+Siena" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Banchi di Sopra 37</td><td>皮具 + 围巾 + 羊绒，比佛罗伦萨便宜 20–30%</td></tr></table></div>`,
     `<!-- 锡耶纳必买手信清单 -->
     <div class="info-card"><h4>🎁 锡耶纳必买手信清单</h4>
     <table><tr><th>物品</th><th>推荐店铺</th><th>价格</th><th>说明</th></tr>
