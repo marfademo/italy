@@ -527,7 +527,7 @@
   }
   .bottom-textarea{
     width:100%;
-    min-height:180px;
+    height:auto;
     border:2px dashed #f3d9a4;
     border-radius:8px;
     background:#fffaf0;
@@ -536,9 +536,10 @@
     font-size:13px;
     line-height:1.7;
     color:#444;
-    resize:vertical;
+    resize:none;
     outline:none;
     box-sizing:border-box;
+    overflow:hidden;
   }
   .bottom-textarea:read-only{
     cursor:default;
@@ -1999,6 +2000,11 @@ function init(){
     }
   });
 
+  // 底部 textarea 输入时自动撑高（无滚动条）
+  document.getElementById("bottom-info").addEventListener("input", (e) => {
+    if (e.target.matches("textarea[data-list]")) autoResizeTextarea(e.target);
+  });
+
   // ✅ 全局兜底：document 级 click 委托，处理所有 .img-thumb 点击（无论是否动态添加）
   document.addEventListener("click", (e) => {
     const thumb = e.target.closest(".img-thumb");
@@ -2202,10 +2208,16 @@ function renderBottomInfo(d){
     } else {
       ta.value = "";
     }
+    autoResizeTextarea(ta);
   });
   // enjoy 仅 Day 2-6
   const enjoy = document.querySelector("#bottom-info .enjoy");
   if (enjoy) enjoy.style.display = (d >= 2 && d <= 12) ? "" : "none";
+}
+
+function autoResizeTextarea(ta){
+  ta.style.height = "auto";
+  ta.style.height = (ta.scrollHeight + 2) + "px";
 }
 
 // 把 textarea 当前内容写回存储（行内换行作为列表分隔）
