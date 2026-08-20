@@ -727,17 +727,14 @@ const DAYS = {
     line: "🕍 教廷与艺术一日 · 单向不走回头路",
     nodes: [
       { num: null, kind: "hotel", name: "酒店 · Via Vespasiano, 12 (PRATI)", lat: 41.9066, lng: 12.4566, hint: "上午补觉 / 出发起点" },
-      { num: 1, kind: "main", name: "圣天使堡", lat: 41.9021, lng: 12.4664, hint: "14:00–15:00 · 可选不进场", pills: ["🚶 18min","9:00–19:30","18:30停售"] },
-      { num: 2, kind: "main", name: "圣彼得大教堂 & 广场", lat: 41.9022, lng: 12.4539, hint: "15:00–17:00", pills: ["🚶 11min","7:00–19:10"] },
-      { num: 3, kind: "main", name: "梵蒂冈博物馆 & 西斯廷教堂", lat: 41.9065, lng: 12.4536, hint: "17:00–20:00 · 禁止拍照", pills: ["🚶 14min","8:00–20:00","18:00停售"] },
+      { num: 1, kind: "main", name: "圣天使堡 Castel Sant'Angelo", lat: 41.9021, lng: 12.4664, hint: "13:30–14:00 · 只拍照不进场", pills: ["🚶 10min"] },
+      { num: 2, kind: "main", name: "圣彼得大教堂 & 广场", lat: 41.9022, lng: 12.4539, hint: "14:10–15:40 · 穹顶登顶可选", pills: ["🚶 10min","7:00–19:10"] },
+      { num: 3, kind: "main", name: "梵蒂冈博物馆 & 西斯廷教堂", lat: 41.9065, lng: 12.4536, hint: "16:00–19:00 · 禁止拍照", pills: ["🚶 10min","8:00–20:00","周五延长"] },
       { num: null, kind: "dinner", name: "晚饭 · 梵蒂冈附近", lat: 41.9050, lng: 12.4545, hint: "Borgo / Prati 附近" },
     ],
     route: [
-      // 酒店 → 圣天使堡
       { mode: "walk", from: 0, to: 1 },
-      // 圣天使堡 → 圣彼得
       { mode: "walk", from: 1, to: 2 },
-      // 圣彼得 → 博物馆
       { mode: "walk", from: 2, to: 3 },
     ],
     timeline: dayTimeline(2),
@@ -1328,15 +1325,74 @@ function dayTimeline(d){
 
   // ===== Day 2：梵蒂冈深度 =====
   if (d===2) return [
-    listRowHTML({ type:"activity", icon:"·", name:"补觉 · 酒店休整", time:"06:30 - 12:00", action:"PRATI 区", note:"Via Vespasiano 12" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午餐", action:"Borgo / Prati 附近餐厅" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 圣天使堡", duration:"18min" }),
-    listRowHTML({ type:"activity", icon:"1", name:"圣天使堡", time:"14:00 - 15:00", action:"可选不进场", note:"9:00–19:30 · 18:30 停售" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣天使堡 → 圣彼得广场", duration:"11min" }),
-    listRowHTML({ type:"activity", icon:"2", name:"圣彼得大教堂 & 广场", time:"15:00 - 17:00", action:"登穹顶 · 画小猫的爷爷", note:"7:00–19:10" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣彼得 → 梵蒂冈博物馆", duration:"14min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"梵蒂冈博物馆 & 西斯廷教堂", time:"17:00 - 20:00", action:"禁止拍照 · 静音参观", note:"8:00–20:00 · 18:00 停售" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"梵蒂冈附近餐厅" }),
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · Borgo Pio / Prati", time:"12:00 - 13:30", action:"Borgo Pio（圣彼得广场东侧，游客多） / Prati（梵蒂冈北侧，本地人多性价比高）", note:"Pizzarium Bonci / Osteria delle Commari / Mordi Sandwichouse / La Veranda / Supplizio" }),
+    `<!-- 午餐推荐 -->
+    <div class="info-card"><h4>🍝 午餐 · Borgo Pio / Prati 推荐</h4>
+    <table class="meal-table"><tr><th>#</th><th>餐厅</th><th>区域</th><th class="col-narrow">人均</th><th>推荐</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Pizzarium Bonci（最快）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pizzarium+Bonci+Via+della+Meloria+43+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Prati（Via della Meloria 43）</td><td>€10–15</td><td>切片披萨按重量卖，松露披萨 + 土豆莫扎里拉，罗马最好吃的披萨 al taglio</td><td>站着吃，15 分钟搞定，排队 10 min</td></tr>
+    <tr><td>2</td><td><div>Osteria delle Commari</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+delle+Commari+Via+Santamaura+23+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Santamaura 23</td><td>€25–35</td><td>Cacio e Pepe（奶酪黑胡椒意面，罗马四大名面之一）、Saltimbocca alla Romana（罗马式煎小牛肉配火腿）、Carciofi alla Romana（罗马式洋蓟，10 月正当季）</td><td>就在博物馆旁边，吃完直接开始下午行程</td></tr>
+    <tr><td>3</td><td><div>Mordi Sandwichouse</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Mordi+Sandwichouse+Via+Germanico+57+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Prati（Via Germanico 57）</td><td>€8–12</td><td>现做三明治，Porchetta 烤猪肉卷 + 洋蓟</td><td>本地人排队店，5 分钟</td></tr>
+    <tr><td>4</td><td><div>La Veranda（最舒服）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Veranda+Borgo+Pio+142+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Borgo Pio（Borgo Pio 142）</td><td>€15–20</td><td>意面 + 沙拉简餐，有户外座位</td><td>坐下吃，45 分钟刚好</td></tr>
+    <tr><td>5</td><td><div>Supplizio</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Supplizio+Via+dei+Gracchi+268+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Prati（Via dei Gracchi 268）</td><td>€8–12</td><td>Supplì（炸饭团）— Cacio e Pepe 口味、Carbonara 口味</td><td>罗马街头小吃之王，站着吃 10 分钟</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"午餐 → 圣天使堡", duration:"10min" }),
+    listRowHTML({ type:"activity", icon:"1", name:"圣天使堡 Castel Sant'Angelo", time:"13:30 - 14:00", action:"只拍照，不进场 · 圣天使桥 · 台伯河畔", note:"哈德良皇帝陵墓→教皇避难所→普契尼歌剧《托斯卡》场景 · 正门上方天使长米迦勒收剑入鞘雕像" }),
+    `<!-- 圣天使堡 & 圣天使桥 -->
+    <div class="info-card"><h4>🏰 圣天使堡 & 圣天使桥 · 拍照指南</h4>
+    <table class="meal-table"><tr><th>机位</th><th>拍什么</th><th>说明</th></tr>
+    <tr><td>圣天使桥中央</td><td>一面拍圣天使堡 + 天使雕像，一面拍台伯河 + 圣彼得大教堂穹顶</td><td>贝尔尼尼亲自设计的 10 座天使雕像分列两侧，每座手持耶稣受难相关器物（荆棘冠、钉子、十字架等）。10 月下午光线从西侧照过来，白色大理石在阳光下发光，拍特写最佳。</td></tr>
+    <tr><td>Ponte Sant'Angelo 桥头</td><td>城堡全景</td><td>正门上方是天使长米迦勒收剑入鞘雕像（传说 590 年瘟疫结束的异象）</td></tr>
+    <tr><td>Lungotevere Castello 步道</td><td>城堡 + 河面倒影</td><td>沿台伯河西岸走，如果河水平静可拍到倒影</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣天使堡 → 圣彼得广场", duration:"10min", note:"安检 + 着装要求：膝盖和肩膀必须遮盖 · 下午 13:00 后排队约 20–40 分钟" }),
+    `<!-- 圣彼得大教堂着装要求 -->
+    <div class="info-card"><h4>⛪ 圣彼得大教堂 · 安检 & 着装要求</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>安检</td><td>进入广场无需安检，进入大教堂需要过安检门（金属探测 + 包检），下午 13:00 后排队约 20–40 分钟。周五下午人会少一些。</td></tr>
+    <tr><td>着装（严格）</td><td><span class="warn">❌ 禁止：短裤（膝盖以上）、无袖上衣、露肩、短裙（膝盖以上）</span><br>✅ 必须：膝盖和肩膀完全遮盖。10 月 20°C 左右，穿长裤 + 短袖 + 带一件薄外套/披肩最合适。入口有卖一次性披肩的小贩（€3–5），但不划算。</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"2", name:"圣彼得广场 + 大教堂", time:"14:10 - 15:40", action:"贝尔尼尼柱廊 · Pietà · 青铜华盖 · 穹顶登顶（可选）", note:"免费入场 · 穹顶 €8–10 · 耗时 40–70 min" }),
+    `<!-- 圣彼得广场 & 大教堂内部 -->
+    <div class="info-card"><h4>⛪ 圣彼得广场 · 拍照机位</h4>
+    <table><tr><th>机位</th><th>说明</th></tr>
+    <tr><td>贝尔尼尼柱廊</td><td>284 根多立克柱围成椭圆形，从广场中央看四排柱子完美对齐——贝尔尼尼设计的光学效果</td></tr>
+    <tr><td>方尖碑旁</td><td>广场中央的埃及方尖碑（公元 37 年运到罗马），站在方尖碑旁看柱廊对称感是最佳机位</td></tr>
+    <tr><td>Maderno 喷泉</td><td>广场两侧各一座，正对柱廊拍照，水柱 + 柱廊 → 构图经典</td></tr>
+    <tr><td>瑞士卫兵</td><td>大教堂入口右侧，穿米开朗基罗设计的条纹制服站岗，可以拍照但要保持距离</td></tr></table></div>`,
+    `<!-- 圣彼得大教堂内部 -->
+    <div class="info-card"><h4>⛪ 圣彼得大教堂内部 · 看点（按优先级）</h4>
+    <table class="meal-table"><tr><th class="col-narrow">时长</th><th>看点</th><th>位置</th><th>说明</th></tr>
+    <tr><td>10 min</td><td><b>Pietà（圣母怜子）</b></td><td>入口右侧第一个小堂</td><td>米开朗基罗 24 岁作品，圣母抱着死去的耶稣，防弹玻璃后观赏（1972 年被锤击后加了保护）</td></tr>
+    <tr><td>10 min</td><td><b>Baldacchino（青铜华盖）</b></td><td>中央祭坛上方</td><td>贝尔尼尼的 29 米高青铜华盖，在大圆顶正下方，抬头看穹顶低头看华盖，最震撼的视角</td></tr>
+    <tr><td>5 min</td><td><b>Cathedra Petri（圣彼得宝座）</b></td><td>后殿尽头</td><td>贝尔尼尼设计，被金色光芒和天使环绕，彩色玻璃窗的白鸽是圣灵象征</td></tr>
+    <tr><td>5 min</td><td><b>历代教皇墓室（Grotte Vaticane）</b></td><td>华盖旁楼梯下</td><td>地下墓室，教皇约翰·保罗二世墓在此，免费</td></tr>
+    <tr><td>10 min</td><td><b>穹顶正下方往上拍</b></td><td>中央</td><td>穹顶内部马赛克铭文一圈一圈，相机竖拍很震撼</td></tr></table>
+    <div class="highlight">⏰ 穹顶登顶（可选，30 min）：步行全程 551 阶 €8 / 电梯到天台再步行 320 阶 €10 · 8:00–17:00（10 月）· 最后入场 16:00。电梯到天台后穹顶内部走廊可俯瞰大教堂内部，登顶后 360° 俯瞰罗马全城 + 梵蒂冈花园 + 圣彼得广场。如果时间够（14:30 前下来）值得上，安检排队久可以砍。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣彼得 → 梵蒂冈博物馆", duration:"10min", note:"入口位置：Viale Vaticano（梵蒂冈城墙北侧，不要走去圣彼得广场的入口！）" }),
+    listRowHTML({ type:"activity", icon:"3", name:"梵蒂冈博物馆 & 西斯廷教堂", time:"16:00 - 19:00", action:"单向参观路线约 7 km · 周五延长开放", note:"Pinacoteca → Pio-Clementino → 地图廊 → 拉斐尔房间 → 西斯廷教堂" }),
+    `<!-- 梵蒂冈博物馆路线 -->
+    <div class="info-card"><h4>🎨 梵蒂冈博物馆 · 单向参观路线（从入口到西斯廷约 7 km）</h4>
+    <table class="meal-table"><tr><th>区域</th><th class="col-narrow">必看/可跳</th><th>看点</th><th class="col-narrow">时长</th></tr>
+    <tr><td>Pinacoteca（画廊）</td><td>可跳</td><td>拉斐尔《主显圣容》、卡拉瓦乔《基督下葬》、达·芬奇《圣杰罗姆》</td><td>15 min</td></tr>
+    <tr><td>Museo Pio-Clementino</td><td><span class="star">⭐</span> 必看</td><td>Laocoön 群像（拉奥孔与儿子被海蛇缠绕，公元前 1 世纪）、Apollo Belvedere、Belvedere Torso（米开朗基罗的灵感来源）</td><td>20 min</td></tr>
+    <tr><td>Sala Rotonda（圆形大厅）</td><td><span class="star">⭐</span> 必看</td><td>仿万神殿的圆形大厅，中央是巨大的斑岩浴盆，地面是公元 3 世纪的罗马马赛克</td><td>5 min</td></tr>
+    <tr><td>Galleria delle Carte Geografiche（地图廊）</td><td><span class="star">⭐</span> 必看</td><td>120 米长的走廊，两侧墙上全是 16 世纪手绘意大利各地地图，金色拱顶天花板 + 地图 + 走廊延伸感 = 博物馆最出片的地方</td><td>10 min</td></tr>
+    <tr><td>Stanze di Raffaello（拉斐尔房间）</td><td><span class="star">⭐</span> 必看</td><td>拉斐尔为教皇尤利乌斯二世绘制，《雅典学院》在 Segnatura 厅——柏拉图手指天、亚里士多德手指地、拉斐尔把自己画在右下角</td><td>20 min</td></tr>
+    <tr><td>Appartamento Borgia</td><td>可跳</td><td>教皇亚历山大六世私人房间，平图里基奥壁画</td><td>—</td></tr>
+    <tr><td>Cappella Sistina（西斯廷教堂）</td><td><span class="star">⭐</span> 必看</td><td>见下方详情</td><td>20–30 min</td></tr></table></div>`,
+    `<!-- 西斯廷教堂 -->
+    <div class="info-card"><h4>🎨 西斯廷教堂 · 观看指南</h4>
+    <div class="warn">🚫 内部禁止拍照（含手机）· 禁止说话 · 守卫会持续喊 "No photo! No video! Silenzio!"</div>
+    <table><tr><th>位置</th><th>作品</th><th>看什么</th></tr>
+    <tr><td>天花板</td><td>米开朗基罗《创世纪》</td><td>9 幅中央场景，《创造亚当》（上帝与亚当的手指即将触碰）在正中央，仰头看</td></tr>
+    <tr><td>祭坛墙</td><td>米开朗基罗《最后的审判》</td><td>基督在正中央、圣母在他右侧、圣彼得拿着钥匙、圣巴多罗买拿着自己被剥下的皮（那张皮上的脸是米开朗基罗的自画像）</td></tr>
+    <tr><td>侧墙</td><td>波提切利、佩鲁吉诺、吉兰达约壁画</td><td>摩西和基督的生平故事，波提切利的《科拉叛乱》</td></tr></table>
+    <div class="highlight">💡 观看技巧：进门后不要站在中央不动，走到两侧墙边坐下（墙边有木长凳），从侧面仰头看天花板更舒服。待 20–30 分钟，眼睛适应昏暗光线后壁画细节会越来越清晰。祭坛墙《最后的审判》是最后被照亮的，导览通常从天花板开始讲。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 梵蒂冈附近", time:"19:00", action:"Pizzarium Bonci / Osteria delle Commari / Mordi Sandwichouse / Gelateria Old Bridge", note:"轻食为主 · 博物馆出来先买 gelato 是梵蒂冈传统" }),
+    `<!-- 晚餐推荐 -->
+    <div class="info-card"><h4>🍷 晚餐 · 4 选 1</h4>
+    <table class="meal-table"><tr><th>#</th><th>餐厅</th><th>地址</th><th class="col-narrow">人均</th><th>特色</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Pizzarium Bonci</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pizzarium+Bonci+Via+della+Meloria+43+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via della Meloria 43（博物馆步行 8 分钟）</td><td>€10–15</td><td>罗马最著名 pizza al taglio，Gabriele Bonci 是意大利披萨界传奇。必点：Margherita、Patate e Mozzarella、Supplì</td><td>站着吃没有座位，19:00 不用排队，19:30 后开始排长队</td></tr>
+    <tr><td>2</td><td><div>Osteria delle Commari</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+delle+Commari+Via+Santamaura+23+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Santamaura 23</td><td>€30–40</td><td>中午去过觉得好，晚上回去再吃一顿，晚餐菜单和午餐不同，晚上有更多热菜</td><td>博物馆旁边</td></tr>
+    <tr><td>3</td><td><div>Mordi Sandwichouse</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Mordi+Sandwichouse+Borgo+Pio+34+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Borgo Pio 34（圣彼得广场旁）</td><td>€8–12</td><td>现做三明治 + 现榨果汁，轻食</td><td>适合不想吃大餐的晚上</td></tr>
+    <tr><td>4</td><td><div>Gelateria Old Bridge（冰淇淋）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Gelateria+Old+Bridge+Viale+dei+Bastioni+di+Michelangelo+5+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Viale dei Bastioni di Michelangelo 5（博物馆出口对面）</td><td>€3–5</td><td>博物馆出来第一件事就是来这里买 gelato，梵蒂冈地区传统。推荐：Pistacchio（开心果）+ Stracciatella（巧克力碎）</td><td>博物馆出口对面</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 3：罗马古迹串游 =====
@@ -2082,24 +2138,25 @@ const DEFAULT_TIPS = {
   ],
   2: [
     [
-      `<span class="tipicon">💶</span>货币：欧元 €`,
-      `<span class="tipicon">🗣️</span>语言：意大利语（景区英语）`,
-      `<span class="tipicon">🚇</span>罗马地铁 A 线 Ottaviano`,
-      `<span class="tipicon">🚶</span>单向行程约 43 min`,
-      `<span class="tipicon">👟</span>舒适运动鞋`,
+      `<span class="tipicon">🛂</span>护照（梵蒂冈博物馆入场可能查身份）`,
+      `<span class="tipicon">🎫</span>梵蒂冈博物馆门票确认邮件 + 二维码（手机截图保存，信号可能不好）`,
+      `<span class="tipicon">👖</span>长裤（膝盖以下，圣彼得大教堂严格要求）`,
+      `<span class="tipicon">🧥</span>遮盖肩膀的衣物（薄外套 / 披肩 / 围巾）`,
+      `<span class="tipicon">👟</span>舒适运动鞋（全程步行）`,
     ],
     [
-      `梵蒂冈博物馆、 <b>必须提前预约</b>`,
-      `西斯廷教堂 <b>禁止拍照</b>、静音参观`,
-      `教堂着装覆盖肩膝`,
-      `圣天使堡 <b>18:30 停止入场</b>`,
-      `建议带转换插头（意标 Type L）`,
+      `<b>着装</b>：膝盖 + 肩膀必须遮盖，不可妥协，安检会拦人`,
+      `<b>西斯廷教堂</b>：禁止拍照 + 禁止说话，守卫会持续喊 "No photo! No video! Silenzio!"`,
+      `<b>博物馆单向路线</b>：入口到西斯廷约 7 km，精华在中段（地图廊+拉斐尔房间+西斯廷）`,
+      `<b>周五延长开放</b>：16:00 入场不用担心时间，可逛到 19:00+`,
+      `<b>圣天使堡不进</b>：省了 €16/人 + 1h，桥+河岸+外观拍照 35 分钟足够`,
+      `<b>全部步行可达</b>：四个点都在步行 15 分钟圈内，不需要任何交通工具`,
     ],
     [
-      `⏰ 罗马 3 天 → 佛罗伦萨 3 天，节奏宽松`,
-      `🛍️ 中央市场早午餐两相宜`,
-      `🌅 圣彼得广场日落 18:30`,
-      `🍝 晚饭建议 20:00 后，避开高峰`,
+      `⏰ 12:00 午餐，13:30 圣天使堡，14:10 圣彼得，16:00 博物馆，19:00 晚餐`,
+      `🌅 圣彼得广场日落约 18:30`,
+      `🍝 晚餐建议 19:00 前到 Pizzarium Bonci 不用排队`,
+      `🍦 博物馆出来对面 Gelateria Old Bridge 买 gelato 是梵蒂冈传统`,
       `☂️ 梵蒂冈/博物馆雨天可避雨`,
     ],
   ],
@@ -2271,7 +2328,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v7";
+const STORAGE_KEY = "rome-florence-6days-v8";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
