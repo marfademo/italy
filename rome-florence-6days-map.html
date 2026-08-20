@@ -613,6 +613,7 @@
     <div class="toolbar">
       <button id="edit-toggle" class="tool-btn" type="button">✏️ 编辑</button>
       <button id="refetch-btn" class="tool-btn ghost" type="button" title="清除联网拉的图片缓存并重新加载（手动粘贴的图保留）" style="display:none;">🔄 重拉图片</button>
+      <button id="export-img-btn" class="tool-btn ghost" type="button" title="导出当前所有配图到 images.json（用于跨设备同步）">📦 导出配图</button>
     </div>
   </header>
 
@@ -1709,6 +1710,17 @@ function init(){
   // 启动时清理旧版 wiki cache（v3/v4/v5）—— 保留用户手动上传的 trip-img-*
   cleanupLegacyImageCache();
 
+  // ✅ 预加载 images.json（兜底配图，跨设备一致），加载完成后激活 Day 2
+  const initImagesJson = fetch("images.json")
+    .then(r => r.json())
+    .then(data => { window._imgManifest = data; console.log("[init] images.json loaded, entries:", Object.keys(data).length); })
+    .catch(() => { console.log("[init] images.json 未找到，仅使用 localStorage"); });
+
+  // 默认激活 Day 2（等 images.json 加载完成后再渲染图片，避免时序问题）
+  initImagesJson.then(() => {
+    activateDay(2);
+  });
+
   // 渲染 Day 1–6 面板
   for (const d of [1,2,3,4,5,6]) {
     if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
@@ -1757,12 +1769,10 @@ function init(){
   // v3：list-row 不再有固定 marker 联动
   // 旧的 spot → 地图联动已移除
 
-  // 默认激活 Day 2
-  activateDay(2);
-
   // 工具栏
   document.getElementById("edit-toggle").addEventListener("click", toggleEdit);
   document.getElementById("refetch-btn").addEventListener("click", refetchAllImages);
+  document.getElementById("export-img-btn").addEventListener("click", exportImageManifest);
 
   // 关页/刷新：如有未保存编辑，提示
   window.addEventListener("beforeunload", (e) => {
@@ -3233,8 +3243,14 @@ function bindCoverCollapse(gallery, row){
 function loadRowImages(row){
   const name = row.querySelector(".name-text")?.textContent?.trim();
   if (isPendingName(name)) return;
+  // 1) 优先 localStorage（用户本地缓存，含手动上传的图片）
   let saved = null;
   try { saved = localStorage.getItem(`trip-img-${name}`); } catch {}
+  // 2) 兜底 images.json（跨设备同步的默认配图）
+  if (!saved && window._imgManifest && window._imgManifest[name]) {
+    saved = JSON.stringify(window._imgManifest[name]);
+    console.log(`[loadRowImages] "${name}" → 从 images.json 兜底`);
+  }
   console.log(`[loadRowImages] "${name}" → saved:`, saved?.substring?.(0, 80) ?? 'null');
 
   // ✅ 关键：在清空 gallery 之前，先保存 userCleared 状态
@@ -3277,6 +3293,31 @@ function loadRowImages(row){
   imgs.forEach(src => addImgToGallery(gallery, src));
   applyImgGalleryCollapse(gallery);
   applyEmptyFlag(gallery);
+}
+
+// 导出当前所有配图到 images.json（用于跨设备同步）
+function exportImageManifest(){
+  const manifest = {};
+  document.querySelectorAll(".day-panel .list-row").forEach(row => {
+    const name = row.querySelector(".name-text")?.textContent?.trim();
+    if (!name || isPendingName(name)) return;
+    const saved = localStorage.getItem(`trip-img-${name}`);
+    if (!saved) return;
+    try {
+      const imgs = JSON.parse(saved);
+      if (Array.isArray(imgs) && imgs.length > 0) {
+        manifest[name] = imgs;
+      }
+    } catch {}
+  });
+  const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "images.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  alert(`已导出 ${Object.keys(manifest).length} 个景点的配图到 images.json。\n请将此文件放到 HTML 同目录下，并提交到 GitHub。`);
 }
 
 // 保存图片到 localStorage（按景点名称作 key）
