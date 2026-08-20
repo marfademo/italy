@@ -625,6 +625,12 @@
     <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🚄 佛罗伦萨初印象</span><span class="tab-sub">圣母百花 → 共和广场</span></button>
     <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">🌅 阿诺河 + 日落</span><span class="tab-sub">市场 / 老桥 / 米开朗琪罗</span></button>
     <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 乌菲兹 · 老桥</span></button>
+    <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="10"><span class="tab-num">DAY 10 · 10.10</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="11"><span class="tab-num">DAY 11 · 10.11</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="12"><span class="tab-num">DAY 12 · 10.12</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
   </nav>
 
   <!-- ===== 各 Day 内容面板 ===== -->
@@ -815,6 +821,92 @@ const DAYS = {
       { mode: "walk", from: 3, to: 4 },
     ],
     timeline: dayTimeline(6),
+  },
+
+  /* ---------- Day 7–12 空白页（待规划） ---------- */
+  7: {
+    isTransit: true,
+    badge: "DAY 7",
+    title: "待规划",
+    date: "10.7",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(7),
+  },
+  8: {
+    isTransit: true,
+    badge: "DAY 8",
+    title: "待规划",
+    date: "10.8",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(8),
+  },
+  9: {
+    isTransit: true,
+    badge: "DAY 9",
+    title: "待规划",
+    date: "10.9",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(9),
+  },
+  10: {
+    isTransit: true,
+    badge: "DAY 10",
+    title: "待规划",
+    date: "10.10",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(10),
+  },
+  11: {
+    isTransit: true,
+    badge: "DAY 11",
+    title: "待规划",
+    date: "10.11",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(11),
+  },
+  12: {
+    isTransit: true,
+    badge: "DAY 12",
+    title: "待规划",
+    date: "10.12",
+    line: "📝 点击编辑按钮添加行程",
+    hotel: { name: "", lat: 0, lng: 0 },
+    center: [0, 0],
+    zoom: 1,
+    bounds: [[-90,-180],[90,180]],
+    nodes: [],
+    route: [],
+    timeline: dayTimeline(12),
   },
 };
 
@@ -1267,6 +1359,11 @@ function dayTimeline(d){
     listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"老桥附近" }),
   ].join("");
 
+  // ===== Day 7–12：空白页 =====
+  if (d===7 || d===8 || d===9 || d===10 || d===11 || d===12) return [
+    listRowHTML({ type:"activity", icon:"·", name:"新条目" }),
+  ].join("");
+
   return "";
 }
 
@@ -1289,7 +1386,11 @@ function makeNumberIcon(num, kind){
 
 function renderDayPanel(d){
   const cfg = DAYS[d];
-  const left = cfg.isTransit ? renderTransitBoard() : `
+  const left = cfg.isTransit ? (cfg.nodes && cfg.nodes.length > 0 ? renderTransitBoard() : `
+        <div class="blank-placeholder" style="display:flex;align-items:center;justify-content:center;height:100%;min-height:300px;color:#999;font-size:18px;background:#f8f8f8;border-radius:12px;border:2px dashed #ddd;flex-direction:column;gap:12px;">
+          <span style="font-size:48px;">📝</span>
+          <span>点击右上角 <b>✏️ 编辑</b> 开始规划行程</span>
+        </div>`) : `
         <div class="mapwrap">
           <div class="map-legend map-legend-top">
             <span class="dot walk"></span>步行路线
@@ -1722,7 +1823,7 @@ function init(){
   });
 
   // 渲染 Day 1–6 面板
-  for (const d of [1,2,3,4,5,6]) {
+  for (const d of [1,2,3,4,5,6,7,8,9,10,11,12]) {
     if (DAYS[d]) root.insertAdjacentHTML("beforeend", renderDayPanel(d));
   }
 
@@ -1940,6 +2041,12 @@ const DEFAULT_TIPS = {
       `🎫 三个美术馆共约 €30`,
     ],
   ],
+  7: [[], [], []],
+  8: [[], [], []],
+  9: [[], [], []],
+  10: [[], [], []],
+  11: [[], [], []],
+  12: [[], [], []],
 };
 
 function renderBottomInfo(d){
@@ -1957,7 +2064,7 @@ function renderBottomInfo(d){
   });
   // enjoy 仅 Day 2-6
   const enjoy = document.querySelector("#bottom-info .enjoy");
-  if (enjoy) enjoy.style.display = (d >= 2 && d <= 6) ? "" : "none";
+  if (enjoy) enjoy.style.display = (d >= 2 && d <= 12) ? "" : "none";
 }
 
 // 把 textarea 当前内容写回存储（行内换行作为列表分隔）
