@@ -213,7 +213,9 @@ Enoteca 通常会配 **Pecorino 羊奶芝士 + Cantuccini 杏仁饼干蘸 Vin Sa
 
 **锡耶纳古城核心区是 ZTL**，非居民车辆 7:30–20:00 禁止驶入。Il Campo 停车场在 ZTL 边界外，合规。切勿开车进入古城门内。罚款 €80–100/次。
 
-### 5.5 锡耶纳 1h55 黄昏精华路线
+### 5.5 锡耶纳 1h55 完整行程（16:35–18:30）
+
+**方案一：拍照 + Duomo 深度（推荐首次来）**
 
 | 时长 | 地点 | 做什么 | 门票 |
 |---|---|---|---|
@@ -223,9 +225,24 @@ Enoteca 通常会配 **Pecorino 羊奶芝士 + Cantuccini 杏仁饼干蘸 Vin Sa
 | 10 min | **Battistero 洗礼堂** | Duomo 后方地下，祭坛金色浮雕 | 含在 Opa Si Pass |
 | 10 min | **Cripta 地下室** | 13 世纪壁画残片，入口在 Duomo 后方楼梯下 | 免费 |
 | 10 min | **San Domenico 教堂** | 锡耶纳主保圣人 Catherine 头颅圣物、穹顶天光 | 免费 |
-| 10 min | **逛街**（Corso Italia / Via di Città） | 锡耶纳主街手信店：**Panforte 硬果蛋糕**（锡耶纳特产）、Ricciarelli 杏仁软饼 | 免费 |
+| 10 min | **速逛 Via di Città** | 快速走一遍主街，踩点 Manganelli 食品店 | 免费 |
 
-**如果时间不够（Duomo 排队等）**：砍 San Domenico 教堂（省 10 min），或砍 Torre del Mangia 登顶（省 15 min）。**Duomo 和 Piccolomini Library 不可砍**。
+**方案二：购物 + 拍照为主（你们这次的主题）**
+
+| 时间 | 动作 |
+|---|---|
+| 16:35–16:50 | **Campo 拍照**（黄昏光最佳，广场开始变赭红） |
+| 16:50–17:05 | **Antica Drogheria Manganelli**（Via di Città 71）— 买 Panforte + Ricciarelli |
+| 17:05–17:15 | **Ceramiche Santa Caterina**（Via di Città 98）— 看陶瓷 |
+| 17:15–17:25 | 走到 Via di Città 尽头，**城墙观景台**看夕阳 |
+| 17:25–17:40 | 折返，**Pelletteria Artigiana**（Via di Città 51）— 皮具 |
+| 17:40–17:50 | **Pasticceria Nannini**（Banchi di Sopra 24）— 甜品 + 打包 |
+| 17:50–18:10 | 快速看 **Duomo 外立面**（夕阳金光打在黑白大理石上，不用买票进去） |
+| 18:10–18:30 | 回 Campo，拍最后的天光，准备去吃饭 |
+
+> **如果两个都想兼顾**：方案二砍掉 Duomo 内部（下次再进），但保留 Duomo 外立面拍照。Duomo 内部和 Piccolomini Library 湿壁画第一次来确实值得看，看你们取舍。
+
+**如果时间不够**：砍 San Domenico 教堂（省 10 min），或砍 Torre del Mangia 登顶（省 15 min）。**Duomo 和 Piccolomini Library 不可砍**（如果选方案一）。
 
 ### 5.6 Duomo 门票说明
 
@@ -233,6 +250,56 @@ Enoteca 通常会配 **Pecorino 羊奶芝士 + Cantuccini 杏仁饼干蘸 Vin Sa
 **购买地点**：Duomo 入口旁售票处（Piazza Jacopo della Quercia）  
 **10 月开放**：Duomo 10:00–19:00（最后入场 18:30）  
 **建议**：提前官网 https://operalaboratori.vivaticket.it 预订，选 17:00 时段，到了直接进
+
+### 5.7 锡耶纳购物指南（晚上能逛）
+
+**意大利商店作息**：上午 10:00–13:00 开门，下午 13:00–15:30/16:00 关门午休，**16:00–19:30 重新开门**。你们 16:35 到刚好赶上下午段，可以一直逛到 19:00–19:30。锡耶纳是大学城，傍晚比白天更有生活气息。
+
+#### 锡耶纳主要购物街
+
+Piazza del Campo 是中心，向外辐射三条主街：
+
+| 街名 | 方向 | 店铺类型 |
+|---|---|---|
+| **Via di Città** | Campo 往西南 | 食品手信、陶瓷、皮具（最精华） |
+| **Banchi di Sopra / Banchi di Sotto** | Campo 往北 | 时装、甜品、连锁 |
+| **Via dei Montanini** | Banchi di Sopra 延伸 | 日用、平价 |
+
+#### 推荐店铺（按类别）
+
+**食品 / 手信：**
+
+| 店铺 | 地址 | 卖什么 | 价格 | 备注 |
+|---|---|---|---|---|
+| ⭐ **Antica Drogheria Manganelli** | Via di Città 71（Campo 步行 3 分钟） | Panforte 硬果蛋糕、Ricciarelli 杏仁软饼、Cavallucci 茴香饼干、松露制品、橄榄油、香醋 | €8–18 | **1879 年开业的老药房改的食品店**，天花板挂满火腿和萨拉米，锡耶纳最有味道的食品店。Panforte 分 Margherita（经典）和 Nera（巧克力），推荐各买一块 |
+| ⭐ **Pasticceria Nannini** | Banchi di Sopra 24（Campo 步行 5 分钟） | Panforte、Ricciarelli、Cantuccini、手工巧克力 | €12–20 | 锡耶纳最有名的甜品店，**Ricciarelli 杏仁软饼的发明地**，新鲜现做 |
+| **Consorzio Agrario di Siena** | Via Pianigiani 9（Campo 附近） | Chianti Classico、Brunello、Vino Nobile + 橄榄油 + 芝士 | €10–40 | 农业合作社直营，**酒比蒙塔尔奇诺 Enoteca 便宜 10–15%**，不想在蒙塔尔奇诺买酒的在这里补 |
+| **Enoteca Italiana** | Fortezza Medicea（城墙堡垒内，Campo 步行 10 分钟） | 意大利全境葡萄酒 + 品酒吧台 | 一杯 €5–12 | 在 16 世纪美第奇要塞里，**17:00–19:00 是 aperitivo 时段，一杯酒 + 免费小吃**，氛围拉满 |
+
+**手工陶瓷：**
+
+| 店铺 | 地址 | 卖什么 | 价格 |
+|---|---|---|---|
+| **Ceramiche Santa Caterina** | Via di Città 98 | 手工彩绘陶瓷盘、碗、瓷砖，锡耶纳风格（黄 + 蓝 + 橄榄绿为主，跟佛罗伦萨的白 + 蓝不同） | €20–80 |
+| **La Bottega del Ceramista** | Via dei Pellegrini 3（Duomo 附近） | 小件陶瓷：冰箱贴、咖啡杯、橄榄油壶 | €5–30 |
+
+**皮具 / 手工：**
+
+| 店铺 | 地址 | 卖什么 | 价格 |
+|---|---|---|---|
+| **Pelletteria Artigiana** | Via di Città 51 | 手工皮包、钱包、皮带、笔记本套，托斯卡纳本地鞣制皮革 | €30–120 |
+| **Il Borgo** | Banchi di Sopra 37 | 皮具 + 围巾 + 羊绒，**比佛罗伦萨便宜 20–30%** | €20–80 |
+
+#### 锡耶纳必买手信清单
+
+| 物品 | 推荐店铺 | 价格 | 说明 |
+|---|---|---|---|
+| **Panforte Margherita** | Antica Drogheria Manganelli | €12–18/块 | 锡耶纳第一名产，硬果蜜饯蛋糕，保质期 3 个月 |
+| **Ricciarelli** | Pasticceria Nannini | €15–20/盒 | 杏仁软饼，口感像软马卡龙，保质期 2 周 |
+| **Cavallucci** | Manganelli | €8–12/袋 | 茴香饼干，蘸 Vin Santo 甜酒吃 |
+| **Chianti Classico** | Consorzio Agrario | €10–20/瓶 | 基安蒂经典红葡萄酒 |
+| **手工陶瓷小件** | La Bottega del Ceramista | €10–30 | 冰箱贴、橄榄油壶、咖啡杯 |
+| **松露盐** | Manganelli | €8–12/小瓶 | 回国撒在煎蛋或意面上，比松露油实用 |
 
 ---
 

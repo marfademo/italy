@@ -582,6 +582,23 @@
 
   .attrib{font-size:11px;color:#a07a3c;text-align:right;margin-top:6px;}
 
+/* ===== 信息卡片（表格类内容，如芝士/红酒指南、店铺推荐） ===== */
+.info-card{background:#fff;border:1px solid #e8d5a3;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:#5c3a00;}
+.info-card h4{font-size:13px;font-weight:900;color:var(--pink-deep);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
+.info-card h4::before{content:"";display:inline-block;width:4px;height:14px;background:var(--pink-deep);border-radius:2px;}
+.info-card table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0;}
+.info-card th{background:#fff5e6;color:#7a4a00;font-weight:800;padding:5px 7px;text-align:left;border-bottom:2px solid #f3d9a4;white-space:nowrap;}
+.info-card td{padding:4px 7px;border-bottom:1px solid #faf0dc;vertical-align:top;}
+.info-card td:last-child{color:#666;font-size:10px;}
+.info-card .tag{display:inline-block;background:var(--pink-soft);color:var(--pink-deep);font-size:10px;padding:1px 6px;border-radius:4px;margin:1px 2px;white-space:nowrap;}
+.info-card .tag.green{background:#e6f4ea;color:#2d6a4f;}
+.info-card .tag.blue{background:#e6f0ff;color:#1e40af;}
+.info-card .star{color:#e6a817;font-weight:900;}
+.info-card ul{margin:4px 0;padding-left:16px;}
+.info-card ul li{margin:2px 0;}
+.info-card .highlight{background:#fff8e1;border-left:3px solid #f0c040;padding:4px 8px;margin:6px 0;border-radius:0 6px 6px 0;font-weight:700;}
+.info-card .warn{background:#fff0f0;border-left:3px solid #e63475;padding:4px 8px;margin:6px 0;border-radius:0 6px 6px 0;color:#b91c1c;font-weight:700;}
+
   @media (max-width:900px){
     .day-panel.active{grid-template-columns:1fr;}
     /* ✅ 手机端地图高度随页面宽度动态缩放（提高比例到 0.7） */
@@ -848,6 +865,7 @@ const DAYS = {
       { mode: "taxi", from: 3, to: 4 },
     ],
     timeline: dayTimeline(7),
+    extraInfo: day7ExtraInfo(),
   },
   8: {
     isTransit: true,
@@ -1372,19 +1390,27 @@ function dayTimeline(d){
 
   // ===== Day 7：托斯卡纳自驾 =====
   if (d===7) return [
-    listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"佛罗伦萨 → 皮恩扎", duration:"1h50m", action:"A1 南行 → Bettolle/Valdichiana 出口 → SS146 景观道", note:"通行费€4.5 · 停 Parcheggio Pienza Sud" }),
-    listRowHTML({ type:"activity", icon:"1", name:"皮恩扎 Pienza", time:"11:50 - 14:00", action:"文艺复兴理想城市 · Val d'Orcia 全景", note:"Duomo 田园机位 · 城墙步道" }),
-    listRowHTML({ type:"activity", icon:"·", name:"Pecorino 芝士店 + 手工艺品街", action:"Bottega del Pecorino · La Bottega di Pienza", note:"免费试吃 · 真空包装可带回国" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 皮恩扎", action:"Trattoria La Buca delle Fate / Sette di Vino", note:"Pici al Tartufo · Pecorino 拼盘" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"皮恩扎 → 孤独教堂", duration:"10min", action:"SP146 西行", note:"路边白线停车 · 勿停教堂门口" }),
-    listRowHTML({ type:"activity", icon:"2", name:"孤独教堂 Cappella della Madonna di Vitaleta", time:"14:10 - 14:40", action:"托斯卡纳明信片经典机位", note:"SP146 路肩拍 · 上坡段回头拍" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"孤独教堂 → 蒙塔尔奇诺", duration:"20min", action:"SP146 → SP14 南下", note:"停 Parcheggio Fortezza（免费）" }),
-    listRowHTML({ type:"activity", icon:"3", name:"蒙塔尔奇诺 Montalcino", time:"15:00 - 16:00", action:"Fortezza 城墙全景 · Enoteca 品酒", note:"Brunello 试喝免费 · 退税 22%" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"蒙塔尔奇诺 → 锡耶纳", duration:"45min", action:"SS223 / SR2 北上", note:"停 Parcheggio Il Campo · 避开 ZTL" }),
-    listRowHTML({ type:"activity", icon:"4", name:"锡耶纳 Siena", time:"16:45 - 18:30", action:"Piazza del Campo · Torre del Mangia · Duomo", note:"Opa Si Pass €13 · 夕阳赭红色广场" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 锡耶纳", time:"19:00 - 20:00", action:"Osteria il Carroccio / Trattoria Papei", note:"Pici al Cinghiale · Ribollita" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord → Firenze Sud" }),
+    listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"佛罗伦萨 → 皮恩扎", duration:"1h50m", action:"A1 南行 → Bettolle/Valdichiana 出口 → SS146 景观道西行", note:"通行费€4.5 · 停 Parcheggio Pienza Sud (Via della Madonnina) · €1/h · 步行 5min 到老城" }),
+    listRowHTML({ type:"activity", icon:"1", name:"皮恩扎 Pienza", time:"11:50 - 14:00", action:"文艺复兴理想城市 · UNESCO 世界遗产" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Duomo di Pienza", time:"耗时 10min", action:"田园全景机位", note:"Pienza 大教堂 · 文艺复兴建筑" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Passeggiata panoramica 城墙步道", time:"耗时 20min", action:"观景台 · 俯瞰 Val d'Orcia 全景" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Pecorino 芝士店 + Corso Rossellino 主街工艺品店", action:"Bottega del Pecorino · La Bottega di Pienza · Artigianato d'Arte · L'Angolo delle Erbe · Antica Farmacia del Corso", note:"免费试吃 · 真空包装可带回国 · 推荐 Semistagionato + Stagionato" }),
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 皮恩扎", action:"Trattoria La Buca delle Fate (4.5★ €35–45) / Sette di Vino (4.8★ 米其林推荐 €40–55) / La Bottega di Pienza (4.2★ €20–30)", note:"Pici al Tartufo · Cinta Senese 烤猪肉 · Pecorino 拼盘 · Sette di Vino 须预约" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"皮恩扎 → 孤独教堂", duration:"10min", action:"SP146 西行", note:"路边白线停车 · 勿停教堂门口私路（会被罚款）" }),
+    listRowHTML({ type:"activity", icon:"2", name:"孤独教堂 Cappella della Madonna di Vitaleta", time:"14:10 - 14:40", action:"托斯卡纳明信片经典机位", note:"机位1: SP146 路肩教堂在右侧田野 · 机位2: SP146 上坡段回头拍" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"孤独教堂 → 蒙塔尔奇诺", duration:"20min", action:"SP146 东行 → SP14 南下", note:"停 Parcheggio Fortezza（城外免费）· 步行 8min 到镇中心" }),
+    listRowHTML({ type:"activity", icon:"3", name:"蒙塔尔奇诺 Montalcino", time:"15:00 - 16:00", action:"Brunello 红酒之乡" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Fortezza di Montalcino", action:"城墙四角俯瞰 Brunello 葡萄园全景", note:"门票 €5 · 10 月开放 10:00–18:00" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Enoteca di Brunello 葡萄酒店", action:"免费试喝 · Pecorino + Cantuccini 配 Vin Santo 甜酒", note:"Brunello 2018 €40–60 · Riserva 2016 €70–120 · Rosso 2019 €15–25 · 退税 22%（满€154.94）" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"蒙塔尔奇诺 → 锡耶纳", duration:"45min", action:"SS223 / SR2 北上", note:"停 Parcheggio Il Campo (Viale Vittorio Veneto) · €1.5–2/h · 电梯 5min 直上贝壳广场 · 避开 ZTL 罚款€80–100" }),
+    listRowHTML({ type:"activity", icon:"4", name:"锡耶纳 Siena", time:"16:45 - 18:30", action:"哥特式古城 · UNESCO 世界遗产" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Piazza del Campo 贝壳广场", action:"扇形铺地石 · Palazzo Pubblico 市政厅 · Torre del Mangia (88m)", note:"夕阳让广场变成赭红色" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Torre del Mangia 登顶", time:"耗时 20min", action:"400 阶俯瞰锡耶纳全城 + 托斯卡纳丘陵", note:"门票 €10 · 10 月开放到 18:00" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Duomo di Siena 主教堂 + Battistero 洗礼堂", action:"黑白大理石立面 · Piccolomini Library 平图里基奥湿壁画 · 大理石马赛克地板", note:"Opa Si Pass €13 · 含 Duomo+图书馆+洗礼堂+博物馆+地宫 · 10:00–19:00" }),
+    listRowHTML({ type:"activity", icon:"·", name:"逛街 Corso Italia / Via di Città", action:"Antica Drogheria Manganelli · Pasticceria Nannini · Consorzio Agrario · Ceramiche Santa Caterina · Pelletteria Artigiana", note:"Panforte €12–18 · Ricciarelli €15–20 · 手工陶瓷 €10–30 · 松露盐 €8–12" }),
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 锡耶纳", time:"19:00 - 20:00", action:"Osteria il Carroccio (4.6★ €25–35) / Trattoria Papei (4.2★ €20–30) / La Taverna di San Giuseppe (4.6★ €30–80) / Osteria La Sosta di Violante (4.7★ €20–30)", note:"Pici al Cinghiale 野猪肉面 · Ribollita 蔬菜面包汤 · 松露菲力牛排 · 提拉米苏" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨（酒店）", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord 入口 → Firenze Sud 出口" }),
   ].join("");
 
   // ===== Day 8–12：空白页 =====
@@ -1393,6 +1419,205 @@ function dayTimeline(d){
   ].join("");
 
   return "";
+}
+
+function day7ExtraInfo(){
+  return `
+    <!-- 皮恩扎：Pecorino 芝士购买指南 -->
+    <div class="info-card" id="pecorino-guide">
+      <h4>🧀 Pecorino di Pienza 芝士购买指南</h4>
+      <table>
+        <tr><th>类型</th><th>熟成</th><th>价格</th><th>特点</th></tr>
+        <tr><td>Pecorino Fresco</td><td>1 个月</td><td>€12–15/kg</td><td>软、奶香、适合即食</td></tr>
+        <tr><td>Pecorino Semistagionato</td><td>3–6 个月</td><td>€18–22/kg</td><td>半硬、坚果味</td></tr>
+        <tr><td>Pecorino Stagionato</td><td>12+ 个月</td><td>€25–35/kg</td><td>硬、咸香、可刨丝</td></tr>
+        <tr><td>Pecorino al Tartufo</td><td>3 个月 + 松露</td><td>€30–40/kg</td><td>松露风味</td></tr>
+      </table>
+      <div class="highlight">💡 推荐：买 1 块 Semistagionato（即食） + 1 块 Stagionato（带回国），真空包装可冷藏带 1 周。</div>
+    </div>
+
+    <!-- 皮恩扎：必逛店铺 -->
+    <div class="info-card" id="pienza-shops">
+      <h4>🛍️ 皮恩扎必逛店铺</h4>
+      <table>
+        <tr><th>店铺</th><th>地址</th><th>卖什么</th><th>备注</th></tr>
+        <tr><td>Bottega del Pecorino</td><td>Via del Casello 2</td><td>羊奶芝士（试吃 3–5 种熟成度）</td><td>真空包装可带回国，冷藏 1 周</td></tr>
+        <tr><td>La Bottega di Pienza</td><td>Corso Rossellino 35</td><td>Pecorino + 松露制品 + 橄榄油 + 蜂蜜</td><td>一站式手信店</td></tr>
+        <tr><td>Artigianato d'Arte</td><td>Corso Rossellino 18</td><td>手工皮革制品、陶瓷、托斯卡纳手工皂</td><td>皮具比佛罗伦萨便宜</td></tr>
+        <tr><td>L'Angolo delle Erbe</td><td>Via Gozzante 3</td><td>托斯卡纳香草、松露盐、橄榄油</td><td>小瓶装适合送礼</td></tr>
+        <tr><td>Antica Farmacia del Corso</td><td>Corso Rossellino 55</td><td>草药茶、薰衣草制品、天然护肤品</td><td>文艺复兴风格老药房</td></tr>
+      </table>
+    </div>
+
+    <!-- 皮恩扎午餐选择 -->
+    <div class="info-card" id="pienza-lunch">
+      <h4>🍝 皮恩扎午餐 · 3 选 1</h4>
+      <table>
+        <tr><th>#</th><th>餐厅</th><th>评分</th><th>人均</th><th>营业</th><th>必点</th><th>备注</th></tr>
+        <tr>
+          <td>1</td><td>Trattoria La Buca delle Fate</td><td><span class="star">4.5★</span></td><td>€35–45</td><td>12:30–14:30</td>
+          <td>Pici al Tartufo（黑松露手擀面）、Cinta Senese alla Griglia（烤猪肉）、Pecorino 拼盘</td>
+          <td>靠窗座位看 Val d'Orcia 丘陵</td>
+        </tr>
+        <tr>
+          <td>2</td><td>Sette di Vino <span class="tag green">米其林推荐</span></td><td><span class="star">4.8★</span></td><td>€40–55</td><td>12:30–14:30</td>
+          <td>Tagliere di Salumi e Formaggi（冷肉芝士拼盘）、Zuppa di Fagioli（白豆汤）</td>
+          <td><span class="warn">必须预约！</span>settedivino@gmail.com / +39 0578 749 092</td>
+        </tr>
+        <tr>
+          <td>3</td><td>La Bottega di Pienza <span class="tag blue">小红书推荐</span></td><td><span class="star">4.2★</span></td><td>€20–30</td><td>12:00–14:30</td>
+          <td>菜式同选择 1</td><td>性价比之选</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 蒙塔尔奇诺：Brunello 买酒指南 -->
+    <div class="info-card" id="brunello-guide">
+      <h4>🍷 Brunello di Montalcino 买酒指南</h4>
+      <table>
+        <tr><th>类型</th><th>推荐年份</th><th>价格</th><th>特点</th></tr>
+        <tr><td>Brunello di Montalcino DOCG</td><td>2018</td><td>€40–60</td><td>经典年份，陈年 5 年，单宁柔和</td></tr>
+        <tr><td>Brunello di Montalcino Riserva</td><td>2016</td><td>€70–120</td><td>顶级年份，陈年 6 年，结构复杂</td></tr>
+        <tr><td>Rosso di Montalcino DOC</td><td>2019</td><td>€15–25</td><td>Brunello 的"小兄弟"，陈年 1 年，果味浓郁</td></tr>
+      </table>
+      <div class="highlight">🛃 退税：保留发票，机场退税 22%（需单店消费满 €154.94）</div>
+    </div>
+
+    <!-- 锡耶纳：食品/手信店铺 -->
+    <div class="info-card" id="siena-food-shops">
+      <h4>🛒 锡耶纳 · 食品 / 手信（必买）</h4>
+      <table>
+        <tr><th>店铺</th><th>地址</th><th>卖什么</th><th>为什么值得去</th></tr>
+        <tr>
+          <td>Antica Drogheria Manganelli <span class="star">⭐</span></td>
+          <td>Via di Città 71（从 Campo 走 3 分钟）</td>
+          <td>Panforte、Ricciarelli、Cavallucci、松露制品、橄榄油、香醋</td>
+          <td>1879 年开业的老药房改的食品店，天花板挂满火腿和萨拉米。Panforte 分 Margherita（经典款）和 Nera（巧克力款），推荐各买一块</td>
+        </tr>
+        <tr>
+          <td>Pasticceria Nannini</td>
+          <td>Banchi di Sopra 24（从 Campo 走 5 分钟）</td>
+          <td>Panforte、Ricciarelli、Cantuccini、手工巧克力</td>
+          <td>锡耶纳最有名的甜品店，Ricciarelli 是锡耶纳发明杏仁软饼的地方，新鲜现做</td>
+        </tr>
+        <tr>
+          <td>Consorzio Agrario di Siena</td>
+          <td>Via Pianigiani 9（Campo 附近）</td>
+          <td>本地葡萄酒 + 橄榄油 + 芝士</td>
+          <td>农业合作社直营，酒比蒙塔尔奇诺 Enoteca 便宜 10–15%</td>
+        </tr>
+        <tr>
+          <td>Enoteca Italiana</td>
+          <td>Fortezza Medicea（城墙堡垒内，步行 10 分钟）</td>
+          <td>意大利全境葡萄酒 + 品酒吧台</td>
+          <td>16 世纪美第奇要塞里，点一杯坐着喝，17:00–19:00 aperitivo 时段</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 锡耶纳：手工陶瓷 -->
+    <div class="info-card" id="siena-ceramics">
+      <h4>🎨 锡耶纳 · 手工陶瓷</h4>
+      <table>
+        <tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
+        <tr><td>Ceramiche Santa Caterina</td><td>Via di Città 98</td><td>手工彩绘陶瓷盘、碗、瓷砖，锡耶纳风格（黄+蓝+橄榄绿）</td></tr>
+        <tr><td>La Bottega del Ceramista</td><td>Via dei Pellegrini 3（Duomo 附近）</td><td>小件陶瓷：冰箱贴、咖啡杯、橄榄油壶，价格友好</td></tr>
+      </table>
+    </div>
+
+    <!-- 锡耶纳：皮具/手工 -->
+    <div class="info-card" id="siena-leather">
+      <h4>👜 锡耶纳 · 皮具 / 手工</h4>
+      <table>
+        <tr><th>店铺</th><th>地址</th><th>卖什么</th></tr>
+        <tr><td>Pelletteria Artigiana</td><td>Via di Città 51</td><td>手工皮包、钱包、皮带、笔记本套，托斯卡纳本地鞣制皮革</td></tr>
+        <tr><td>Il Borgo</td><td>Banchi di Sopra 37</td><td>皮具 + 围巾 + 羊绒，比佛罗伦萨便宜 20–30%</td></tr>
+      </table>
+    </div>
+
+    <!-- 锡耶纳必买手信清单 -->
+    <div class="info-card" id="siena-must-buy">
+      <h4>🎁 锡耶纳必买手信清单</h4>
+      <table>
+        <tr><th>物品</th><th>推荐店铺</th><th>价格</th><th>说明</th></tr>
+        <tr><td>Panforte Margherita</td><td>Antica Drogheria Manganelli</td><td>€12–18/块</td><td>锡耶纳第一名产，硬果蜜饯蛋糕，保质期 3 个月</td></tr>
+        <tr><td>Ricciarelli</td><td>Pasticceria Nannini</td><td>€15–20/盒</td><td>杏仁软饼，口感像软马卡龙，保质期 2 周</td></tr>
+        <tr><td>Cavallucci</td><td>Manganelli</td><td>€8–12/袋</td><td>茴香饼干，蘸 Vin Santo 甜酒吃</td></tr>
+        <tr><td>Chianti Classico</td><td>Consorzio Agrario</td><td>€10–20/瓶</td><td>基安蒂经典红葡萄酒</td></tr>
+        <tr><td>手工陶瓷小件</td><td>La Bottega del Ceramista</td><td>€10–30</td><td>冰箱贴、橄榄油壶、咖啡杯</td></tr>
+        <tr><td>松露盐</td><td>Manganelli</td><td>€8–12/小瓶</td><td>回国撒在煎蛋或意面上，比松露油实用</td></tr>
+      </table>
+    </div>
+
+    <!-- 锡耶纳晚餐选择 -->
+    <div class="info-card" id="siena-dinner">
+      <h4>🍷 锡耶纳晚餐 · 4 选 1</h4>
+      <table>
+        <tr><th>#</th><th>餐厅</th><th>评分</th><th>人均</th><th>地址</th><th>特色</th></tr>
+        <tr>
+          <td>1</td><td>Osteria il Carroccio</td><td><span class="star">4.6★</span></td><td>€25–35</td><td>Via del Carroccio 7</td>
+          <td>Pici al Cinghiale（野猪肉手擀面）、Ribollita（蔬菜面包汤）、Crostoni al Pomodoro。配 Chianti Classico €5–8/杯。10 月淡季不用预约</td>
+        </tr>
+        <tr>
+          <td>2</td><td>Trattoria Papei</td><td><span class="star">4.2★</span></td><td>€20–30</td><td>Piazza del Mercato 6</td>
+          <td>Pici all'aglione（蒜香番茄手擀面）、Tagliata di Manzo（烤牛肉片）</td>
+        </tr>
+        <tr>
+          <td>3</td><td>La Taverna di San Giuseppe <span class="tag blue">小红书推荐</span></td><td><span class="star">4.6★</span></td><td>€30–80</td><td>Via Giovanni Duprè 132</td>
+          <td>Tomato flan、Pici 野猪肉酱 + 牛肝菌、松露菲力牛排、黑松露手工卷管面、大蒜辣椒橄榄油炒菠菜</td>
+        </tr>
+        <tr>
+          <td>4</td><td>Osteria La Sosta di Violante <span class="tag blue">小红书推荐</span></td><td><span class="star">4.7★</span></td><td>€20–30</td><td>Via Pantaneto 115</td>
+          <td>手工粗面配刀切猪颈肉老式肉酱、千层面、T骨牛排、大管面配琴塔猪脸肉、烤猪颈肉、提拉米苏</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 必备物品清单 -->
+    <div class="info-card" id="packing-list">
+      <h4>🎒 必备（缺一不可）</h4>
+      <ul>
+        <li>🪪 <b>IDP 国际驾照</b>（意大利警察查得严，无 IDP 最高罚款 €2000）</li>
+        <li>🛂 <b>护照</b>（租车 + 退税）</li>
+        <li>💳 <b>驾驶员本人信用卡</b>（租车不接受他人卡）</li>
+        <li>📄 <b>租车合同 + 提车单</b></li>
+        <li>💶 <b>欧元现金 €80–100</b>（小镇自动机不收 €50 纸币，多备 €10/€20 和硬币）</li>
+        <li>🧥 薄羽绒或抓绒（Pienza 14°C / 蒙塔尔奇诺 16°C / 锡耶纳晚间 10°C）</li>
+        <li>🕶️ 太阳镜（10 月托斯卡纳日晒仍强）</li>
+        <li>🧴 防晒霜</li>
+      </ul>
+    </div>
+
+    <!-- 驾驶规则速查 -->
+    <div class="info-card" id="driving-rules">
+      <h4>🚗 驾驶规则速查</h4>
+      <table>
+        <tr><th>规则</th><th>说明</th></tr>
+        <tr><td>限速</td><td>高速 130 km/h / 国道 90 km/h / 城镇 50 km/h</td></tr>
+        <tr><td>ZTL</td><td>古城核心区限行，标志 "Zona Traffico Limitato"，切勿驶入，罚款 €80–100</td></tr>
+        <tr><td>测速</td><td>固定摄像头 + 区间测速，注意 "Controllo Elettronico della Velocità" 标志</td></tr>
+        <tr><td>加油</td><td>柴油 = Diesel / Gasolio（黑色），汽油 = Benzina / Senza Piombo（绿色），柴油便宜 15%</td></tr>
+        <tr><td>加油支付</td><td>部分乡村自助加油站只收硬币/纸币，不刷信用卡，备现金</td></tr>
+        <tr><td>环岛</td><td>环岛内车辆有优先权，进环岛减速让行</td></tr>
+        <tr><td>高速公路</td><td>入口取票、出口交费（现金/卡/Viacard），Telepass 车道是黄色标志，不要走</td></tr>
+        <tr><td>紧急电话</td><td>112（全欧通用）</td></tr>
+      </table>
+    </div>
+
+    <!-- 备选方案 -->
+    <div class="info-card" id="contingency">
+      <h4>🌧️ 备选方案（雨天 / 突发情况）</h4>
+      <table>
+        <tr><th>情况</th><th>应对</th></tr>
+        <tr><td>全天大雨</td><td>Pienza 芝士店（室内）→ 蒙塔尔奇诺 Enoteca（室内品酒）→ 锡耶纳 Santa Maria della Scala 博物馆群（大型室内博物馆，可逛 2h），放弃孤独教堂和田园外拍</td></tr>
+        <tr><td>Pienza 时间超了</td><td>砍孤独教堂（直接从 Pienza 去蒙塔尔奇诺，省 30 min），Val d'Orcia 全景在 Pienza Belvedere 已经拍了</td></tr>
+        <tr><td>蒙塔尔奇诺超了</td><td>不减，直接砍 Torre del Mangia 登顶和 San Domenico，锡耶纳只留 Duomo + Campo + 晚餐</td></tr>
+        <tr><td>锡耶纳时间不够</td><td>最坏情况：砍 Duomo 内部只拍外立面（省 30 min），但 Piccolomini Library 湿壁画放弃会很可惜</td></tr>
+        <tr><td>堵车 / 修路</td><td>Google Maps 实时路况，SS146 和 SS223 有替代小道</td></tr>
+        <tr><td>车出问题</td><td>租车行 24h 救援电话存手机，意大利高速 S.O.S. 紧急电话柱（橙色）</td></tr>
+      </table>
+    </div>
+  `;
 }
 
 /* =========================================================
@@ -1439,6 +1664,7 @@ function renderDayPanel(d){
         <h2><span class="badge">${cfg.badge}</span>${cfg.title}<span class="city-tag-inline">${cfg.date}</span></h2>
         <div class="date">${cfg.line}</div>
         <div class="timeline">${cfg.timeline}</div>
+        ${cfg.extraInfo || ""}
       </div>
     </div>`;
 }
@@ -2071,25 +2297,25 @@ const DEFAULT_TIPS = {
   ],
   7: [
     [
-      `<span class="tipicon">🪪</span>IDP 国际驾照（必须）`,
-      `<span class="tipicon">🛂</span>护照 + 租车合同 + 提车单`,
-      `<span class="tipicon">💳</span>驾驶员本人信用卡`,
-      `<span class="tipicon">💶</span>€80–100 现金（多备硬币）`,
-      `<span class="tipicon">🧥</span>薄羽绒/抓绒（晚间 10°C）`,
+      `<span class="tipicon">🪪</span>IDP 国际驾照（必须，无 IDP 最高罚 €2000）`,
+      `<span class="tipicon">🛂</span>护照 + 租车合同 + 提车单 + 本人信用卡`,
+      `<span class="tipicon">💶</span>€80–100 现金（多备 €10/€20 和硬币）`,
+      `<span class="tipicon">🧥</span>薄羽绒/抓绒（Pienza 14°C / 锡耶纳晚间 10°C）`,
+      `<span class="tipicon">🕶️</span>太阳镜 + 防晒霜（10 月日晒仍强）`,
     ],
     [
       `<b>限速</b>：高速 130 / 国道 90 / 城镇 50 km/h`,
       `<b>ZTL</b>：古城核心区限行，切勿驶入，罚 €80–100`,
-      `<b>加油</b>：柴油 Diesel（黑色）/ 汽油 Benzina（绿色）`,
-      `<b>环岛</b>：环岛内车辆优先，进环岛减速让行`,
+      `<b>加油</b>：柴油 Diesel（黑色）/ 汽油 Benzina（绿色），柴油便宜 15%`,
       `<b>高速</b>：入口取票出口交费，勿走 Telepass 黄色车道`,
+      `<b>紧急</b>：112（全欧通用）`,
     ],
     [
-      `⏰ 8:00 出发，21:15 回到酒店`,
-      `🌧️ 雨天备选：Pienza 芝士店 → Enoteca 品酒 → 锡耶纳博物馆`,
-      `🍷 Brunello 买 2018 经典年份 €40–60`,
-      `🧀 Pecorino Semistagionato 真空包装可带回国`,
-      `📸 孤独教堂 SP146 路肩机位，上坡段回头拍`,
+      `⏰ 8:00 取车，21:15 回到酒店`,
+      `🌧️ 雨天备选：芝士店 → Enoteca 品酒 → 锡耶纳博物馆`,
+      `🍷 Brunello 2018 经典年份 €40–60，退税 22%`,
+      `🧀 Pecorino Semistagionato + Stagionato 真空包装可带回国`,
+      `📸 孤独教堂 SP146 路肩机位 + 上坡段回头拍`,
     ],
   ],
   8: [[], [], []],
