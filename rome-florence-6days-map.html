@@ -88,7 +88,7 @@
   .day-panel.active{display:grid;grid-template-columns:380px 1fr;gap:18px;background:#fffaf0;border:2px solid #f3d9a4;border-radius:16px;padding:14px;animation:fade .25s ease;align-items:start;}
   @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
   .day-panel .left-col{position:relative;display:flex;flex-direction:column;}
-  .day-panel .right-col{background:var(--cream);border:2px solid #f3d9a4;border-radius:12px;padding:14px 16px;}
+  .day-panel .right-col{background:var(--cream);border:2px solid #f3d9a4;border-radius:12px;padding:14px 16px;min-width:0;overflow:hidden;}
   .day-panel h2{margin:0 0 6px;font-size:24px;font-weight:900;color:var(--pink-deep);letter-spacing:1px;}
   .day-panel h2 .badge{background:var(--pink-deep);color:#fff;border-radius:8px;padding:1px 12px;margin-right:8px;font-size:18px;}
   .day-panel .date{font-size:13px;color:#a37a3c;font-weight:700;margin-bottom:8px;}
@@ -211,15 +211,15 @@
   /* 主体 */
   .list-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
   .list-name{display:flex;align-items:center;gap:6px;}
-  .list-name b{font-size:14px;color:#2b2b2b;font-weight:900;}
+  .list-name b{font-size:14px;color:#2b2b2b;font-weight:900;overflow-wrap:break-word;word-break:break-word;}
   .list-locate{
     display:inline-flex;align-items:center;justify-content:center;
     width:20px;height:20px;border-radius:50%;background:#fff;color:#2563eb;
     border:1px solid #93c5fd;font-size:11px;text-decoration:none;
   }
   .list-locate:hover{background:#2563eb;color:#fff;}
-  .list-action{font-size:12.5px;color:#444;padding:1px 2px;}
-  .list-note{font-size:11.5px;color:#888;font-style:italic;padding:1px 2px;}
+  .list-action{font-size:12.5px;color:#444;padding:1px 2px;overflow-wrap:break-word;word-break:break-word;}
+  .list-note{font-size:11.5px;color:#888;font-style:italic;padding:1px 2px;overflow-wrap:break-word;word-break:break-word;}
 
   /* 交通 list 时长 - 占位背景 */
   .list-transport-duration{
@@ -584,12 +584,12 @@
   .attrib{font-size:11px;color:#a07a3c;text-align:right;margin-top:6px;}
 
 /* ===== 信息卡片（表格类内容，如芝士/红酒指南、店铺推荐） ===== */
-.info-card{background:#fff;border:1px solid #e8d5a3;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:#5c3a00;}
+.info-card{background:#fff;border:1px solid #e8d5a3;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:#5c3a00;overflow-x:auto;}
 .info-card h4{font-size:13px;font-weight:900;color:var(--pink-deep);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
 .info-card h4::before{content:"";display:inline-block;width:4px;height:14px;background:var(--pink-deep);border-radius:2px;}
-.info-card table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0;}
+.info-card table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0;table-layout:auto;}
 .info-card th{background:#fff5e6;color:#7a4a00;font-weight:800;padding:5px 7px;text-align:left;border-bottom:2px solid #f3d9a4;white-space:nowrap;}
-.info-card td{padding:4px 7px;border-bottom:1px solid #faf0dc;vertical-align:top;}
+.info-card td{padding:4px 7px;border-bottom:1px solid #faf0dc;vertical-align:top;overflow-wrap:break-word;word-break:break-word;}
 .info-card td:last-child{color:#666;font-size:10px;}
 .info-card .meal-table td:last-child{color:inherit;font-size:inherit;}
 .info-card .meal-table .col-narrow{width:1%;white-space:nowrap;}
