@@ -585,8 +585,13 @@
 
 /* ===== 信息卡片（表格类内容，如芝士/红酒指南、店铺推荐） ===== */
 .info-card{background:#fff;border:1px solid #e8d5a3;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.6;color:#5c3a00;overflow-x:auto;}
-.info-card h4{font-size:13px;font-weight:900;color:var(--pink-deep);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
+.info-card h4{font-size:13px;font-weight:900;color:var(--pink-deep);margin:0 0 8px;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;}
+.info-card h4:hover{opacity:.75;}
 .info-card h4::before{content:"";display:inline-block;width:4px;height:14px;background:var(--pink-deep);border-radius:2px;}
+.info-card h4::after{content:"▾";margin-left:auto;font-size:11px;transition:transform .2s;}
+.info-card.collapsed h4::after{content:"▸";}
+.info-card.collapsed h4{margin-bottom:0;}
+.info-card.collapsed>:not(h4){display:none;}
 .info-card table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0;table-layout:auto;}
 .info-card th{background:#fff5e6;color:#7a4a00;font-weight:800;padding:5px 7px;text-align:left;border-bottom:2px solid #f3d9a4;white-space:nowrap;}
 .info-card td{padding:4px 7px;border-bottom:1px solid #faf0dc;vertical-align:top;overflow-wrap:break-word;word-break:break-word;}
@@ -1970,6 +1975,9 @@ function init(){
     icon.removeAttribute("data-icon-handler-bound");
   });
 
+  // 所有 info-card 默认折叠
+  document.querySelectorAll(".info-card").forEach(c => c.classList.add("collapsed"));
+
   // 全局绑定：所有 .list-icon 一次性绑 onclick（无论编辑态）
   bindAllIconFlyTo();
 
@@ -2024,6 +2032,13 @@ function init(){
     openImgModal(row, parseInt(thumb.dataset.imgIdx || "0"));
   });
 }
+
+// info-card 折叠/展开委托
+document.addEventListener("click", (e) => {
+  const h4 = e.target.closest(".info-card h4");
+  if (!h4) return;
+  h4.closest(".info-card").classList.toggle("collapsed");
+});
 
 window.addEventListener("DOMContentLoaded", init);
 
