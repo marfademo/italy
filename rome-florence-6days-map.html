@@ -1472,36 +1472,6 @@ function dayTimeline(d){
     <tr><td>3</td><td>La Taverna di San Giuseppe <span class="tag blue">小红书推荐</span></td><td><span class="star">4.6★</span></td><td>€30–80</td><td>Via Giovanni Duprè 132</td><td>Tomato flan、Pici 野猪肉酱 + 牛肝菌、松露菲力牛排、黑松露手工卷管面、大蒜辣椒橄榄油炒菠菜</td></tr>
     <tr><td>4</td><td>Osteria La Sosta di Violante <span class="tag blue">小红书推荐</span></td><td><span class="star">4.7★</span></td><td>€20–30</td><td>Via Pantaneto 115</td><td>手工粗面配刀切猪颈肉老式肉酱、千层面、T骨牛排、大管面配琴塔猪脸肉、烤猪颈肉、提拉米苏</td></tr></table></div>`,
     listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨（酒店）", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord 入口 → Firenze Sud 出口" }),
-    `<!-- 必备清单 -->
-    <div class="info-card" style="margin-top:18px;"><h4>🎒 必备（缺一不可）</h4>
-    <ul><li>🪪 <b>IDP 国际驾照</b>（意大利警察查得严，无 IDP 最高罚款 €2000）</li>
-    <li>🛂 <b>护照</b>（租车 + 退税）</li>
-    <li>💳 <b>驾驶员本人信用卡</b>（租车不接受他人卡）</li>
-    <li>📄 <b>租车合同 + 提车单</b></li>
-    <li>💶 <b>欧元现金 €80–100</b>（小镇自动机不收 €50 纸币，多备 €10/€20 和硬币）</li>
-    <li>🧥 薄羽绒或抓绒（Pienza 14°C / 蒙塔尔奇诺 16°C / 锡耶纳晚间 10°C）</li>
-    <li>🕶️ 太阳镜（10 月托斯卡纳日晒仍强）</li>
-    <li>🧴 防晒霜</li></ul></div>`,
-    `<!-- 驾驶规则 -->
-    <div class="info-card"><h4>🚗 驾驶规则速查</h4>
-    <table><tr><th>规则</th><th>说明</th></tr>
-    <tr><td>限速</td><td>高速 130 km/h / 国道 90 km/h / 城镇 50 km/h</td></tr>
-    <tr><td>ZTL</td><td>古城核心区限行，标志 "Zona Traffico Limitato"，切勿驶入，罚款 €80–100</td></tr>
-    <tr><td>测速</td><td>固定摄像头 + 区间测速，注意 "Controllo Elettronico della Velocità" 标志</td></tr>
-    <tr><td>加油</td><td>柴油 = Diesel / Gasolio（黑色），汽油 = Benzina / Senza Piombo（绿色），柴油便宜 15%</td></tr>
-    <tr><td>加油支付</td><td>部分乡村自助加油站只收硬币/纸币，不刷信用卡，备现金</td></tr>
-    <tr><td>环岛</td><td>环岛内车辆有优先权，进环岛减速让行</td></tr>
-    <tr><td>高速公路</td><td>入口取票、出口交费（现金/卡/Viacard），Telepass 车道是黄色标志，不要走</td></tr>
-    <tr><td>紧急电话</td><td>112（全欧通用）</td></tr></table></div>`,
-    `<!-- 备选方案 -->
-    <div class="info-card"><h4>🌧️ 备选方案（雨天 / 突发情况）</h4>
-    <table><tr><th>情况</th><th>应对</th></tr>
-    <tr><td>全天大雨</td><td>Pienza 芝士店（室内）→ 蒙塔尔奇诺 Enoteca（室内品酒）→ 锡耶纳 Santa Maria della Scala 博物馆群（大型室内博物馆，可逛 2h），放弃孤独教堂和田园外拍</td></tr>
-    <tr><td>Pienza 时间超了</td><td>砍孤独教堂（直接从 Pienza 去蒙塔尔奇诺，省 30 min），Val d'Orcia 全景在 Pienza Belvedere 已经拍了</td></tr>
-    <tr><td>蒙塔尔奇诺超了</td><td>不减，直接砍 Torre del Mangia 登顶和 San Domenico，锡耶纳只留 Duomo + Campo + 晚餐</td></tr>
-    <tr><td>锡耶纳时间不够</td><td>最坏情况：砍 Duomo 内部只拍外立面（省 30 min），但 Piccolomini Library 湿壁画放弃会很可惜</td></tr>
-    <tr><td>堵车 / 修路</td><td>Google Maps 实时路况，SS146 和 SS223 有替代小道</td></tr>
-    <tr><td>车出问题</td><td>租车行 24h 救援电话存手机，意大利高速 S.O.S. 紧急电话柱（橙色）</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 8–12：空白页 =====
@@ -2190,23 +2160,27 @@ const DEFAULT_TIPS = {
     [
       `<span class="tipicon">🪪</span>IDP 国际驾照（必须，无 IDP 最高罚 €2000）`,
       `<span class="tipicon">🛂</span>护照 + 租车合同 + 提车单 + 本人信用卡`,
-      `<span class="tipicon">💶</span>€80–100 现金（多备 €10/€20 和硬币）`,
-      `<span class="tipicon">🧥</span>薄羽绒/抓绒（Pienza 14°C / 锡耶纳晚间 10°C）`,
-      `<span class="tipicon">🕶️</span>太阳镜 + 防晒霜（10 月日晒仍强）`,
+      `<span class="tipicon">💶</span>€80–100 现金（小镇自动机不收 €50，多备 €10/€20 和硬币）`,
+      `<span class="tipicon">🧥</span>薄羽绒/抓绒（Pienza 14°C / 蒙塔尔奇诺 16°C / 锡耶纳晚间 10°C）`,
+      `<span class="tipicon">🕶️</span>太阳镜 + 防晒霜（10 月托斯卡纳日晒仍强）`,
     ],
     [
       `<b>限速</b>：高速 130 / 国道 90 / 城镇 50 km/h`,
-      `<b>ZTL</b>：古城核心区限行，切勿驶入，罚 €80–100`,
-      `<b>加油</b>：柴油 Diesel（黑色）/ 汽油 Benzina（绿色），柴油便宜 15%`,
+      `<b>ZTL</b>：古城核心区限行标志 "Zona Traffico Limitato"，切勿驶入，罚 €80–100`,
+      `<b>测速</b>：固定摄像头 + 区间测速，注意 "Controllo Elettronico della Velocità" 标志`,
+      `<b>加油</b>：柴油 Diesel（黑色）/ 汽油 Benzina（绿色），柴油便宜 15%，乡村自助站只收硬币/纸币`,
       `<b>高速</b>：入口取票出口交费，勿走 Telepass 黄色车道`,
-      `<b>紧急</b>：112（全欧通用）`,
+      `<b>环岛</b>：环岛内车辆有优先权，进岛减速让行`,
+      `<b>紧急</b>：112（全欧通用），租车行 24h 救援电话存手机`,
     ],
     [
       `⏰ 8:00 取车，21:15 回到酒店`,
-      `🌧️ 雨天备选：芝士店 → Enoteca 品酒 → 锡耶纳博物馆`,
-      `🍷 Brunello 2018 经典年份 €40–60，退税 22%`,
-      `🧀 Pecorino Semistagionato + Stagionato 真空包装可带回国`,
-      `📸 孤独教堂 SP146 路肩机位 + 上坡段回头拍`,
+      `🌧️ 全天大雨：Pienza 芝士店 → Enoteca 品酒 → 锡耶纳博物馆群（室内，放弃孤独教堂和田园外拍）`,
+      `⏱️ Pienza 超时：砍孤独教堂（省 30 min），全景在 Belvedere 已拍`,
+      `🍷 Montalcino 超时：砍 Torre del Mangia 登顶和 San Domenico，只留 Duomo+Campo+晚餐`,
+      `⏰ Siena 不够：最坏砍 Duomo 内部只拍外立面（省 30 min）`,
+      `🚗 堵车/修路：Google Maps 实时路况，SS146/SS223 有替代小道`,
+      `🆘 车出问题：高速 S.O.S. 紧急电话柱（橙色），租车行 24h 救援`,
     ],
   ],
   8: [[], [], []],
