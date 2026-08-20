@@ -1628,7 +1628,7 @@ function buildLayerFromRows(d){
   const placeRows = []; // { row, name, lat, lng, kind }
   rows.forEach(row => {
     const type = row.dataset.type;
-    if (type === "transport") return; // 交通不添加标记点
+    if (type === "transport" || type === "meal") return; // 交通和餐饮不添加标记点
     const nameEl = row.querySelector(".name-text");
     const name = nameEl ? nameEl.textContent.trim() : "";
     if (!name || name === "新条目" || isPendingName(name)) return;
@@ -2271,7 +2271,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v6";
+const STORAGE_KEY = "rome-florence-6days-v7";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
