@@ -591,6 +591,10 @@
 .info-card th{background:#fff5e6;color:#7a4a00;font-weight:800;padding:5px 7px;text-align:left;border-bottom:2px solid #f3d9a4;white-space:nowrap;}
 .info-card td{padding:4px 7px;border-bottom:1px solid #faf0dc;vertical-align:top;}
 .info-card td:last-child{color:#666;font-size:10px;}
+.info-card .meal-table td:last-child{color:inherit;font-size:inherit;}
+.info-card .meal-table .col-narrow{width:1%;white-space:nowrap;}
+.info-card .meal-table .col-dish{min-width:200px;}
+.info-card .meal-table .col-note{width:1%;white-space:nowrap;}
 .info-card .tag{display:inline-block;background:var(--pink-soft);color:var(--pink-deep);font-size:10px;padding:1px 6px;border-radius:4px;margin:1px 2px;white-space:nowrap;}
 .info-card .tag.green{background:#e6f4ea;color:#2d6a4f;}
 .info-card .tag.blue{background:#e6f0ff;color:#1e40af;}
@@ -599,8 +603,8 @@
 .info-card ul li{margin:2px 0;}
 .info-card .highlight{background:#fff8e1;border-left:3px solid #f0c040;padding:4px 8px;margin:6px 0;border-radius:0 6px 6px 0;font-weight:700;}
 .info-card .warn{background:#fff0f0;border-left:3px solid #e63475;padding:4px 8px;margin:6px 0;border-radius:0 6px 6px 0;color:#b91c1c;font-weight:700;}
-.info-card .gmaps-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#e8f0ff;border:1px solid #b8d4fe;border-radius:6px;text-decoration:none;font-size:14px;line-height:1;transition:background .15s;}
-.info-card .gmaps-btn:hover{background:#d0e2ff;border-color:#8ab4f8;}
+.info-card .gmaps-btn{display:inline-flex;align-items:center;gap:3px;margin-top:3px;color:#2563eb;text-decoration:none;font-size:11px;font-weight:600;white-space:nowrap;transition:opacity .15s;}
+.info-card .gmaps-btn:hover{opacity:.7;}
 
   @media (max-width:900px){
     .day-panel.active{grid-template-columns:1fr;}
@@ -1417,10 +1421,10 @@ function dayTimeline(d){
     listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 皮恩扎", action:"Trattoria La Buca delle Fate (4.5★ €35–45) / Sette di Vino (4.8★ 米其林推荐 €40–55) / La Bottega di Pienza (4.2★ €20–30)", note:"Pici al Tartufo · Cinta Senese 烤猪肉 · Pecorino 拼盘 · Sette di Vino 须预约" }),
     `<!-- 皮恩扎午餐选择 -->
     <div class="info-card"><h4>🍝 皮恩扎午餐 · 3 选 1</h4>
-    <table><tr><th>#</th><th>餐厅</th><th>评分</th><th>人均</th><th>营业</th><th>必点</th><th>备注</th><th>导航</th></tr>
-    <tr><td>1</td><td>Trattoria La Buca delle Fate</td><td><span class="star">4.5★</span></td><td>€35–45</td><td>12:30–14:30</td><td>Pici al Tartufo（黑松露手擀面）、Cinta Senese alla Griglia（烤猪肉）、Pecorino 拼盘</td><td>靠窗座位看 Val d'Orcia 丘陵</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+La+Buca+delle+Fate+Pienza" target="_blank" title="Google Maps 导航">📍</a></td></tr>
-    <tr><td>2</td><td>Sette di Vino <span class="tag green">米其林推荐</span></td><td><span class="star">4.8★</span></td><td>€40–55</td><td>12:30–14:30</td><td>Tagliere di Salumi e Formaggi（冷肉芝士拼盘）、Zuppa di Fagioli（白豆汤）</td><td><span class="warn">必须预约！</span>settedivino@gmail.com / +39 0578 749 092</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Sette+di+Vino+Pienza" target="_blank" title="Google Maps 导航">📍</a></td></tr>
-    <tr><td>3</td><td>La Bottega di Pienza <span class="tag blue">小红书推荐</span></td><td><span class="star">4.2★</span></td><td>€20–30</td><td>12:00–14:30</td><td>菜式同选择 1</td><td>性价比之选</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Bottega+di+Pienza" target="_blank" title="Google Maps 导航">📍</a></td></tr></table></div>`,
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-narrow">营业</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Trattoria La Buca delle Fate</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+La+Buca+delle+Fate+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€35–45</td><td>12:30–14:30</td><td>Pici al Tartufo（黑松露手擀面）、Cinta Senese alla Griglia（烤猪肉）、Pecorino 拼盘</td><td>靠窗座位看 Val d'Orcia 丘陵</td></tr>
+    <tr><td>2</td><td><div>Sette di Vino <span class="tag green">米其林推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Sette+di+Vino+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.8★</span></td><td>€40–55</td><td>12:30–14:30</td><td>Tagliere di Salumi e Formaggi（冷肉芝士拼盘）、Zuppa di Fagioli（白豆汤）</td><td><span class="warn">必须预约！</span>settedivino@gmail.com / +39 0578 749 092</td></tr>
+    <tr><td>3</td><td><div>La Bottega di Pienza <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Bottega+di+Pienza" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€20–30</td><td>12:00–14:30</td><td>菜式同选择 1</td><td>性价比之选</td></tr></table></div>`,
     listRowHTML({ type:"transport", icon:"🚗", name:"皮恩扎 → 孤独教堂", duration:"10min", action:"SP146 西行", note:"路边白线停车 · 勿停教堂门口私路（会被罚款）" }),
     listRowHTML({ type:"activity", icon:"2", name:"孤独教堂 Cappella della Madonna di Vitaleta", time:"14:10 - 14:40", action:"托斯卡纳明信片经典机位", note:"机位1: SP146 路肩教堂在右侧田野 · 机位2: SP146 上坡段回头拍" }),
     listRowHTML({ type:"transport", icon:"🚗", name:"孤独教堂 → 蒙塔尔奇诺", duration:"20min", action:"SP146 东行 → SP14 南下", note:"停 Parcheggio Fortezza（城外免费）· 步行 8min 到镇中心" }),
@@ -1469,11 +1473,11 @@ function dayTimeline(d){
     listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 锡耶纳", time:"19:00 - 20:00", action:"Osteria il Carroccio (4.6★ €25–35) / Trattoria Papei (4.2★ €20–30) / La Taverna di San Giuseppe (4.6★ €30–80) / Osteria La Sosta di Violante (4.7★ €20–30)", note:"Pici al Cinghiale 野猪肉面 · Ribollita 蔬菜面包汤 · 松露菲力牛排 · 提拉米苏" }),
     `<!-- 锡耶纳晚餐选择 -->
     <div class="info-card"><h4>🍷 锡耶纳晚餐 · 4 选 1</h4>
-    <table><tr><th>#</th><th>餐厅</th><th>评分</th><th>人均</th><th>地址</th><th>特色</th><th>导航</th></tr>
-    <tr><td>1</td><td>Osteria il Carroccio</td><td><span class="star">4.6★</span></td><td>€25–35</td><td>Via del Carroccio 7</td><td>Pici al Cinghiale（野猪肉手擀面）、Ribollita（蔬菜面包汤）、Crostoni al Pomodoro。配 Chianti Classico €5–8/杯。10 月淡季不用预约</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+il+Carroccio+Siena+Via+del+Carroccio+7" target="_blank" title="Google Maps 导航">📍</a></td></tr>
-    <tr><td>2</td><td>Trattoria Papei</td><td><span class="star">4.2★</span></td><td>€20–30</td><td>Piazza del Mercato 6</td><td>Pici all'aglione（蒜香番茄手擀面）、Tagliata di Manzo（烤牛肉片）</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Papei+Siena+Piazza+del+Mercato+6" target="_blank" title="Google Maps 导航">📍</a></td></tr>
-    <tr><td>3</td><td>La Taverna di San Giuseppe <span class="tag blue">小红书推荐</span></td><td><span class="star">4.6★</span></td><td>€30–80</td><td>Via Giovanni Duprè 132</td><td>Tomato flan、Pici 野猪肉酱 + 牛肝菌、松露菲力牛排、黑松露手工卷管面、大蒜辣椒橄榄油炒菠菜</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Taverna+di+San+Giuseppe+Siena+Via+Giovanni+Dupre+132" target="_blank" title="Google Maps 导航">📍</a></td></tr>
-    <tr><td>4</td><td>Osteria La Sosta di Violante <span class="tag blue">小红书推荐</span></td><td><span class="star">4.7★</span></td><td>€20–30</td><td>Via Pantaneto 115</td><td>手工粗面配刀切猪颈肉老式肉酱、千层面、T骨牛排、大管面配琴塔猪脸肉、烤猪颈肉、提拉米苏</td><td><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+La+Sosta+di+Violante+Siena+Via+Pantaneto+115" target="_blank" title="Google Maps 导航">📍</a></td></tr></table></div>`,
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-narrow">地址</th><th class="col-dish">特色</th></tr>
+    <tr><td>1</td><td><div>Osteria il Carroccio</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+il+Carroccio+Siena+Via+del+Carroccio+7" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€25–35</td><td>Via del Carroccio 7</td><td>Pici al Cinghiale（野猪肉手擀面）、Ribollita（蔬菜面包汤）、Crostoni al Pomodoro。配 Chianti Classico €5–8/杯。10 月淡季不用预约</td></tr>
+    <tr><td>2</td><td><div>Trattoria Papei</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Papei+Siena+Piazza+del+Mercato+6" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€20–30</td><td>Piazza del Mercato 6</td><td>Pici all'aglione（蒜香番茄手擀面）、Tagliata di Manzo（烤牛肉片）</td></tr>
+    <tr><td>3</td><td><div>La Taverna di San Giuseppe <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Taverna+di+San+Giuseppe+Siena+Via+Giovanni+Dupre+132" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€30–80</td><td>Via Giovanni Duprè 132</td><td>Tomato flan、Pici 野猪肉酱 + 牛肝菌、松露菲力牛排、黑松露手工卷管面、大蒜辣椒橄榄油炒菠菜</td></tr>
+    <tr><td>4</td><td><div>Osteria La Sosta di Violante <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+La+Sosta+di+Violante+Siena+Via+Pantaneto+115" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€20–30</td><td>Via Pantaneto 115</td><td>手工粗面配刀切猪颈肉老式肉酱、千层面、T骨牛排、大管面配琴塔猪脸肉、烤猪颈肉、提拉米苏</td></tr></table></div>`,
     listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨（酒店）", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord 入口 → Firenze Sud 出口" }),
   ].join("");
 
