@@ -625,7 +625,7 @@
     <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🚄 佛罗伦萨初印象</span><span class="tab-sub">圣母百花 → 共和广场</span></button>
     <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">🌅 阿诺河 + 日落</span><span class="tab-sub">市场 / 老桥 / 米开朗琪罗</span></button>
     <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 乌菲兹 · 老桥</span></button>
-    <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">🚗 托斯卡纳自驾</span><span class="tab-sub">皮恩扎 → 蒙塔尔奇诺 → 锡耶纳</span></button>
     <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="10"><span class="tab-num">DAY 10 · 10.10</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
@@ -823,19 +823,30 @@ const DAYS = {
     timeline: dayTimeline(6),
   },
 
-  /* ---------- Day 7–12 空白页（待规划） ---------- */
+  /* ---------- Day 7 托斯卡纳自驾 ---------- */
   7: {
-    isTransit: true,
+    hotel: { name: "酒店 · S.M.Novella 火车站附近", lat: 43.7760, lng: 11.2486 },
+    center: [43.2000, 11.4500],
+    zoom: 10,
+    bounds: [[42.9500,11.1000],[43.5000,11.8000]],
+    title: "托斯卡纳自驾",
     badge: "DAY 7",
-    title: "待规划",
-    date: "10.7",
-    line: "📝 点击编辑按钮添加行程",
-    hotel: { name: "", lat: 0, lng: 0 },
-    center: [0, 0],
-    zoom: 1,
-    bounds: [[-90,-180],[90,180]],
-    nodes: [],
-    route: [],
+    date: "10.7 · TOSCANA",
+    line: "🚗 佛罗伦萨 → 皮恩扎 → 蒙塔尔奇诺 → 锡耶纳 → 佛罗伦萨",
+    nodes: [
+      { num: null, kind: "hotel", name: "佛罗伦萨火车站", lat: 43.7760, lng: 11.2486, hint: "8:00 取车" },
+      { num: 1, kind: "main", name: "皮恩扎 Pienza", lat: 43.0786, lng: 11.6767, hint: "11:50–14:00", pills: ["🚗 1h50m","田园全景"] },
+      { num: 2, kind: "main", name: "孤独教堂 Cappella della Madonna di Vitaleta", lat: 43.0660, lng: 11.6330, hint: "14:10–14:40 · 明信片机位", pills: ["🚗 10min"] },
+      { num: 3, kind: "main", name: "蒙塔尔奇诺 Montalcino", lat: 43.0580, lng: 11.4890, hint: "15:00–16:00 · 品酒", pills: ["🚗 20min"] },
+      { num: 4, kind: "main", name: "锡耶纳 Siena", lat: 43.3186, lng: 11.3306, hint: "16:45–18:30 · 夕阳", pills: ["🚗 45min"] },
+      { num: null, kind: "dinner", name: "晚饭 · 锡耶纳", lat: 43.3180, lng: 11.3310, hint: "19:00–20:00" },
+    ],
+    route: [
+      { mode: "taxi", from: 0, to: 1 },
+      { mode: "taxi", from: 1, to: 2 },
+      { mode: "taxi", from: 2, to: 3 },
+      { mode: "taxi", from: 3, to: 4 },
+    ],
     timeline: dayTimeline(7),
   },
   8: {
@@ -1359,8 +1370,25 @@ function dayTimeline(d){
     listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"老桥附近" }),
   ].join("");
 
-  // ===== Day 7–12：空白页 =====
-  if (d===7 || d===8 || d===9 || d===10 || d===11 || d===12) return [
+  // ===== Day 7：托斯卡纳自驾 =====
+  if (d===7) return [
+    listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"佛罗伦萨 → 皮恩扎", duration:"1h50m", action:"A1 南行 → Bettolle/Valdichiana 出口 → SS146 景观道", note:"通行费€4.5 · 停 Parcheggio Pienza Sud" }),
+    listRowHTML({ type:"activity", icon:"1", name:"皮恩扎 Pienza", time:"11:50 - 14:00", action:"文艺复兴理想城市 · Val d'Orcia 全景", note:"Duomo 田园机位 · 城墙步道" }),
+    listRowHTML({ type:"activity", icon:"·", name:"Pecorino 芝士店 + 手工艺品街", action:"Bottega del Pecorino · La Bottega di Pienza", note:"免费试吃 · 真空包装可带回国" }),
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 皮恩扎", action:"Trattoria La Buca delle Fate / Sette di Vino", note:"Pici al Tartufo · Pecorino 拼盘" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"皮恩扎 → 孤独教堂", duration:"10min", action:"SP146 西行", note:"路边白线停车 · 勿停教堂门口" }),
+    listRowHTML({ type:"activity", icon:"2", name:"孤独教堂 Cappella della Madonna di Vitaleta", time:"14:10 - 14:40", action:"托斯卡纳明信片经典机位", note:"SP146 路肩拍 · 上坡段回头拍" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"孤独教堂 → 蒙塔尔奇诺", duration:"20min", action:"SP146 → SP14 南下", note:"停 Parcheggio Fortezza（免费）" }),
+    listRowHTML({ type:"activity", icon:"3", name:"蒙塔尔奇诺 Montalcino", time:"15:00 - 16:00", action:"Fortezza 城墙全景 · Enoteca 品酒", note:"Brunello 试喝免费 · 退税 22%" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"蒙塔尔奇诺 → 锡耶纳", duration:"45min", action:"SS223 / SR2 北上", note:"停 Parcheggio Il Campo · 避开 ZTL" }),
+    listRowHTML({ type:"activity", icon:"4", name:"锡耶纳 Siena", time:"16:45 - 18:30", action:"Piazza del Campo · Torre del Mangia · Duomo", note:"Opa Si Pass €13 · 夕阳赭红色广场" }),
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 锡耶纳", time:"19:00 - 20:00", action:"Osteria il Carroccio / Trattoria Papei", note:"Pici al Cinghiale · Ribollita" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord → Firenze Sud" }),
+  ].join("");
+
+  // ===== Day 8–12：空白页 =====
+  if (d===8 || d===9 || d===10 || d===11 || d===12) return [
     listRowHTML({ type:"activity", icon:"·", name:"新条目" }),
   ].join("");
 
@@ -2041,7 +2069,29 @@ const DEFAULT_TIPS = {
       `🎫 三个美术馆共约 €30`,
     ],
   ],
-  7: [[], [], []],
+  7: [
+    [
+      `<span class="tipicon">🪪</span>IDP 国际驾照（必须）`,
+      `<span class="tipicon">🛂</span>护照 + 租车合同 + 提车单`,
+      `<span class="tipicon">💳</span>驾驶员本人信用卡`,
+      `<span class="tipicon">💶</span>€80–100 现金（多备硬币）`,
+      `<span class="tipicon">🧥</span>薄羽绒/抓绒（晚间 10°C）`,
+    ],
+    [
+      `<b>限速</b>：高速 130 / 国道 90 / 城镇 50 km/h`,
+      `<b>ZTL</b>：古城核心区限行，切勿驶入，罚 €80–100`,
+      `<b>加油</b>：柴油 Diesel（黑色）/ 汽油 Benzina（绿色）`,
+      `<b>环岛</b>：环岛内车辆优先，进环岛减速让行`,
+      `<b>高速</b>：入口取票出口交费，勿走 Telepass 黄色车道`,
+    ],
+    [
+      `⏰ 8:00 出发，21:15 回到酒店`,
+      `🌧️ 雨天备选：Pienza 芝士店 → Enoteca 品酒 → 锡耶纳博物馆`,
+      `🍷 Brunello 买 2018 经典年份 €40–60`,
+      `🧀 Pecorino Semistagionato 真空包装可带回国`,
+      `📸 孤独教堂 SP146 路肩机位，上坡段回头拍`,
+    ],
+  ],
   8: [[], [], []],
   9: [[], [], []],
   10: [[], [], []],
