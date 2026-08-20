@@ -1081,7 +1081,7 @@ function listRowHTML({ type = "activity", icon = "·", name = "新条目",
           : `<div class="list-action" data-placeholder="活动内容">${action}</div>
              <div class="list-note" data-placeholder="备注">${note}</div>`}
       </div>
-      <div class="img-gallery"></div>
+      <div class="img-gallery" data-collapsed="1"></div>
       <button class="del-row" title="删除此条">✕</button>
       <span class="list-drag-handle" title="按住拖拽" draggable="true">≡</span>
     </div>`;
@@ -1198,7 +1198,7 @@ function changeRowType(row, newType){
   const oldDuration = row.querySelector(".list-transport-duration")?.textContent || "";
   const oldTime = row.querySelector(".list-time")?.textContent || "";
   // 保留现有图片画廊
-  const oldGalleryHTML = row.querySelector(".img-gallery")?.outerHTML || '<div class="img-gallery"></div>';
+  const oldGalleryHTML = row.querySelector(".img-gallery")?.outerHTML || '<div class="img-gallery" data-collapsed="1"></div>';
 
   if (newType === "transport") {
     main.innerHTML = `
