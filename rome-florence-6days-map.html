@@ -870,6 +870,7 @@ const DAYS = {
       { mode: "taxi", from: 1, to: 2 },
       { mode: "taxi", from: 2, to: 3 },
       { mode: "taxi", from: 3, to: 4 },
+      { mode: "walk", from: 4, to: 5 },
     ],
     timeline: dayTimeline(7),
   },
@@ -1668,30 +1669,30 @@ function buildLayerFromRows(d){
     };
   });
 
-  // ③ 连线逻辑：相邻景点用线连接；判断中间是否有交通 list 决定线型
+  // ③ 连线逻辑：仅在两个地点之间有交通 list 时才连线，避免同一城镇内子景点间出现大量无意义连线
   const route = [];
   for (let i = 0; i < placeRows.length - 1; i++) {
-    const fromIdx = i;
-    const toIdx = i + 1;
-    // 检查两个地点之间夹着的交通 list
     const fromRow = placeRows[i].row;
     const toRow = placeRows[i + 1].row;
-    // 在 rows 数组中找到 fromRow 和 toRow 之间的所有行
     const fromRowIndex = rows.indexOf(fromRow);
     const toRowIndex = rows.indexOf(toRow);
     const betweenRows = rows.slice(fromRowIndex + 1, toRowIndex);
     const transportBetween = betweenRows.filter(r => r.dataset.type === "transport");
 
-    // 判断交通样式：有打车相关关键词 → 实线绿色；否则步行虚线粉色
+    // 只有中间有交通行时才画线（表示两个地点之间有实际移动）
+    if (transportBetween.length === 0) continue;
+
+    const fromIdx = i;
+    const toIdx = i + 1;
+
+    // 判断交通样式：有打车/自驾相关关键词 → 实线绿色；否则步行虚线粉色
     let mode = "walk";
-    if (transportBetween.length > 0) {
-      const hasTaxi = transportBetween.some(r => {
-        const durEl = r.querySelector(".list-transport-duration");
-        const text = durEl ? durEl.textContent.trim() : "";
-        return /🚕|的士|taxi|自驾|car/i.test(text);
-      });
-      if (hasTaxi) mode = "taxi";
-    }
+    const hasDrive = transportBetween.some(r => {
+      const durEl = r.querySelector(".list-transport-duration");
+      const text = durEl ? durEl.textContent.trim() : "";
+      return /🚕|的士|taxi|自驾|car/i.test(text);
+    });
+    if (hasDrive) mode = "taxi";
 
     route.push({ mode, from: fromIdx, to: toIdx });
   }
