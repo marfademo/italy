@@ -3011,7 +3011,7 @@ function imgGalleryHTML(images = []){
   const addBoxHTML = editMode
     ? `<div class="img-add" tabindex="0" title="点击后复制图片粘贴上传">+ 添加图片</div><button class="img-refetch" type="button" title="重新从 Wikipedia 拉取图片">🔄 重拉</button>`
     : "";
-  return `<div class="img-gallery" data-collapsed="${images.length > 1 ? "1" : "0"}">${thumbs}${addBoxHTML}</div>`;
+  return `<div class="img-gallery" data-collapsed="1">${thumbs}${addBoxHTML}</div>`;
 }
 
 // 把空图片画廊附加到 list-row（如果还没有）
