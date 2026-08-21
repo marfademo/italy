@@ -613,16 +613,50 @@
 .info-card td img{display:block;max-width:120px;height:auto;border-radius:6px;}
 
   @media (max-width:900px){
-    .day-panel.active{grid-template-columns:1fr;}
+    /* ===== 手机端：去掉外层边框和 padding，充分利用屏幕宽度 ===== */
+    .page{padding:8px 6px 12px;border-radius:8px;border:none;box-shadow:none;}
+    .day-panel.active{grid-template-columns:1fr;gap:8px;padding:6px 0;border:none;border-radius:0;background:transparent;}
+    .day-panel .right-col{padding:6px 6px;border:none;border-radius:0;background:transparent;}
+    .day-panel h2{font-size:20px;margin:0 0 4px;}
+    .day-panel .date{font-size:12px;margin-bottom:4px;}
+    /* 手机端 tab 栏：缩小间距，去掉边框 */
+    .tabs{gap:3px;margin:0 0 8px;padding:3px;border:none;border-radius:0;background:transparent;}
+    .tab{padding:6px 8px;border-radius:6px;min-width:auto;flex:0 0 auto;border-width:1px;}
+    .tab .tab-num{font-size:10px;}
+    .tab .tab-title{font-size:12px;}
+    .tab .tab-sub{font-size:10px;}
+    .tab.active{box-shadow:none;}
+    /* 手机端 info-card：减少内边距 */
+    .info-card{padding:6px 6px;margin:4px 0;border-radius:6px;font-size:11px;}
+    .info-card h4{font-size:12px;margin:0 0 4px;}
+    .info-card table{font-size:10px;}
+    .info-card th{padding:3px 4px;white-space:normal;}
+    .info-card td{padding:2px 4px;}
+    /* 手机端 list-row：减少内边距 */
+    .list-row{padding:4px 4px;margin:2px 0;border-radius:6px;font-size:12px;}
+    body:not(.edit-mode) .list-row{gap:4px;}
+    .list-icon{width:24px;height:24px;font-size:11px;}
+    .list-name{font-size:12px;}
+    .list-time{font-size:11px;}
+    .list-note{font-size:10px;}
+    .list-action{font-size:10px;}
+    .info-card td img{max-width:60px;}
     /* ✅ 手机端地图高度随页面宽度动态缩放（提高比例到 0.7） */
-    .mapwrap{min-height:auto;height:calc(100vw * 0.7);max-height:none;z-index:20;}
-    .map{height:calc(100vw * 0.68);min-height:220px;max-height:none;z-index:20;}
+    .mapwrap{min-height:auto;height:calc(100vw * 0.7);max-height:none;z-index:20;padding:3px;border:none;border-radius:0;background:transparent;}
+    .map{height:calc(100vw * 0.68);min-height:220px;max-height:none;z-index:20;border-radius:6px;}
     header{flex-direction:column;align-items:flex-start;gap:10px;}
     h1{font-size:30px;}
     /* ✅ 手机端 list-row 浮窗降低 z-index，让地图在最上层 */
     .list-row{z-index:1;}
     /* ✅ 底部三个 panel 改为纵向堆叠，避免横向挤压 */
     .info{grid-template-columns:1fr !important;}
+    /* 地图图例 */
+    .map-legend{font-size:10px;gap:8px;padding:3px 6px;}
+    /* 按钮 */
+    .tool-btn{font-size:11px;padding:5px 10px;}
+    .gmaps-btn{font-size:10px;}
+    .transit-board{height:auto;padding:6px;}
+    .transit-board svg{max-width:100%;}
   }
 </style>
 </head>
@@ -2324,7 +2358,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v11";
+const STORAGE_KEY = "rome-florence-6days-v12";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
