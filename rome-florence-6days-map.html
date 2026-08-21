@@ -1351,7 +1351,7 @@ function dayTimeline(d){
   // ===== Day 1：跨境转场 =====
   if (d===1) return [
     listRowHTML({ type:"transport", icon:"🚌", name:"跨境巴士：皇岗口岸 → 香港机场", time:"6:30 - 7:30", action:"深圳过关到香港机场", note:"福田口岸过关 · 建议预留 2h" }),
-    listRowHTML({ type:"transport", icon:"✈️", name:"香港 → 伊斯坦布尔", time:"9:20 - 15:45", action:"航班 TK0171 · 土耳其航空 · 行李直达", note:"HKG (T1) → IST · 经济舱托运 30kg" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"香港 → 伊斯坦布尔", time:"9:20 - 15:45", action:"出发 9:20 HKG T1 · 落地 15:45 IST · TK0171 · 行李直达", note:"飞行约 11h · 经济舱托运 30kg" }),
     `<!-- 伊斯坦布尔转机 -->
     <div class="info-card"><h4>🕌 伊斯坦布尔机场 · 转机 6h 游玩指南</h4>
     <div class="highlight">⏱️ 转机窗口：15:45 落地 → 21:50 起飞 = 6h05，刚好够用</div>
@@ -1380,7 +1380,7 @@ function dayTimeline(d){
     <tr><td>5</td><td>沿途车览</td><td>—</td><td>君士坦丁堡城墙 + 金角湾 + 加拉塔桥</td></tr></table>
     <div style="font-size:10px;color:#888;margin-top:4px;">具体路线和景点顺序以当天导游安排为准，出发前 3 天可在土航官网确认。</div></div>`,
     listRowHTML({ type:"activity", icon:"·", name:"伊斯坦布尔 IST 转机", time:"15:45 - 21:50", action:"转机区不需签证 · 休息 / 吃饭 / 购物", note:"IGA 休息室 / Touristanbul 城市游（需签证）" }),
-    listRowHTML({ type:"transport", icon:"✈️", name:"伊斯坦布尔 → 罗马", time:"21:50 - 23:35", action:"航班 TK1361 · 土耳其航空", note:"IST → FCO (T3) · 飞行约 2h45m" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"伊斯坦布尔 → 罗马", time:"21:50 - 23:35", action:"出发 21:50 IST · 落地 23:35 FCO T3 · TK1361", note:"飞行约 2h45m" }),
     `<!-- 罗马机场到酒店指南 -->
     <div class="info-card"><h4>🚕 罗马 FCO 机场 → 酒店 · 出租车指南</h4>
     <div class="highlight">💡 FCO → 罗马市中心（含 Prati/Vaticano 区）固定费率 €50，含行李、不跳表，深夜没有附加费</div>
@@ -2405,7 +2405,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v13";
+const STORAGE_KEY = "rome-florence-6days-v14";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
