@@ -783,23 +783,22 @@ const DAYS = {
     title: "罗马古迹串游",
     badge: "DAY 3",
     date: "10.3 · ROMA",
-    line: "🏛️ 万神殿 → 许愿池 → 古罗马 → 斗兽场 · 打车 + 步行结合",
+    line: "🏛️ 万神殿 → 圣依纳爵堂 → 许愿池 → 古罗马 → 斗兽场 · 打车 + 步行结合",
     nodes: [
       { num: null, kind: "hotel", name: "酒店 · Via Vespasiano, 12 (PRATI)", lat: 41.9066, lng: 12.4566, hint: "出发起点" },
-      { num: 1, kind: "main", name: "万神殿 Pantheon", lat: 41.8986, lng: 12.4769, hint: "12:00–13:00", pills: ["🚖 18min","9:00–19:00","18:45停售"] },
-      { num: 2, kind: "main", name: "圣依纳爵堂", lat: 41.8987, lng: 12.4804, hint: "13:00–14:00 · 天顶壁画", pills: ["🚶 7min"] },
-      { num: null, kind: "view", name: "纳沃纳广场（可选）", lat: 41.8991, lng: 12.4731, hint: "无门票" },
-      { num: 3, kind: "main", name: "特雷维喷泉 / 许愿池", lat: 41.9009, lng: 12.4833, hint: "15:30–16:10", pills: ["🚶 8min"] },
-      { num: null, kind: "view", name: "西班牙广场（可选）", lat: 41.9056, lng: 12.4823, hint: "罗马假日取景地" },
-      { num: 4, kind: "main", name: "古罗马广场 Foro Romano", lat: 41.8925, lng: 12.4853, hint: "16:10–17:30 · 不进场", pills: ["🚖 20min / 🚶 15min","8:30–19:15","18:15停售"] },
-      { num: 5, kind: "main", name: "斗兽场 Colosseo", lat: 41.8902, lng: 12.4922, hint: "17:30–18:10 · 不进场", pills: ["🚶 1min","18:15停售"] },
-      { num: null, kind: "dinner", name: "晚饭 · MONTI 区", lat: 41.8948, lng: 12.4926, hint: "Monti 区餐厅" },
+      { num: 1, kind: "main", name: "万神殿 Pantheon", lat: 41.8986, lng: 12.4769, hint: "13:30–14:30", pills: ["🚕 18min · €12–15","€5 · 提前买票"] },
+      { num: 2, kind: "main", name: "圣依纳爵堂", lat: 41.8987, lng: 12.4804, hint: "14:40–15:20 · 免费", pills: ["🚶 10min","天顶透视画"] },
+      { num: 3, kind: "main", name: "特雷维喷泉 / 许愿池", lat: 41.9009, lng: 12.4833, hint: "15:30–16:10", pills: ["🚶 10min","投币许愿"] },
+      { num: 4, kind: "main", name: "古罗马广场 Foro Romano（外观）", lat: 41.8925, lng: 12.4853, hint: "16:30–17:10 · 不进", pills: ["🚶 25min 或 🚕 10min","Campidoglio 俯瞰"] },
+      { num: 5, kind: "main", name: "斗兽场 Colosseo（外观）", lat: 41.8902, lng: 12.4922, hint: "17:10–17:50 · 不进", pills: ["🚶","黄金光线"] },
+      { num: null, kind: "dinner", name: "晚餐 · MONTI 区", lat: 41.8948, lng: 12.4926, hint: "18:00–19:30 · Monti 区餐厅" },
+      { num: null, kind: "sunset", name: "斗兽场夜景", lat: 41.8902, lng: 12.4922, hint: "20:30 · 夜景亮灯", pills: ["🌃 免费"] },
     ],
     route: [
       { mode: "taxi", from: 0, to: 1 },
       { mode: "walk", from: 1, to: 2 },
-      { mode: "walk", from: 2, to: 4 },
-      { mode: "taxi", from: 4, to: 5 },
+      { mode: "walk", from: 2, to: 3 },
+      { mode: "walk", from: 4, to: 5 },
     ],
     timeline: dayTimeline(3),
   },
@@ -1475,19 +1474,102 @@ function dayTimeline(d){
 
   // ===== Day 3：罗马古迹串游 =====
   if (d===3) return [
-    listRowHTML({ type:"transport", icon:"🚕", name:"酒店 → 万神殿", duration:"18min" }),
-    listRowHTML({ type:"activity", icon:"1", name:"万神殿 Pantheon", time:"12:00 - 13:00", action:"免费 · 拉斐尔之墓", note:"9:00–19:00 · 18:45 停售" }),
-    listRowHTML({ type:"activity", icon:"2", name:"圣依纳爵堂", time:"13:00 - 14:00", action:"天顶壁画" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午饭", action:"万神殿附近" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"特雷维喷泉 / 许愿池", duration:"8min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"特雷维喷泉 / 许愿池", time:"15:30 - 16:10", action:"冰淇淋 · 喝咖啡 · 拍照" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"西班牙广场", duration:"15min" }),
-    listRowHTML({ type:"activity", icon:"·", name:"西班牙广场（可选）", action:"罗马假日取景地 · 不顺路" }),
-    listRowHTML({ type:"transport", icon:"🚕", name:"西班牙广场 → 古罗马广场", duration:"20min" }),
-    listRowHTML({ type:"activity", icon:"4", name:"古罗马广场 Foro Romano", time:"16:10 - 17:30", action:"不进 · 外景拍照", note:"8:30–19:15 · 18:15 停售" }),
-    listRowHTML({ type:"activity", icon:"5", name:"斗兽场 Colosseo", time:"17:30 - 18:10", action:"不进 · 外景拍照", note:"8:30–19:15 · 18:15 停售" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭 · Monti 区", action:"Monti 街区餐厅" }),
-    listRowHTML({ type:"activity", icon:"·", name:"斗兽场拍夜景", time:"20:30 - 21:30", action:"夜景黄金时段" }),
+    listRowHTML({ type:"transport", icon:"🚕", name:"酒店 → 万神殿区域", time:"12:00 - 12:30", action:"打车约 €12–15", note:"Via Vespasiano → 万神殿 · 约 18min" }),
+    `<!-- 午餐推荐 -->
+    <div class="info-card"><h4>🍝 午餐 · 万神殿附近 · 4 选 1</h4>
+    <table class="meal-table"><tr><th>#</th><th>餐厅</th><th>地址</th><th class="col-narrow">人均</th><th>必点</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Armando al Pantheon（米其林指南，首选）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Armando+al+Pantheon+Salita+dei+Crescenzi+31+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Salita dei Crescenzi 31（万神殿旁 30 米）</td><td>€35–50</td><td>Cacio e Pepe（奶酪黑胡椒意面）、Amatriciana（番茄猪脸肉意面）、Carciofo alla Giudia（犹太式炸洋蓟，10 月正当季）</td><td>1961 年开业，Gargioli 家族三代经营。必须提前 1–2 周电话预约（+39 06 6880 3034），周六中午 13:00 后大概率没位</td></tr>
+    <tr><td>2</td><td><div>Osteria del Sostegno</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+del+Sostegno+Via+delle+Colonnelle+5+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via delle Colonnelle 5（万神殿步行 3 分钟）</td><td>€25–35</td><td>Carbonara（培根蛋酱意面）、Saltimbocca alla Romana（罗马式煎小牛肉）</td><td>藏在巷子里，游客少，周六中午大概率有座</td></tr>
+    <tr><td>3</td><td><div>Cantina e Cucina</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Cantina+e+Cucina+Via+del+Governo+Vecchio+87+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via del Governo Vecchio 87（纳沃纳广场附近，万神殿步行 8 分钟）</td><td>€20–30</td><td>Supplì（炸饭团）、Pizza Margherita、Tiramisù</td><td>轻松热闹的装修，适合不想太正式的午餐</td></tr>
+    <tr><td>4</td><td><div>Pietro al Pantheon <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pietro+al+Pantheon+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>万神殿附近</td><td>€20–30</td><td>番茄炖牛膝、鲜菌蘑菇烩饭、黑松露意面</td><td>小红书推荐</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 万神殿附近", time:"12:30 - 13:30", action:"Armando al Pantheon / Osteria del Sostegno / Cantina e Cucina / Pietro al Pantheon", note:"建议 12:30 前到 · Armando 必须提前预约" }),
+    listRowHTML({ type:"activity", icon:"1", name:"万神殿 Pantheon", time:"13:30 - 14:30", action:"穹顶天窗 · 拉斐尔墓 · 维托里奥·埃马努埃莱二世墓", note:"€5 · 提前官网买票 · 周六现场排队 20–30 min" }),
+    `<!-- 万神殿看点 -->
+    <div class="info-card"><h4>🏛️ 万神殿 Pantheon · 看点 & 拍照指南</h4>
+    <div class="highlight">💡 万神殿是古罗马保存最完好的建筑（公元 126 年建成），2000 年来一直在使用——最初是罗马神庙，现在是天主教堂。</div>
+    <table class="meal-table"><tr><th class="col-narrow">时长</th><th>看点</th><th>说明</th></tr>
+    <tr><td>10 min</td><td><b>穹顶 + 天窗（Oculus）</b></td><td>直径 43.3 米，世界上最大的无钢筋混凝土穹顶（直到 1913 年才被超越）。中央天窗直径 9 米，是殿内唯一的自然光源。天窗正下方地面上有排水孔——下雨时雨水会直接落进来</td></tr>
+    <tr><td>5 min</td><td><b>拉斐尔墓</b></td><td>入口左侧第三个壁龛，大理石石棺上刻着 "Ille hic est Raphael"（这里躺着拉斐尔）。上面是他学生洛伦泽托雕刻的圣母像</td></tr>
+    <tr><td>5 min</td><td><b>维托里奥·埃马努埃莱二世墓</b></td><td>意大利统一后第一位国王的墓，在拉斐尔墓对面</td></tr>
+    <tr><td>10 min</td><td><b>广场 Piazza della Rotonda</b></td><td>万神殿正前方的广场，中央有埃及方尖碑 + 喷泉。站在广场对角线拍万神殿正立面 + 方尖碑</td></tr>
+    <tr><td>10 min</td><td><b>内部环顾</b></td><td>七座壁龛（原为罗马诸神，现为天主教圣人），彩色大理石地板（公元 2 世纪原物）</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">📷 拍照技巧</div>
+    <table><tr><th>技巧</th><th>说明</th></tr>
+    <tr><td>穹顶</td><td>站在正中央仰拍，天窗的光圈 + 穹顶凹陷的方格（coffer）层次感</td></tr>
+    <tr><td>正门</td><td>从广场南侧回拍，门廊的 16 根花岗岩柱（每根 60 吨，从埃及运来）</td></tr>
+    <tr><td>内部光线</td><td>10 月下午 13:30，天窗的光柱投射在内壁，光斑会随着时间移动——站在光柱里拍照</td></tr></table></div>`,
+    `<!-- 万神殿冰淇淋 -->
+    <div class="info-card"><h4>🍦 万神殿附近冰淇淋 · Gelateria della Palma</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>地址</td><td>Via della Maddalena 19（万神殿步行 2 分钟）</td></tr>
+    <tr><td>特色</td><td>150+ 种口味，Bacio（巧克力榛子）+ Fior di Latte（牛奶）是经典搭配</td></tr>
+    <tr><td>人均</td><td>€3–5</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"万神殿 → 圣依纳爵堂", duration:"10min", note:"步行 400 米" }),
+    listRowHTML({ type:"activity", icon:"2", name:"圣依纳爵堂", time:"14:40 - 15:20", action:"天顶透视画 · 假穹顶 · 镜子 · 圣依纳爵墓", note:"免费 · 不需预约 · 直接进" }),
+    `<!-- 圣依纳爵堂 -->
+    <div class="info-card"><h4>⛪ 圣依纳爵堂 · 看点</h4>
+    <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th></tr>
+    <tr><td><b>⭐ 天顶透视画《圣依纳爵升天》</b></td><td>教堂中殿天花板</td><td>平顶天花板上画出了一个假的穹顶和天空，圣依纳爵在云层中升入天堂，四大洲的化身在四角注视。站在中央大理石圆盘（地面标记）上仰头看，透视效果最完美</td></tr>
+    <tr><td><b>⭐ 假穹顶（Fake Dome）</b></td><td>十字交叉处上方</td><td>原本应该建穹顶的位置，Pozzo 画了一个以假乱真的穹顶——实际是平的画布，但从正下方看完全是立体的穹顶</td></tr>
+    <tr><td><b>镜子</b></td><td>中殿中央</td><td>地面放置了一面大镜子，不用仰头就能看到天顶画的反射，很多人排队看镜子</td></tr>
+    <tr><td><b>圣依纳爵墓</b></td><td>左侧耳堂</td><td>耶稣会创始人的墓，Lapis Lazuli 青金石镶嵌</td></tr>
+    <tr><td><b>Piazza di Sant'Ignazio</b></td><td>教堂外广场</td><td>18 世纪洛可可风格的弧形建筑围成的小广场，像剧院舞台布景，从广场角落拍全景</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">👀 怎么看</div>
+    <table><tr><th class="col-narrow">步骤</th><th>操作</th></tr>
+    <tr><td>1</td><td>进门先走到中央，找到地面上的大理石圆盘标记，站在上面仰头看天顶——这是 Pozzo 设计的"最佳观赏点"</td></tr>
+    <tr><td>2</td><td>走到十字交叉处看假穹顶——从侧面看你会发现它是平的，但回到中央看又是立体的</td></tr>
+    <tr><td>3</td><td>用镜子看天顶画的反射（不用仰头）</td></tr>
+    <tr><td>4</td><td>出教堂后拍广场的弧形建筑——这是罗马最精致的洛可可小广场</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣依纳爵堂 → 特雷维喷泉", duration:"10min", note:"步行 600 米" }),
+    listRowHTML({ type:"activity", icon:"3", name:"特雷维喷泉 Trevi Fountain", time:"15:30 - 16:10", action:"许愿池投币 · 冰淇淋 · 拍照", note:"旅行团 14:00–15:00 后开始减少 · 走到右侧台阶高处拍" }),
+    `<!-- 特雷维喷泉 -->
+    <div class="info-card"><h4>⛲ 特雷维喷泉 · 拍照指南</h4>
+    <div class="highlight">💡 投币仪式：背对喷泉，右手持硬币从左肩抛入——1 枚 = 重返罗马，2 枚 = 找到爱情，3 枚 = 结婚</div>
+    <table><tr><th>机位</th><th>说明</th></tr>
+    <tr><td><b>右侧台阶高处</b></td><td>不要挤到喷泉正前方——走到喷泉右侧的台阶上，从高处往下拍，人少视角好</td></tr>
+    <tr><td><b>左侧教堂台阶</b></td><td>Chiesa dei Santi Vincenzo e Anastasio 教堂门口的台阶上——第二个高处机位，能看到喷泉 + 人群的层次感</td></tr>
+    <tr><td><b>Via del Lavatore</b></td><td>喷泉旁的小巷，有几家 gelato 店和纪念品店</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">💡 周六下午人仍然多，如果人实在太多，先喝杯咖啡等 15 分钟，旅行团一波一波的，总有空隙。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"特雷维喷泉 → 古罗马广场", time:"16:10 - 16:30", action:"步行 25min 或打车 10min", note:"沿帝国大道 Via dei Fori Imperiali 步行 · 沿途可看帝国广场遗址" }),
+    listRowHTML({ type:"activity", icon:"4", name:"古罗马广场 Foro Romano（外观）", time:"16:30 - 17:10", action:"不进 · 免费观景台俯瞰全景", note:"Campidoglio 广场后侧 · 帝国大道 · 维托里亚诺露台" }),
+    `<!-- 古罗马广场外观 -->
+    <div class="info-card"><h4>🏛️ 古罗马广场 · 不进场的免费观景点</h4>
+    <div class="highlight">💡 不进古罗马广场（Parco Archeologico del Colosseo 联票 €18），但有 3 个免费观景点可以从不同角度俯瞰全景</div>
+    <table class="meal-table"><tr><th>观景点</th><th>位置</th><th>能看到什么</th><th>备注</th></tr>
+    <tr><td><b>⭐ Piazza del Campidoglio 后侧</b></td><td>米开朗基罗设计的广场，走到广场后方（Palazzo Senatorio 两侧的拱门）</td><td>古罗马广场全景——从高处俯瞰，Settimio Severo 凯旋门 + 元老院 + 维斯塔神庙 + 帕拉丁山，这是不进场的最高视角</td><td>免费，24 小时开放</td></tr>
+    <tr><td><b>⭐ Via dei Fori Imperiali（帝国大道）</b></td><td>从 Campidoglio 下来后沿帝国大道往斗兽场方向走</td><td>道路两侧就是古罗马广场和图拉真广场的遗址，图拉真柱 + 图拉真市场 + 奥古斯都广场</td><td>免费，在人行道上走</td></tr>
+    <tr><td><b>Terrazza delle Quadrighe</b></td><td>维托里亚诺纪念堂（Altare della Patria）的露台</td><td>古罗马广场 + 斗兽场 + 帕拉丁山，视野最开阔</td><td>免费，坐玻璃电梯到露台 €12（可选）</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"5", name:"斗兽场 Colosseo（外观）", time:"17:10 - 17:50", action:"不进 · 黄金光线拍照", note:"17:15–17:50 是外观黄金时间 · 夕阳从西南打在南侧外墙上" }),
+    `<!-- 斗兽场外观 -->
+    <div class="info-card"><h4>🏟️ 斗兽场 · 不进场的免费观景点 & 拍照指南</h4>
+    <div class="highlight">💡 17:15–17:50 是斗兽场外观的黄金拍摄时间——下午阳光从西南方向照过来，斗兽场南侧和西侧的外墙被照亮，北侧和东侧在阴影中，立体感最强。避开正午 12:00–14:00（顶光，外墙一片白）。</div>
+    <table class="meal-table"><tr><th>观景点</th><th>位置</th><th>说明</th></tr>
+    <tr><td><b>⭐ Colle Oppio 公园</b></td><td>斗兽场北侧小山坡（从斗兽场地铁站旁楼梯上）</td><td>不进场的最高视角——从山丘上俯瞰斗兽场全貌，黄昏光打在斗兽场南侧外墙上，金色的石灰华大理石发光。公园免费，人少，草坪上可以坐，是罗马本地人下午晒太阳的地方</td></tr>
+    <tr><td><b>⭐ 帝国大道尽头</b></td><td>斗兽场正前方</td><td>站在路中央的安全岛上拍斗兽场正面，17:30 左右阳光从西南方向照过来，斗兽场三分之二在光里</td></tr>
+    <tr><td><b>君士坦丁凯旋门</b></td><td>斗兽场西侧</td><td>公元 315 年的凯旋门，站在拱门前拍斗兽场 + 凯旋门同框，罗马最具标志性的画面</td></tr>
+    <tr><td><b>Via di San Gregorio</b></td><td>斗兽场南侧</td><td>人少，可以拍到斗兽场南立面 + 帕拉丁山背景</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"斗兽场 → Monti 区", time:"17:50 - 18:00", note:"斗兽场往北走 10 分钟就是 Monti 区——罗马最时髦的本地街区，窄巷 + 小酒馆 + 复古店，周六晚上氛围极好，全是罗马本地年轻人" }),
+    `<!-- 晚餐推荐 -->
+    <div class="info-card"><h4>🍷 晚餐 · Monti 区 · 4 选 1</h4>
+    <table class="meal-table"><tr><th>#</th><th>餐厅</th><th>地址</th><th class="col-narrow">人均</th><th>必点/特色</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Trattoria Monti（首选）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Monti+Via+di+San+Vito+13a+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via di San Vito 13a（斗兽场步行 10 分钟）</td><td>€35–50</td><td>Tortello al Rosso d'Uovo（蛋黄馄饨，切开是流心蛋黄，招牌菜）、Vincisgrassi（马切拉塔千层面）、Coniglio in Porchetta（烤填馅兔肉）</td><td>来自马尔凯大区的家族菜，不是罗马菜但比罗马菜更好吃。必须提前 1–2 周预订（+39 06 446 5273），周六晚上 walk-in 基本不可能</td></tr>
+    <tr><td>2</td><td><div>La Taverna dei Fori Imperiali</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Taverna+dei+Fori+Imperiali+Via+della+Madonna+dei+Monti+9+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via della Madonna dei Monti 9（斗兽场步行 8 分钟）</td><td>€30–45</td><td>Cacio e Pepe、Carciofo alla Giudia（犹太式炸洋蓟）、Tiramisù</td><td>家族经营的老店，建议提前一天电话预约（+39 06 679 8643），周六晚上 Monti 区到处都是人</td></tr>
+    <tr><td>3</td><td><div>Ai Tre Scalini</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ai+Tre+Scalini+Via+Sant%27Agata+dei+Goti+26+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Sant'Agata dei Goti 26（Monti 区中心）</td><td>€20–30</td><td>葡萄酒吧 + 简餐，100+ 种葡萄酒按杯卖，冷肉拼盘 + 芝士拼盘 + 意面</td><td>不用预约，氛围轻松，适合自由节奏的晚餐。周六晚上会排队，建议 18:00 到</td></tr>
+    <tr><td>4</td><td><div>Iari The Vino <span class="tag blue">小红书推荐 · 李现同款</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Iari+The+Vino+Via+Frangipane+27+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Frangipane 27（斗兽场步行 8 分钟）</td><td>€20–30</td><td>开心果小龙虾意面、培根蛋酱意面、提拉米苏、炸章鱼</td><td>小红书推荐，李现同款</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:#7a4a00;">🍦 Monti 区饭后冰淇淋</div>
+    <table><tr><th>店名</th><th>地址</th><th>说明</th></tr>
+    <tr><td><b>Fatamorgana</b></td><td>Piazza degli Zingari 5</td><td>罗马最好的手工 gelato 之一，无麸质 + 天然食材。推荐：Basilico e Miele（罗勒+蜂蜜）、Pera e Gorgonzola（梨+蓝纹芝士）——听起来奇怪但味道惊艳。人均 €3–5</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Monti 区", time:"18:00 - 19:30", action:"Trattoria Monti / La Taverna dei Fori Imperiali / Ai Tre Scalini / Iari The Vino", note:"周六晚上 Monti 区极热闹 · 饭后逛窄巷小酒馆" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"Monti 区 → 斗兽场", time:"19:30 - 19:40", note:"步行 10 分钟 · 饭后走回斗兽场看夜景" }),
+    listRowHTML({ type:"activity", icon:"🌃", name:"斗兽场夜景", time:"20:30", action:"灯光亮到凌晨 · 君士坦丁凯旋门也亮灯", note:"晚上游客比白天少 80% · Colle Oppio 公园俯瞰是免费终极机位" }),
+    `<!-- 斗兽场夜景 -->
+    <div class="info-card"><h4>🌃 斗兽场夜景 · 最佳机位</h4>
+    <div class="highlight">💡 斗兽场每晚日落亮灯到凌晨，南立面 + 西立面 + 君士坦丁凯旋门都有灯光。白天看的是历史遗迹的沧桑感，晚上看的是灯光打在拱门和石灰华大理石上的层次感——完全是两种体验。而且晚上游客比白天少 80%，不用挤。周六晚上安全，周边人多。</div>
+    <table class="meal-table"><tr><th>机位</th><th>位置</th><th>拍什么</th><th>备注</th></tr>
+    <tr><td><b>⭐ 帝国大道尽头</b></td><td>斗兽场正前方安全岛</td><td>正面全景，灯光均匀打在拱门上，晚上人比白天少很多</td><td>经典机位，首拍</td></tr>
+    <tr><td><b>⭐ Colle Oppio 公园</b></td><td>北侧小山坡（下午去过的地方）</td><td>俯瞰灯光中的斗兽场 + 远处罗马夜景，晚上拍出来像电影海报</td><td>从斗兽场地铁站旁楼梯上，2 分钟</td></tr>
+    <tr><td><b>君士坦丁凯旋门</b></td><td>斗兽场西侧</td><td>凯旋门 + 斗兽场同框，晚上凯旋门也亮灯，双层打光效果</td><td>站在凯旋门拱门下拍斗兽场</td></tr>
+    <tr><td><b>Via di San Gregorio</b></td><td>斗兽场南侧</td><td>人极少，拍南立面灯光 + 帕拉丁山暗影，最安静的角度</td><td>往南走 50 米</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 4：佛罗伦萨初印象 =====
@@ -2239,25 +2321,27 @@ const DEFAULT_TIPS = {
   ],
   3: [
     [
-      `<span class="tipicon">💶</span>货币：欧元 €`,
-      `<span class="tipicon">🗣️</span>语言：意大利语`,
-      `<span class="tipicon">🚇</span>罗马地铁 B 线 Colosseo`,
-      `<span class="tipicon">🚕</span>打车 4 次左右，预估 €20`,
-      `<span class="tipicon">👟</span>步行 + 打车结合`,
+      `<span class="tipicon">🎫</span>万神殿门票（提前官网预订，手机截图保存）`,
+      `<span class="tipicon">📞</span>Armando al Pantheon 午餐预约确认（如果选这家，必须提前 1–2 周）`,
+      `<span class="tipicon">📞</span>Trattoria Monti 晚餐预约确认（如果选这家，必须提前 1–2 周）`,
+      `<span class="tipicon">💶</span>欧元现金 €30–50（路边小店、冰淇淋店可能只收现金）`,
+      `<span class="tipicon">🔋</span>充电宝（全天拍照）`,
+      `<span class="tipicon">👟</span>舒适的鞋（步行 15,000+ 步）`,
+      `<span class="tipicon">🪙</span>小面额硬币（特雷维喷泉投币用，€0.50 / €1 / €2）`,
     ],
     [
-      `万神殿免费，<b>免费入场</b>`,
-      `古罗马 / 斗兽场 <b>联票 €18</b>，提前预约`,
-      `特雷维喷泉 <b>18:45 停止入场</b> 周内`,
-      `许愿池投币 €1`,
-      `罗马假日取景地：西班牙广场`,
+      `<b>周六所有景点人都多</b>——万神殿提前买票、Armando al Pantheon 提前预约、Trattoria Monti 提前预约，这三件事决定了你今天的体验质量`,
+      `<b>万神殿 2023 年起收费</b>：€5，提前在官网买好，现场排队要多花 20–30 分钟`,
+      `<b>圣依纳爵堂免费</b>：不用预约，直接进。记得站在地面大理石圆盘上看天顶画，效果完全不同`,
+      `<b>特雷维喷泉 15:20 到</b>：不是最挤的时段，但周六下午仍然人多。走到右侧台阶或左侧教堂门口台阶上从高处拍`,
+      `<b>古罗马广场和斗兽场都不进场</b>：省了 €18/人，但外观同样震撼——Campidoglio 广场后侧 + Colle Oppio 公园两个制高点免费看全景`,
     ],
     [
-      `⏰ 12:00 出发，21:30 回酒店`,
-      `🍝 Monti 区晚饭推荐`,
-      `🌃 斗兽场夜景 20:30 后最美`,
-      `📱 离线地图先下载`,
-      `☂️ 雨天优先入博物馆`,
+      `<b>斗兽场 17:15–17:50 是外观黄金时间</b>：夕阳从西南方向打在斗兽场南侧和西侧外墙上，金色石灰华发光，比正午好看太多`,
+      `<b>斗兽场夜景一定要看</b>：饭后走回斗兽场 10 分钟，灯光下的斗兽场跟白天完全不同。Colle Oppio 公园晚上俯瞰是免费终极机位`,
+      `<b>Monti 区周六晚上极好</b>：罗马本地人的夜生活中心，窄巷里全是小酒馆和复古店，吃完饭可以逛。逛完再去斗兽场夜景，节奏完美`,
+      `<b>12:00 出发</b>，21:30 回酒店，全天步行约 15,000 步`,
+      `🍦 万神殿附近 Gelateria della Palma 150+ 种口味 · Monti 区 Fatamorgana 手工 gelato`,
     ],
   ],
   4: [
@@ -2405,7 +2489,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v13";
+const STORAGE_KEY = "rome-florence-6days-v17";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
