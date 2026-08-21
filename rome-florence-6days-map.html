@@ -739,8 +739,8 @@ const DAYS = {
     badge: "DAY 1",
     title: "出发 / 抵达",
     date: "10.1 · SZX → ROM",
-    line: "🛫 跨境巴士 + 两次航班 · 全程约 18h",
-    hotel: { name: "深圳出发 · 香港机场 T1", lat: 0, lng: 0 },
+    line: "🛫 皇岗口岸 → 香港 → 伊斯坦布尔 → 罗马 · 全程约 18h",
+    hotel: { name: "酒店 · Via Vespasiano, 12 (PRATI)", lat: 41.9066, lng: 12.4566 },
     center: [0, 0],
     zoom: 1,
     bounds: [[-90,-180],[90,180]],
@@ -1350,11 +1350,55 @@ function syncLocateLink(row){
 function dayTimeline(d){
   // ===== Day 1：跨境转场 =====
   if (d===1) return [
-    listRowHTML({ type:"transport", icon:"🚌", name:"深圳 → 香港", duration:"2h", action:"深圳过关到香港机场" }),
-    listRowHTML({ type:"transport", icon:"✈️", name:"香港 → 伊斯坦布尔", duration:"10h25m", action:"航班 TK0171 · 土耳其航空", note:"HKG (T1) → IST" }),
-    listRowHTML({ type:"activity", icon:"·", name:"伊斯坦布尔 IST 转机", time:"15:45 - 21:50", action:"转机区不需签证", note:"机场休息 / 吃饭" }),
-    listRowHTML({ type:"transport", icon:"✈️", name:"伊斯坦布尔 → 罗马", duration:"2h45m", action:"航班 TK1361", note:"IST → FCO (T3)" }),
-    listRowHTML({ type:"activity", icon:"·", name:"罗马 FCO 机场", time:"23:35", action:"Leonardo Express 至酒店", note:"Via Vespasiano 12" }),
+    listRowHTML({ type:"transport", icon:"🚌", name:"跨境巴士：皇岗口岸 → 香港机场", time:"6:30 - 7:30", action:"深圳过关到香港机场", note:"福田口岸过关 · 建议预留 2h" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"香港 → 伊斯坦布尔", time:"9:20 - 15:45", action:"航班 TK0171 · 土耳其航空 · 行李直达", note:"HKG (T1) → IST · 经济舱托运 30kg" }),
+    `<!-- 伊斯坦布尔转机 -->
+    <div class="info-card"><h4>🕌 伊斯坦布尔机场 · 转机 6h 游玩指南</h4>
+    <div class="highlight">⏱️ 转机窗口：15:45 落地 → 21:50 起飞 = 6h05，刚好够用</div>
+    <h4 style="font-size:12px;margin-top:10px;">选择 1：IGA 休息室 + 机场购物</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>IGA 休息室</td><td>费用约 €50–65/人，闲鱼/淘宝可买约 ¥100/人，需找实名制卖家，卖家给二维码，前台扫描登机牌+二维码，一次二维码停留 3h。设施：热食自助餐、淋浴间（毛巾洗漱用品提供）、Wi-Fi、安静休息区、充电口</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">🍽️ 机场美食（安检后国际出发区）</div>
+    <table class="meal-table"><tr><th>餐厅</th><th>位置</th><th>吃什么</th><th class="col-narrow">人均</th></tr>
+    <tr><td>Simit Sarayı</td><td>多处</td><td>土耳其芝麻面包圈（Simit）+ 土耳其茶（Çay），伊斯坦布尔的灵魂街头小吃</td><td>€3–5</td></tr>
+    <tr><td>Mado</td><td>多处</td><td>土耳其冰淇淋（Dondurma，会耍花活的那种）+ 开心果 Baklava 蜜糖果仁</td><td>€5–8</td></tr>
+    <tr><td>Tadında Anadolu</td><td>美食广场</td><td>土耳其烤肉（Döner / İskender Kebap）+ 扁豆汤（Mercimek Çorbası）</td><td>€12–18</td></tr>
+    <tr><td>Nusr-Et（Salt Bae Burger）</td><td>国际出发层</td><td>网红撒盐哥的汉堡店，机场限定</td><td>€15–25</td></tr>
+    <tr><td>Hafız Mustafa 1864</td><td>国际出发层</td><td>土耳其软糖（Lokum）+ 土耳其咖啡，160 年历史的老字号</td><td>€5–10</td></tr></table>
+    <h4 style="font-size:12px;margin-top:10px;">选择 2：Touristanbul 3h 免费城市游</h4>
+    <table><tr><th>条件</th><th>要求</th><th>你的情况</th><th>判断</th></tr>
+    <tr><td>搭乘土航国际航班转机</td><td>必须</td><td>香港→IST→罗马，典型土航联程</td><td><span class="star">✅</span></td></tr>
+    <tr><td>转机时间</td><td>6–24 小时</td><td>15:45 落地 → 21:50 起飞 = 6h05</td><td><span class="star">✅ 刚好达标</span></td></tr>
+    <tr><td>土耳其签证</td><td>需要</td><td>中国护照需电子签，出发前网上办 evisa.gov.tr，约 $60</td><td>需提前办</td></tr></table>
+    <div class="warn" style="margin-top:6px;">⚠️ 关键风险：如果第一段航班晚点 30 分钟以上，转机时间降到 5.5h，不够 6h 资格，Touristanbul 会拒绝你。出发前查航班准点率，如经常晚点选方案 1 更稳。</div>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">🗺️ 下午出发的半日游路线（预计 3h）</div>
+    <table class="meal-table"><tr><th class="col-narrow">顺序</th><th>景点</th><th class="col-narrow">停留</th><th>看什么</th></tr>
+    <tr><td>1</td><td>苏丹艾哈迈德广场（竞技场）</td><td>20 min</td><td>埃及方尖碑 + 蛇柱 + 德国喷泉，古今 3500 年同框</td></tr>
+    <tr><td>2</td><td>蓝色清真寺（外观或入内）</td><td>20–30 min</td><td>六座宣礼塔 + 伊兹尼克蓝瓷砖内饰，入内需脱鞋 + 女性包头</td></tr>
+    <tr><td>3</td><td>圣索菲亚（外观）</td><td>15 min</td><td>1500 年历史，教堂→清真寺→博物馆→清真寺，只在外面看穹顶和宣礼塔</td></tr>
+    <tr><td>4</td><td>大巴扎（Grand Bazaar）</td><td>30–40 min</td><td>500 年历史、4000+ 店铺，香料 + 土耳其软糖 + 灯具 + 地毯，自由逛，比机场购物便宜</td></tr>
+    <tr><td>5</td><td>沿途车览</td><td>—</td><td>君士坦丁堡城墙 + 金角湾 + 加拉塔桥</td></tr></table>
+    <div style="font-size:10px;color:#888;margin-top:4px;">具体路线和景点顺序以当天导游安排为准，出发前 3 天可在土航官网确认。</div></div>`,
+    listRowHTML({ type:"activity", icon:"·", name:"伊斯坦布尔 IST 转机", time:"15:45 - 21:50", action:"转机区不需签证 · 休息 / 吃饭 / 购物", note:"IGA 休息室 / Touristanbul 城市游（需签证）" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"伊斯坦布尔 → 罗马", time:"21:50 - 23:35", action:"航班 TK1361 · 土耳其航空", note:"IST → FCO (T3) · 飞行约 2h45m" }),
+    `<!-- 罗马机场到酒店指南 -->
+    <div class="info-card"><h4>🚕 罗马 FCO 机场 → 酒店 · 出租车指南</h4>
+    <div class="highlight">💡 FCO → 罗马市中心（含 Prati/Vaticano 区）固定费率 €50，含行李、不跳表，深夜没有附加费</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>取行李 + 出关</td><td>约 30–40 分钟（23:35 航班少，出关快），实际出机场时间约 00:10–00:15</td></tr>
+    <tr><td>酒店地址</td><td>Via Vespasiano, 12, 00192 Roma（Prati 区，梵蒂冈博物馆旁）</td></tr>
+    <tr><td>车程</td><td>约 35–45 分钟（深夜不堵车），预计凌晨 1 点抵达酒店</td></tr>
+    <tr><td>支付</td><td>现金 €50 或信用卡（大部分车支持刷卡，建议备现金）</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">📋 操作步骤</div>
+    <table><tr><th class="col-narrow">步骤</th><th>操作</th></tr>
+    <tr><td>1</td><td>取完行李后沿"Taxi"指示牌走到到达大厅外的出租车排队区</td></tr>
+    <tr><td>2</td><td>只坐白色官方的士（车顶有"TAXI"灯箱，车身有 Roma Capitale 标志）</td></tr>
+    <tr><td>3</td><td>上车前确认："Fifty euro fixed rate, right?"——司机确认即可</td></tr>
+    <tr><td>4</td><td>给地址：把手机上的地址给司机看：Via Vespasiano 12, 00192 Roma（靠近 Via Ottaviano 路口）</td></tr>
+    <tr><td>5</td><td>车程约 35–45 分钟，预计凌晨 1 点抵达</td></tr>
+    <tr><td>6</td><td>支付 €50 现金或信用卡</td></tr></table>
+    <div class="warn" style="margin-top:8px;">🚫 防坑提示<br>• 不要坐非官方出租车——到达大厅有人拉客 "Taxi? Taxi?" 一律无视，直接走到官方排队区<br>• 确认固定费率：FCO → Prati/Vaticano 区固定 €50，不接受跳表价<br>• 行李不额外收费：€50 含所有行李<br>• 深夜没有附加费：罗马出租车深夜不涨价<br>• 如果司机索要超过 €50：坚持价格，或者走向下一辆（排队区有很多辆）</div></div>`,
+    listRowHTML({ type:"activity", icon:"🏨", name:"抵达酒店 · Via Vespasiano 12", time:"约 01:00", action:"入住 + 休息", note:"Prati 区 · 梵蒂冈博物馆旁 · 第二天上午补觉" }),
   ].join("");
 
   // ===== Day 2：梵蒂冈深度 =====
@@ -1652,21 +1696,22 @@ function renderTransitBoard(){
         <!-- 第一行：深圳 → 香港 -->
         <g>
           <circle cx="100" cy="70" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="100" y="70" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Shenzhen</text>
-          <text x="100" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳</text>
-          <text x="100" y="106" text-anchor="middle" font-size="22"></text>
+          <text x="100" y="65" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Shenzhen</text>
+          <text x="100" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳 · 皇岗口岸</text>
+          <text x="100" y="106" text-anchor="middle" font-size="22">🚌</text>
         </g>
         <!-- 深圳 → 香港 水平箭头 (从深圳圆右边缘 x=152 到香港圆左边缘 x=208) -->
         <path d="M152 70 Q 180 70 208 70" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,42)">
-          <rect x="-38" y="-11" width="76" height="22" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.4"/>
-          <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#e63475">🚌 跨境巴士</text>
+        <g transform="translate(180,38)">
+          <rect x="-42" y="-22" width="84" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.4"/>
+          <text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="900" fill="#e63475">🚌 皇岗口岸</text>
+          <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">6:30 – 7:30</text>
         </g>
         <!-- 香港 -->
         <g>
           <circle cx="260" cy="70" r="52" fill="#cfe7ff" stroke="#3a82c9" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="260" y="70" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Hong Kong</text>
-          <text x="260" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港</text>
+          <text x="260" y="65" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Hong Kong</text>
+          <text x="260" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港 · T1</text>
           <text x="260" y="106" text-anchor="middle" font-size="22">✈️</text>
         </g>
         <!-- 香港 → 伊斯坦布尔 斜向箭头 (从香港圆底部 x=260,y=132 斜向左下到伊斯坦布尔圆顶部 x=100,y=218) -->
@@ -1679,8 +1724,9 @@ function renderTransitBoard(){
         <!-- 第二行：伊斯坦布尔 → 罗马 -->
         <g>
           <circle cx="100" cy="230" r="52" fill="#e6f4ff" stroke="#3b82f6" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="100" y="220" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Istanbul</text>
-          <text x="100" y="238" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">伊斯坦布尔</text>
+          <text x="100" y="215" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Istanbul</text>
+          <text x="100" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a8a">伊斯坦布尔 IST</text>
+          <text x="100" y="248" text-anchor="middle" font-size="10" font-weight="500" fill="#5b5b5b">转机 6h</text>
           <text x="100" y="266" text-anchor="middle" font-size="22">🕌</text>
         </g>
         <!-- 伊斯坦布尔 → 罗马 水平箭头 (从伊斯坦布尔圆右边缘 x=152 到罗马圆左边缘 x=208) -->
@@ -1693,8 +1739,9 @@ function renderTransitBoard(){
         <!-- 罗马 -->
         <g>
           <circle cx="260" cy="230" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="260" y="220" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Rome FCO</text>
-          <text x="260" y="238" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">罗马</text>
+          <text x="260" y="215" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Rome FCO</text>
+          <text x="260" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4a00">罗马 · 23:35</text>
+          <text x="260" y="248" text-anchor="middle" font-size="10" font-weight="500" fill="#5b5b5b">🚕 €50 到酒店</text>
           <text x="260" y="266" text-anchor="middle" font-size="22">🇮🇹</text>
         </g>
       </svg>
@@ -2145,25 +2192,25 @@ window.addEventListener("DOMContentLoaded", init);
 const DEFAULT_TIPS = {
   1: [
     [
-      `<span class="tipicon">💼</span>行李：TK 经济舱托运 30kg`,
-      `<span class="tipicon">🛂</span>深圳过关预留 2h`,
-      `<span class="tipicon">✈️</span>香港 T1 提前 3h 到机场`,
-      `<span class="tipicon">🔌</span>意标转换插头 Type L`,
-      `<span class="tipicon">🧥</span>10 月罗马 10–20℃`,
+      `<span class="tipicon">🛂</span>护照 + 签证 + 机票行程单（打印备份）`,
+      `<span class="tipicon">💼</span>TK 经济舱托运 30kg · 行李直达 ROM`,
+      `<span class="tipicon">🔌</span>意标转换插头 Type L · 充电宝（≤100Wh）`,
+      `<span class="tipicon">🧥</span>10 月罗马 10–20℃ + 伊斯坦布尔 15–22℃`,
+      `<span class="tipicon">💶</span>€100 现金（€50 出租车费 + 备用）`,
     ],
     [
-      `罗马签证：申根签 <b>提前 1 个月</b> 办`,
-      `土耳其转机不需签证（转机区）`,
-      `<b>护照</b>+签证复印件分开放`,
-      `漫游包 / 当地 SIM / 离线地图`,
-      `建议兑换 <b>500€</b> 现金`,
+      `<b>皇岗口岸</b>：6:30 出发，预留 2h 过关，高峰期人多`,
+      `<b>香港 T1</b>：提前 3h 到机场，TK0171 柜台值机`,
+      `<b>伊斯坦布尔转机</b>：不需签证（转机区），如需 Touristanbul 城市游需提前办土耳其电子签 evisa.gov.tr 约 $60`,
+      `<b>IGA 休息室</b>：闲鱼/淘宝约 ¥100/人，需找实名制卖家，前台扫登机牌+二维码，每次停留 3h`,
+      `<b>IST 机场美食</b>：Simit Sarayı 芝麻面包圈 €3–5 · Hafız Mustafa 软糖 €5–10`,
     ],
     [
-      `🌙 时差：罗马 <b>-6h</b> vs 北京`,
-      `⏰ 转机 ≈6h 缓冲时间充裕`,
-      `📞 保存大使馆电话`,
-      `🛬 抵达后 <b>Leonardo Express</b> 到酒店`,
-      `🛒 FCO 机场 ATM 取现`,
+      `<b>Touristanbul 风险</b>：航班晚点 30min 以上转机时间<6h 会被拒绝，出发前查准点率`,
+      `<b>FCO 出租车</b>：只坐白色官方的士，固定费率 €50，含行李不跳表，深夜不涨价`,
+      `<b>防坑</b>：不理到达大厅拉客者，上车前确认 "Fifty euro fixed rate, right?"`,
+      `<b>地址</b>：Via Vespasiano, 12, 00192 Roma（靠近 Via Ottaviano 路口）`,
+      `<b>抵达</b>：预计凌晨 1 点，第二天上午补觉，下午开始 Day 2 行程`,
     ],
   ],
   2: [
@@ -2358,7 +2405,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v12";
+const STORAGE_KEY = "rome-florence-6days-v13";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
