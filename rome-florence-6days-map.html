@@ -1396,6 +1396,23 @@ function dayTimeline(d){
     <div style="font-size:10px;color:#888;margin-top:4px;">具体路线和景点顺序以当天导游安排为准，出发前 3 天可在土航官网确认。</div></div>`,
     listRowHTML({ type:"activity", icon:"·", name:"伊斯坦布尔 IST 转机", time:"15:45 - 21:50", action:"转机区不需签证 · 休息 / 吃饭 / 购物", note:"IGA 休息室 / Touristanbul 免费城市游（免签入境）" }),
     listRowHTML({ type:"transport", icon:"✈️", name:"伊斯坦布尔 → 罗马", time:"21:50 - 23:35", action:"航班 TK1361 · 土耳其航空", note:"IST → FCO (T3) · 飞行约 2h45m" }),
+    `<!-- 罗马 FCO 入境指南 -->
+    <div class="info-card"><h4>🛂 罗马 FCO 机场 · 入境指南</h4>
+    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">📋 所需材料</div>
+    <table><tr><th>材料</th><th>要求</th></tr>
+    <tr><td>护照</td><td>剩余有效期 ≥ 6 个月、至少 2 页空白签证页</td></tr>
+    <tr><td>申根签证</td><td>签证页打印随身携带</td></tr>
+    <tr><td>往返机票</td><td>纸质 + 电子版（手机保存 PDF）</td></tr>
+    <tr><td>全程酒店预订</td><td>纸质 + 电子版（Booking.com / Agoda 订单打印）</td></tr>
+    <tr><td>旅行保险</td><td>保额 ≥ 3 万欧元，纸质 + 电子版</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">🚕 机场上车流程</div>
+    <table><tr><th class="col-narrow">步骤</th><th>操作</th></tr>
+    <tr><td>1</td><td>取完行李后朝出口处 <b>TAXI</b> 方向走</td></tr>
+    <tr><td>2</td><td><span class="warn">⚠️⚠️ 一定选择黄色 <b>Official Taxi Pick-up Point</b> 通道</span>（它的箭头右边还有一个 local taxi 标识，不要走错）</td></tr>
+    <tr><td>3</td><td>从穿黄红背心制服的工作人员处获取上车凭证</td></tr>
+    <tr><td>4</td><td>将上车凭证出示给排在出租车队伍中首位的司机即可</td></tr></table>
+    <div class="warn" style="margin-top:8px;">⚠️ 入境提醒<br>• 申根边检可能询问行程、酒店、回程机票，准备好纸质材料<br>• 深夜航班（23:35 落地）入境排队通常较短，约 15–25 分钟</div></div>`,
+    listRowHTML({ type:"activity", icon:"🛂", name:"FCO 入境 + 取行李", time:"23:35 - 00:15", action:"申根边检 · 行李提取 · 准备材料", note:"护照 + 签证页 + 机票酒店保险单" }),
     `<!-- 罗马机场到酒店指南 -->
     <div class="info-card"><h4>🚕 罗马 FCO 机场 → 酒店 · 出租车指南</h4>
     <div class="highlight">💡 FCO → 罗马市中心（含 Prati/Vaticano 区）固定费率 €50，含行李、不跳表，深夜没有附加费</div>
@@ -2505,7 +2522,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v22";
+const STORAGE_KEY = "rome-florence-6days-v23";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
