@@ -686,7 +686,7 @@
     <button class="tab" data-day="1"><span class="tab-num">DAY 1 · 10.1</span><span class="tab-title">🛫 出发 / 抵达</span><span class="tab-sub">跨境巴士 + 2 航班</span></button>
     <button class="tab" data-day="2"><span class="tab-num">DAY 2 · 10.2</span><span class="tab-title">⛪ 梵蒂冈深度</span><span class="tab-sub">教廷与艺术一日</span></button>
     <button class="tab" data-day="3"><span class="tab-num">DAY 3 · 10.3</span><span class="tab-title">🏛️ 罗马古迹串游</span><span class="tab-sub">万神殿 → 斗兽场</span></button>
-    <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🚄 佛罗伦萨初印象</span><span class="tab-sub">圣母百花 → 共和广场</span></button>
+    <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🎨 佛罗伦萨初印象</span><span class="tab-sub">中央市场 / 百花 / 领主 / T骨牛排</span></button>
     <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">🌅 阿诺河 + 日落</span><span class="tab-sub">市场 / 老桥 / 米开朗琪罗</span></button>
     <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 乌菲兹 · 老桥</span></button>
     <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">🚗 托斯卡纳自驾</span><span class="tab-sub">皮恩扎 → 蒙塔尔奇诺 → 锡耶纳</span></button>
@@ -813,14 +813,16 @@ const DAYS = {
     title: "佛罗伦萨初印象",
     badge: "DAY 4",
     date: "10.4 · FIRENZE",
-    line: "🚄 罗马 → 佛罗伦萨 · 入住老城核心区",
+    line: "🚄 罗马 → 佛罗伦萨 · 中央市场 → 百花 → 领主 · T 骨牛排晚餐",
     nodes: [
-      { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "高铁约 1.5h，寄存酒店" },
-      { num: 1, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "14:00–15:00 · 画小猫的爷爷", pills: ["🚶 5min","10:15–16:00"] },
-      { num: 2, kind: "main", name: "圣洛伦佐大殿", lat: 43.7750, lng: 11.2540, hint: "15:00–16:00", pills: ["🚶 4min","10:00–17:30"] },
-      { num: null, kind: "hotel", name: "回酒店办理入住", lat: 43.7752, lng: 11.2526, hint: "16:00–16:30", pills: ["🚶 1min"] },
-      { num: 3, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:30–18:30 · 逛街", pills: ["🚶 7min"] },
-      { num: null, kind: "view", name: "领主广场（可选）", lat: 43.7696, lng: 11.2559, hint: "无门票" },
+      { num: null, kind: "hotel", name: "Firenze SMN 火车站", lat: 43.7766, lng: 11.2479, hint: "Italo 9924 · 12:17 抵达", pills: ["🚄 Roma Termini → SMN"] },
+      { num: 1, kind: "main", name: "Mercato Centrale 中央市场", lat: 43.7768, lng: 11.2526, hint: "12:30–14:00 · 午餐", pills: ["🚶 10min"] },
+      { num: 2, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "14:30–15:30 · 外观 + 广场", pills: ["🚶 10min","10:15–16:00"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "16:00 入住", pills: ["🚶 取行李 + 步行"] },
+      { num: 3, kind: "main", name: "圣洛伦佐大殿 San Lorenzo", lat: 43.7750, lng: 11.2540, hint: "16:10–16:40", pills: ["🚶 5min","10:00–17:30"] },
+      { num: 4, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:40–18:00 · 逛街", pills: ["🚶 沿 Via dei Calzaiuoli"] },
+      { num: 5, kind: "main", name: "领主广场 Piazza della Signoria", lat: 43.7696, lng: 11.2559, hint: "18:00–18:40 · 露天雕塑博物馆", pills: ["🚶 继续南行"] },
+      { num: null, kind: "dinner", name: "晚餐 · Trattoria ZaZa / Mario / Dalloste", lat: 43.7768, lng: 11.2530, hint: "19:00–20:30 · Bistecca alla Fiorentina", pills: ["🚶 回 Mercato Centrale 附近"] },
     ],
     route: [
       { mode: "walk", from: 0, to: 1 },
@@ -828,6 +830,8 @@ const DAYS = {
       { mode: "walk", from: 2, to: 3 },
       { mode: "walk", from: 3, to: 4 },
       { mode: "walk", from: 4, to: 5 },
+      { mode: "walk", from: 5, to: 6 },
+      { mode: "walk", from: 6, to: 7 },
     ],
     timeline: dayTimeline(4),
   },
@@ -1607,19 +1611,146 @@ function dayTimeline(d){
 
   // ===== Day 4：佛罗伦萨初印象 =====
   if (d===4) return [
-    listRowHTML({ type:"transport", icon:"🚄", name:"罗马 → 佛罗伦萨", duration:"1h30m", action:"Frecciararsra 高铁", note:"寄存酒店行李" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"抵达 + 寄存", duration:"5min", action:"Via Faenza 7" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午餐", action:"中央市场一层美食" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 圣母百花", duration:"5min" }),
-    listRowHTML({ type:"activity", icon:"1", name:"圣母百花大教堂", time:"14:00 - 15:00", action:"画小猫的爷爷 · 登穹顶 463 阶", note:"10:15–16:00" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣母百花 → 圣洛伦佐", duration:"4min" }),
-    listRowHTML({ type:"activity", icon:"2", name:"圣洛伦佐大殿", time:"15:00 - 16:00", action:"美第奇家族礼拜堂", note:"10:00–17:30" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣洛伦佐 → 酒店", duration:"1min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"回酒店办理入住", time:"16:00 - 16:30", action:"休整" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 共和广场", duration:"7min" }),
-    listRowHTML({ type:"activity", icon:"4", name:"共和广场 Piazza Repubblica", time:"16:30 - 18:30", action:"沿 Via dei Calzaiaioli、Via Roma 逛街" }),
-    listRowHTML({ type:"activity", icon:"·", name:"领主广场（可选）", action:"无门票" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"Bistecca alla Fiorentina" }),
+    listRowHTML({ type:"transport", icon:"🚄", name:"罗马 → 佛罗伦萨", time:"10:40 - 12:17", action:"Italo 9924 · Roma Termini → Firenze SMN", note:"Italo 专用入口在站台 1–3 附近 · 1h37" }),
+    `<!-- 火车指南 -->
+    <div class="info-card"><h4>🚄 罗马 → 佛罗伦萨 · 乘车指南</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>站点</td><td>Roma Termini（罗马中央车站）→ Firenze Santa Maria Novella（SMN，佛罗伦萨中央车站）</td></tr>
+    <tr><td>车次</td><td>Italo 9924，10:40 出发，12:17 抵达，1h37</td></tr>
+    <tr><td>Italo 入口</td><td>Roma Termini 站内，Italo 专用入口在站台 1–3 附近，注意看红色 Italo 标识</td></tr>
+    <tr><td>提示</td><td>Italo 与 Trenitalia 是两个不同公司，入口不同，不要走错。提前 15 分钟到站台即可，不需要安检。</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"SMN 火车站 → 寄存行李 → 中央市场", time:"12:17 - 12:30", action:"步行 10min · 先寄存行李再吃饭", note:"行李柜推荐 Kibag（人工）/ Stow Your Bags（自助）" }),
+    `<!-- 行李寄存 -->
+    <div class="info-card"><h4>🎒 SMN 火车站 · 行李寄存指南</h4>
+    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">选择 1：Kibag（人工柜台）⭐ 推荐</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>位置</td><td>16 号站台方向走</td></tr>
+    <tr><td>费用</td><td>4h 以内：€6/件；5–12h：€6 + 超时 €1/h；12h+：超时 €0.5/h</td></tr>
+    <tr><td>流程</td><td>出示护照 → 领凭证 → 取件时凭条领取并付款</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 2：Stow Your Bags（自助柜）</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>位置</td><td>SMN 火车站地下通道，从站台下来后沿 "Deposito Bagagli / Luggage Storage" 指示牌走，在麦当劳对面</td></tr>
+    <tr><td>费用</td><td>€5–7/件/天（网上提前预订 €5，现场 €7）</td></tr>
+    <tr><td>营业</td><td>7:00–23:00</td></tr>
+    <tr><td>预订</td><td><a href="https://www.stowyourbags.com" target="_blank">https://www.stowyourbags.com</a> 提前预订</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · Mercato Centrale 中央市场", time:"12:30 - 14:00", action:"二楼美食广场 · 一楼牛肚包", note:"Pasta Fresca / Da Nerbone / Lampredotto / Porchetta" }),
+    `<!-- 中央市场美食 -->
+    <div class="info-card"><h4>🍝 Mercato Centrale 中央市场 · 美食推荐</h4>
+    <div class="highlight">💡 中央市场是佛罗伦萨最大的室内市场，一楼是生鲜 + 小吃摊，二楼是美食广场（有座位有空调）。从 SMN 火车站步行 5 分钟就到，寄存好行李后直接过来吃午饭。</div>
+    <table class="meal-table"><tr><th>摊位</th><th>楼层</th><th>类型</th><th>推荐</th><th class="col-narrow">价格</th></tr>
+    <tr><td><b>Pasta Fresca</b></td><td>二楼</td><td>新鲜手工意面</td><td>Tagliatelle al Ragù（肉酱宽面）、Pici al Cinghiale（野猪肉手擀面）</td><td>€12–15</td></tr>
+    <tr><td><b>Bambi Trippa e Lampredotto</b></td><td>一楼</td><td>牛肚包</td><td rowspan="3">Lampredotto 牛肚包（佛罗伦萨四大名吃之一，跟 Bistecca 齐名），配传统绿酱（Salsa Verde）和辣酱。<span class="warn">记得 less salt！</span></td><td rowspan="3">€6–16</td></tr>
+    <tr><td><b>Da Nerbone</b></td><td>一楼</td><td>牛肚包</td></tr>
+    <tr><td><b>Il Lampredotto</b></td><td>二楼</td><td>牛肚包</td></tr>
+    <tr><td><b>l'Porchettaio</b></td><td>二楼</td><td>Porchetta 烤猪肉</td><td>Porchetta 意式脆皮烤猪肉，招牌上的 "Schiacciate" 是托斯卡纳特色的扁平面包</td><td>—</td></tr>
+    <tr><td><b>La Pizzeria</b></td><td>二楼</td><td>那不勒斯披萨</td><td>Margherita + 一杯 Chianti</td><td>€10–12</td></tr>
+    <tr><td><b>Il Pesce Jhonny Paranza</b></td><td>二楼</td><td>海鲜</td><td>Fritto Misto（炸海鲜拼盘），比一楼新鲜。<span class="warn">⚠️ 店家会问你要不要薯条/番茄酱，以为是配套的但其实都要另外收费！</span></td><td>€14–18</td></tr>
+    <tr><td><b>Il Gelato</b></td><td>二楼</td><td>甜品</td><td>饭后冰淇淋</td><td>€4</td></tr>
+    <tr><td><b>Ditta Artigianale</b></td><td>一楼</td><td>饮料</td><td>提拉米苏咖啡 Coffeemisu</td><td>—</td></tr>
+    <tr><td><b>La Bottega Golosa</b></td><td>一楼</td><td>商店</td><td>在上二楼的楼梯口处，Venchi 巧克力 €5.9/100g，种类齐全，比 Venchi 专卖店 €7/100g 划算非常多</td><td>€5.9/100g</td></tr></table>
+    <div style="font-size:10px;color:#888;margin-top:4px;">💡 市场周围还可以逛逛买首饰、羊毛毡帽、皮具、帆布包等商品。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"中央市场 → 圣母百花大教堂", time:"14:00 - 14:10", action:"步行 10min", note:"沿 Via Panicale 往南 → Via dei Cerretani → 广场突然出现" }),
+    listRowHTML({ type:"activity", icon:"1", name:"圣母百花大教堂（外观 + 广场）", time:"14:30 - 15:30", action:"外立面 · 穹顶 · 乔托钟楼 · 洗礼堂 · 画小猫的爷爷", note:"周日弥撒 · 大教堂免费排队 · 登顶需提前预约" }),
+    `<!-- 圣母百花大教堂 -->
+    <div class="info-card"><h4>⛪ 圣母百花大教堂 · 门票 & 排队</h4>
+    <div class="highlight">💡 大教堂免费入内，周日只有下午开放（10:15–16:00），只有一个入口（南侧）。周六下午 14:00 排队约 20–30 分钟，没有安检，但着装要求：膝盖 + 肩膀遮盖（跟圣彼得大教堂一样严格）。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">🎫 门票类型</div>
+    <table class="meal-table"><tr><th>区域</th><th>价格</th><th>说明</th></tr>
+    <tr><td>大教堂（Cathedral）</td><td><b>免费</b></td><td>排队入内，周六下午 14:00 排队约 20–30 分钟</td></tr>
+    <tr><td><b>⭐ 穹顶登顶（Brunelleschi's Dome）</b></td><td>€30（Brunelleschi Pass，含所有：穹顶登顶+钟楼+洗礼堂+博物馆+地宫）</td><td>463 阶，无电梯，需提前预约时段，周六大概率约满。建筑爱好者建议买穹顶通票</td></tr>
+    <tr><td>钟楼（Giotto's Campanile）</td><td>€20（钟楼+洗礼堂+博物馆+地宫，无穹顶）</td><td>414 阶，同样需要预约</td></tr>
+    <tr><td>洗礼堂（Baptistery）</td><td>€15（洗礼堂+博物馆+地宫，无登顶）</td><td>天花板金色马赛克《最后的审判》</td></tr>
+    <tr><td>Museo dell'Opera del Duomo</td><td>含在套票中</td><td>教堂博物馆，Ghiberti 的《天堂之门》真品在此</td></tr></table>
+    <div style="font-size:10px;color:#888;margin-top:4px;">⚠️ 所有票在网上买的时候就要选好日期，从那天开始三天有效，但每个项目只能用一次。不能提前进入。钟楼和穹顶时间在买票时就必须选好时间段。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">👀 大教堂看什么</div>
+    <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th><th class="col-narrow">门票</th></tr>
+    <tr><td><b>⭐ 大教堂外立面</b></td><td>正前方</td><td>白 + 绿 + 粉三色大理石几何图案，19 世纪新哥特式立面，站在广场西南角拍全景</td><td>免费</td></tr>
+    <tr><td><b>⭐ 布鲁内莱斯基穹顶</b></td><td>教堂上方</td><td>1436 年建成，当时世界上最大的穹顶（直径 45.5m），红色陶瓦 + 白色肋拱，从广场任何一个角落都能看到</td><td>免费看外观</td></tr>
+    <tr><td><b>乔托钟楼</b></td><td>教堂右侧</td><td>82m 高，绿白红三色大理石，可以登顶（414 阶）俯瞰佛罗伦萨</td><td>登顶 €20</td></tr>
+    <tr><td><b>圣乔瓦尼洗礼堂</b></td><td>教堂正前方</td><td>佛罗伦萨最古老的建筑（11 世纪），洛伦佐·吉贝尔蒂的《天堂之门》（东门，镀金青铜浮雕，原作在 Museo dell'Opera）</td><td>免费看外观</td></tr>
+    <tr><td><b>Museo dell'Opera del Duomo</b></td><td>教堂后方</td><td>大教堂博物馆，穹顶原始模型 + 天堂之门原作 + 米开朗基罗的《圣母怜子》（他为自己墓设计的）</td><td>€15</td></tr></table></div>`,
+    `<!-- 画小猫的爷爷 -->
+    <div class="info-card"><h4>🐱 画小猫的爷爷 · Alessandro Buccoliero</h4>
+    <div class="highlight">💡 佛罗伦萨街头艺术家，专门画小猫肖像。一只 €15/张，两只 €20/张。比较耗时，随缘。</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>艺术家</td><td>Alessandro Buccoliero，可 INS 提前沟通时间，但不能预约</td></tr>
+    <tr><td>取号</td><td>不管是否在 INS 上跟爷爷预约，请于 <b>13:30</b> 到乔托钟楼旁边的区域定制画像，每天大概发 6–7 个号</td></tr>
+    <tr><td>流程</td><td>拿到号以后，爷爷记录小猫信息，回家画线稿，第二天同样的时间找爷爷上色，大概 15min 一张</td></tr>
+    <tr><td>价格</td><td>一只 €15/张，两只 €20/张</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">📍 在哪里找他</div>
+    <table><tr><th>位置</th><th>说明</th></tr>
+    <tr><td><b>主要位置</b></td><td>Piazza del Duomo 到 Via dei Calzaiuoli 之间的路段，通常在 Duomo 广场南侧或 Via dei Calzaiuoli 的起点</td></tr>
+    <tr><td><b>备选位置</b></td><td>Piazza della Repubblica（共和广场）的拱廊下</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣母百花 → 取行李 → 酒店", time:"15:30 - 16:00", action:"回 SMN 站取行李 → 步行到酒店", note:"酒店地址：Via Faenza 7 secondo piano, 50123 Firenze" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 圣洛伦佐大殿", time:"16:00 - 16:10", action:"步行 5min", note:"Via Faenza 7 → Piazza San Lorenzo" }),
+    listRowHTML({ type:"activity", icon:"2", name:"圣洛伦佐大殿 San Lorenzo", time:"16:10 - 16:40", action:"美第奇家族教堂 · 米开朗基罗雕塑", note:"开放 10:00–17:30 · 教堂 €9 / 美第奇礼拜堂 €9" }),
+    `<!-- 圣洛伦佐大殿 -->
+    <div class="info-card"><h4>⛪ 圣洛伦佐大殿 · 看什么</h4>
+    <div class="highlight">💡 圣洛伦佐大殿是美第奇家族的教区教堂，从科西莫·德·美第奇到整条家族线都葬在这里。布鲁内莱斯基设计了老圣器室，米开朗基罗设计了新圣器室和美第奇墓。</div>
+    <table class="meal-table"><tr><th>看点</th><th>说明</th><th class="col-narrow">门票</th></tr>
+    <tr><td><b>⭐ Basilica di San Lorenzo</b></td><td>布鲁内莱斯基设计的文艺复兴教堂，灰白色 pietra serena 石材 + 金色拱顶，简洁到极致</td><td>€9</td></tr>
+    <tr><td><b>⭐ Cappelle Medicee（美第奇礼拜堂）</b></td><td>从教堂后方独立入口进入。米开朗基罗的《昼》《夜》《暮》《晨》四座雕塑，分别在洛伦佐和朱利亚诺的墓上——这是米开朗基罗最著名的雕塑群之一</td><td>€9</td></tr>
+    <tr><td><b>Sagresta Vecchia（老圣器室）</b></td><td>布鲁内莱斯基设计的第一个文艺复兴空间，多纳泰罗的灰泥浮雕</td><td>含在教堂门票</td></tr>
+    <tr><td><b>Biblioteca Medicea Laurenziana</b></td><td>米开朗基罗设计的图书馆，入口处的弧形楼梯是建筑史上最著名的楼梯之一</td><td>不定期开放</td></tr></table>
+    <div class="warn" style="margin-top:6px;">⚠️ 注意区分：San Lorenzo 大教堂（Basilica）和 Cappelle Medicee 是两个独立入口 + 独立门票。Chapels Medici 入口在教堂后方（Piazza Madonna degli Aldobrandini）。如果时间不够，只进 Cappelle Medicee 看米开朗基罗雕塑，教堂本身可以跳过。</div></div>`,
+    listRowHTML({ type:"activity", icon:"3", name:"共和广场 Piazza della Repubblica", time:"16:40 - 18:00", action:"沿 Via dei Calzaiuoli 逛小店", note:"佛罗伦萨最热闹的步行街 · 两侧全是店铺" }),
+    `<!-- Via dei Calzaiuoli 沿街小店 -->
+    <div class="info-card"><h4>🛍️ Via dei Calzaiuoli 沿街小店</h4>
+    <div class="highlight">💡 沿 Via dei Calzaiuoli 往南走，这是佛罗伦萨最热闹的步行街，两侧全是店铺（Zara、H&M、意大利品牌 + 小精品店）。</div>
+    <table class="meal-table"><tr><th>店铺</th><th>类型</th><th>说明</th></tr>
+    <tr><td><b>Officina Profumo-Farmaceutica di Santa Maria Novella</b></td><td>药妆/香水</td><td>佛罗伦萨最古老的药房（1221 年），玫瑰水、Pot-Pourri 干花香包、Acqua di Santa Maria Novella 香水，包装像 17 世纪的药瓶</td></tr>
+    <tr><td><b>Pineider</b></td><td>文具/皮具</td><td>1774 年开业的佛罗伦萨文具品牌，手工信纸、蜡封、钢笔，意大利最好的文具之一</td></tr>
+    <tr><td><b>Madova</b></td><td>手套</td><td>佛罗伦萨手工皮手套，羊皮内衬丝绸，颜色几十种，冬天手感好到哭</td></tr>
+    <tr><td><b>Rivoire</b></td><td>甜品/巧克力</td><td>1872 年开业，热巧克力 + 手工巧克力，在领主广场旁边</td></tr>
+    <tr><td><b>Caffè Gilli</b></td><td>咖啡</td><td>1733 年开业，佛罗伦萨最古老的咖啡馆之一，站着喝一杯 Espresso €1.5，或坐在共和广场拱廊下喝 Aperol Spritz €12</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"4", name:"领主广场 Piazza della Signoria", time:"18:00 - 18:40", action:"露天雕塑博物馆 · 免费", note:"旧宫 · 佣兵凉廊 · 大卫复制品 · 海神喷泉" }),
+    `<!-- 领主广场 -->
+    <div class="info-card"><h4>🏛️ 领主广场 · 露天雕塑博物馆</h4>
+    <div class="highlight">💡 领主广场是佛罗伦萨的政治心脏，从 13 世纪起就是佛罗伦萨共和国的权力中心。这里是一个露天雕塑博物馆，全部免费。</div>
+    <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th></tr>
+    <tr><td><b>⭐ 旧宫 Palazzo Vecchio</b></td><td>广场正面</td><td>1299 年建，佛罗伦萨市政厅，94m 高的 Arnolfo 塔是佛罗伦萨天际线的一部分。门口有大卫像的复制品（原作在学院美术馆）</td></tr>
+    <tr><td><b>⭐ 佣兵凉廊 Loggia dei Lanzi</b></td><td>旧宫右侧</td><td>14 世纪建的露天雕塑廊，切利尼的《珀尔修斯与美杜莎》（青铜原作！）+ 詹博洛尼亚的《掠夺萨宾妇女》（一整块大理石雕刻的螺旋构图）</td></tr>
+    <tr><td><b>海神喷泉</b></td><td>广场中央</td><td>阿曼纳蒂设计，海神 + 四匹海马，米开朗基罗曾嘲笑它"浪费了大理石"</td></tr>
+    <tr><td><b>科西莫一世骑马像</b></td><td>广场北侧</td><td>詹博洛尼亚作品，美第奇家族第一代大公</td></tr>
+    <tr><td><b>多纳泰罗《朱迪斯与霍洛芬斯》</b></td><td>旧宫门口左侧</td><td>多纳泰罗的青铜雕塑（原作在旧宫内部，外面是复制品）</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Bistecca alla Fiorentina", time:"19:00 - 20:30", action:"T 骨牛排！Trattoria ZaZa / Trattoria Mario / Dalloste / Paoli 1827 / Locanda de' Medici", note:"周六晚上必须预约！ZaZa 电话 +39 055 215411" }),
+    `<!-- 晚餐推荐 -->
+    <div class="info-card"><h4>🥩 晚餐 · 佛罗伦萨 T 骨牛排 · 5 选 1</h4>
+    <div class="highlight">💡 Bistecca alla Fiorentina 是佛罗伦萨的灵魂食物——1kg 起，2–3 人份，三分熟（al sangue）是唯一正确吃法。周六晚上必须预约！</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 1：Trattoria ZaZa ⭐ 首选，佛罗伦萨经典</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>评分</td><td>4.5</td></tr>
+    <tr><td>地址</td><td>Piazza del Mercato Centrale 26（Mercato Centrale 旁边，中午去过的地方）</td></tr>
+    <tr><td>人均</td><td>€30–45</td></tr>
+    <tr><td>必点</td><td>Bistecca alla Fiorentina（佛罗伦萨 T 骨牛排，1kg 起）、Ribollita（蔬菜面包汤）、Cantucci e Vin Santo（杏仁饼干蘸甜酒）</td></tr>
+    <tr><td>预约</td><td><span class="warn">周六晚上必须预约！</span> 电话 +39 055 215411，或官网 <a href="https://www.trattoriazaza.it" target="_blank">https://www.trattoriazaza.it</a></td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 2：Trattoria Mario ⭐ 佛罗伦萨灵魂</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>评分</td><td>4.6</td></tr>
+    <tr><td>地址</td><td>Via Rosina 2（Mercato Centrale 旁边）</td></tr>
+    <tr><td>人均</td><td>€25–35</td></tr>
+    <tr><td>必点</td><td>Bistecca alla Fiorentina、Pappa al Pomodoro（番茄面包汤）、Peposo alla Fornacina（红酒炖牛肉）</td></tr>
+    <tr><td>备注</td><td><span class="warn">只做午餐 12:00–15:30，晚餐不开！</span> 如果想吃 Mario，改成中午去吃，寄存好行李后轻装前往。</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 3：Trattoria Dalloste Chianineria <span class="tag blue">小红书推荐</span></div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>评分</td><td>4.6</td></tr>
+    <tr><td>地址</td><td>Via dei Cerchi, 40/R, 50122 Firenze（领主广场附近）</td></tr>
+    <tr><td>人均</td><td>€30–90</td></tr>
+    <tr><td>必点</td><td>佛市 NO.1 的 T 骨牛排</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 4：Antico Ristorante Paoli 1827 <span class="tag blue">小红书推荐 · 漂亮饭</span></div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>评分</td><td>4.7</td></tr>
+    <tr><td>地址</td><td>Via dei Tavolini, 12/R, 50122 Firenze（领主广场附近）</td></tr>
+    <tr><td>人均</td><td>€30–90</td></tr>
+    <tr><td>必点</td><td>200 年历史的托斯卡纳风味餐厅，T 骨牛排、海鲜烩饭、提拉米苏</td></tr>
+    <tr><td>备注</td><td>有 €4.9 餐具费</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 5：Locanda de' Medici <span class="tag blue">小红书推荐</span></div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>评分</td><td>4.9</td></tr>
+    <tr><td>地址</td><td>Piazza di Madonna degli Aldobrandini, 11r, 50123 Firenze（酒店附近）</td></tr>
+    <tr><td>人均</td><td>€20–30</td></tr>
+    <tr><td>必点</td><td>佛罗伦萨特色野猪肉酱面、四拼披萨、T 骨牛排、海鲜意面、提拉米苏</td></tr>
+    <tr><td>备注</td><td>服务费 10%</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 5：市场 + 日落 =====
@@ -2522,7 +2653,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v23";
+const STORAGE_KEY = "rome-florence-6days-v24";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
