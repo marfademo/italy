@@ -803,7 +803,7 @@ const DAYS = {
       { num: 2, kind: "main", name: "圣洛伦佐大殿 San Lorenzo", lat: 43.7750, lng: 11.2540, hint: "16:10–16:40", pills: ["🚶 5min","10:00–17:30"] },
       { num: 3, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:40–18:00 · 逛街", pills: ["🚶 沿 Via dei Calzaiuoli"] },
       { num: 4, kind: "main", name: "领主广场 Piazza della Signoria", lat: 43.7696, lng: 11.2559, hint: "18:00–18:40 · 露天雕塑博物馆", pills: ["🚶 继续南行"] },
-      { num: null, kind: "dinner", name: "晚餐 · Trattoria ZaZa / Mario / Dalloste", lat: 43.7768, lng: 11.2530, hint: "19:00–20:30 · Bistecca alla Fiorentina", pills: ["🚶 回 Mercato Centrale 附近"] },
+      { num: null, kind: "dinner", name: "晚餐 · Dalloste / Paoli 1827 / Locanda de' Medici", lat: 43.7768, lng: 11.2530, hint: "19:00–20:30 · Bistecca alla Fiorentina", pills: ["🚶 回 Mercato Centrale 附近"] },
     ],
     route: [
       { mode: "walk", from: 0, to: 1 },
@@ -1703,16 +1703,14 @@ function dayTimeline(d){
     <tr><td><b>海神喷泉</b></td><td>广场中央</td><td>阿曼纳蒂设计，海神 + 四匹海马，米开朗基罗曾嘲笑它"浪费了大理石"</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_South_on_Neptune_Fountain,_Judith_and_Holofernes_%26_David.jpg?width=320" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
     <tr><td><b>科西莫一世骑马像</b></td><td>广场北侧</td><td>詹博洛尼亚作品，美第奇家族第一代大公</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_WNW_on_the_Neptune_Fountain_1575_%26_Equestrian_Statue_of_Cosimo_I_1595.jpg?width=320" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
     <tr><td><b>多纳泰罗《朱迪斯与霍洛芬斯》</b></td><td>旧宫门口左侧</td><td>多纳泰罗的青铜雕塑（原作在旧宫内部，外面是复制品）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Judith_and_Holofernes,_Donatello_Florenz-01.jpg?width=320" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Bistecca alla Fiorentina", time:"19:00 - 20:30", action:"T 骨牛排！Trattoria ZaZa / Trattoria Mario / Dalloste / Paoli 1827 / Locanda de' Medici", note:"周六晚上必须预约！ZaZa 电话 +39 055 215411" }),
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Bistecca alla Fiorentina", time:"19:00 - 20:30", action:"T 骨牛排！Dalloste / Paoli 1827 / Locanda de' Medici", note:"周六晚上建议预约" }),
     `<!-- 晚餐推荐 -->
-    <div class="info-card"><h4>🥩 晚餐 · 佛罗伦萨 T 骨牛排 · 5 选 1</h4>
-    <div class="highlight">💡 Bistecca alla Fiorentina 是佛罗伦萨的灵魂食物——1kg 起，2–3 人份，三分熟（al sangue）是唯一正确吃法。周六晚上必须预约！</div>
+    <div class="info-card"><h4>🥩 晚餐 · 佛罗伦萨 T 骨牛排 · 3 选 1</h4>
+    <div class="highlight">💡 Bistecca alla Fiorentina 是佛罗伦萨的灵魂食物——1kg 起，2–3 人份，三分熟（al sangue）是唯一正确吃法。周六晚上建议预约。</div>
     <table class="meal-table"><tr><th>#</th><th>餐厅</th><th>地址</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th>必点/特色</th><th>备注</th></tr>
-    <tr><td>1</td><td><div>⭐ Trattoria ZaZa（首选，佛罗伦萨经典）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+ZaZa+Piazza+del+Mercato+Centrale+26+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Piazza del Mercato Centrale 26（Mercato Centrale 旁边，中午去过的地方）</td><td><span class="star">4.5★</span></td><td>€30–45</td><td>Bistecca alla Fiorentina（T 骨牛排，1kg 起）、Ribollita（蔬菜面包汤）、Cantucci e Vin Santo（杏仁饼干蘸甜酒）</td><td>周六晚上必须预约！电话 +39 055 215411，或官网 <a href="https://www.trattoriazaza.it" target="_blank">trattoriazaza.it</a></td></tr>
-    <tr><td>2</td><td><div>⭐ Trattoria Mario（佛罗伦萨灵魂）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Mario+Via+Rosina+2+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via Rosina 2（Mercato Centrale 旁边）</td><td><span class="star">4.6★</span></td><td>€25–35</td><td>Bistecca alla Fiorentina、Pappa al Pomodoro（番茄面包汤）、Peposo alla Fornacina（红酒炖牛肉）</td><td><span class="warn">只做午餐 12:00–15:30，晚餐不开！</span>如果想吃 Mario，改成中午去吃</td></tr>
-    <tr><td>3</td><td><div>Trattoria Dalloste Chianineria <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Dalloste+Via+dei+Cerchi+40+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via dei Cerchi, 40/R, 50122 Firenze（领主广场附近）</td><td><span class="star">4.6★</span></td><td>€30–90</td><td>佛市 NO.1 的 T 骨牛排</td><td></td></tr>
-    <tr><td>4</td><td><div>Antico Ristorante Paoli 1827 <span class="tag blue">小红书推荐 · 漂亮饭</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Antico+Ristorante+Paoli+1827+Via+dei+Tavolini+12+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via dei Tavolini, 12/R, 50122 Firenze（领主广场附近）</td><td><span class="star">4.7★</span></td><td>€30–90</td><td>200 年历史的托斯卡纳风味餐厅，T 骨牛排、海鲜烩饭、提拉米苏</td><td>有 €4.9 餐具费</td></tr>
-    <tr><td>5</td><td><div>Locanda de' Medici <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Locanda+de+Medici+Piazza+di+Madonna+degli+Aldobrandini+11+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Piazza di Madonna degli Aldobrandini, 11r, 50123 Firenze（酒店附近）</td><td><span class="star">4.9★</span></td><td>€20–30</td><td>佛罗伦萨特色野猪肉酱面、四拼披萨、T 骨牛排、海鲜意面、提拉米苏</td><td>服务费 10%</td></tr></table></div>`,
+    <tr><td>1</td><td><div>⭐ Trattoria Dalloste Chianineria <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Dalloste+Via+dei+Cerchi+40+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via dei Cerchi, 40/R, 50122 Firenze（领主广场附近）</td><td><span class="star">4.6★</span></td><td>€30–90</td><td>佛市 NO.1 的 T 骨牛排</td><td></td></tr>
+    <tr><td>2</td><td><div>Antico Ristorante Paoli 1827 <span class="tag blue">小红书推荐 · 漂亮饭</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Antico+Ristorante+Paoli+1827+Via+dei+Tavolini+12+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Via dei Tavolini, 12/R, 50122 Firenze（领主广场附近）</td><td><span class="star">4.7★</span></td><td>€30–90</td><td>200 年历史的托斯卡纳风味餐厅，T 骨牛排、海鲜烩饭、提拉米苏</td><td>有 €4.9 餐具费</td></tr>
+    <tr><td>3</td><td><div>Locanda de' Medici <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Locanda+de+Medici+Piazza+di+Madonna+degli+Aldobrandini+11+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>Piazza di Madonna degli Aldobrandini, 11r, 50123 Firenze（酒店附近）</td><td><span class="star">4.9★</span></td><td>€20–30</td><td>佛罗伦萨特色野猪肉酱面、四拼披萨、T 骨牛排、海鲜意面、提拉米苏</td><td>服务费 10%</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 5：市场 + 日落 =====
@@ -2610,7 +2608,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v33";
+const STORAGE_KEY = "rome-florence-6days-v34";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
