@@ -1970,17 +1970,23 @@ function buildLayerFromRows(d){
     const nameEl = row.querySelector(".name-text");
     const name = nameEl ? nameEl.textContent.trim() : "";
     if (!name || name === "新条目" || isPendingName(name)) return;
-    // 步骤1：在当前 Day 的静态 nodes 中查找（模糊匹配）
-    const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
-    let nodeInfo = cfg.nodes.find(n => {
-      if (!n.name) return false;
-      // 精确匹配（同时规范 & 差异）
-      if (n.name === name || n.name.replace(/&amp;/g, '&') === name.replace(/&amp;/g, '&')) return true;
-      // 子串反向包含（同时规范 & 差异）
-      if (name.includes(n.name) || n.name.includes(name) || name.includes(n.name.replace(/&amp;/g, '&')) || n.name.replace(/&amp;/g, '&').includes(name)) return true;
-      // 任一关键词片段匹配（过滤短片段避免 & 等单字符干扰）
-      return nameParts.some(part => part.length > 2 && (n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0])));
-    });
+    // 步骤0：优先通过 icon 编号匹配静态节点的 num（最可靠，避免同名关键词误匹配）
+    const iconText = row.querySelector(".list-icon")?.textContent?.trim() || "";
+    const iconNum = /^\d+$/.test(iconText) ? parseInt(iconText) : null;
+    let nodeInfo = iconNum !== null ? cfg.nodes.find(n => n.num === iconNum) : null;
+    // 步骤1：icon 编号不匹配时，在当前 Day 的静态 nodes 中查找（模糊匹配）
+    if (!nodeInfo) {
+      const nameParts = name.split(/[·\s（(]/).filter(Boolean); // 拆分复合名
+      nodeInfo = cfg.nodes.find(n => {
+        if (!n.name) return false;
+        // 精确匹配（同时规范 & 差异）
+        if (n.name === name || n.name.replace(/&amp;/g, '&') === name.replace(/&amp;/g, '&')) return true;
+        // 子串反向包含（同时规范 & 差异）
+        if (name.includes(n.name) || n.name.includes(name) || name.includes(n.name.replace(/&amp;/g, '&')) || n.name.replace(/&amp;/g, '&').includes(name)) return true;
+        // 任一关键词片段匹配（过滤短片段避免 & 等单字符干扰）
+        return nameParts.some(part => part.length > 2 && (n.name.includes(part) || part.includes(n.name.split(/[\s（(]/)[0])));
+      });
+    }
     // 步骤2：当前 Day 找不到时，跨所有 Day 精确匹配兜底（仅精确匹配，避免误匹配同名通用词）
     if (!nodeInfo) {
       const norm = (s) => s.replace(/&amp;/g, "&");
@@ -2611,7 +2617,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v37";
+const STORAGE_KEY = "rome-florence-6days-v38";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
