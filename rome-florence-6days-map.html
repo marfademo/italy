@@ -816,12 +816,12 @@ const DAYS = {
     line: "🚄 罗马 → 佛罗伦萨 · 中央市场 → 百花 → 领主 · T 骨牛排晚餐",
     nodes: [
       { num: null, kind: "hotel", name: "Firenze SMN 火车站", lat: 43.7766, lng: 11.2479, hint: "Italo 9924 · 12:17 抵达", pills: ["🚄 Roma Termini → SMN"] },
-      { num: 1, kind: "main", name: "Mercato Centrale 中央市场", lat: 43.7768, lng: 11.2526, hint: "12:30–14:00 · 午餐", pills: ["🚶 10min"] },
-      { num: 2, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "14:30–15:30 · 外观 + 广场", pills: ["🚶 10min","10:15–16:00"] },
+      { num: null, kind: "meal", name: "Mercato Centrale 中央市场", lat: 43.7768, lng: 11.2526, hint: "12:30–14:00 · 午餐", pills: ["🚶 10min"] },
+      { num: 1, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "14:30–15:30 · 外观 + 广场", pills: ["🚶 10min","10:15–16:00"] },
       { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "16:00 入住", pills: ["🚶 取行李 + 步行"] },
-      { num: 3, kind: "main", name: "圣洛伦佐大殿 San Lorenzo", lat: 43.7750, lng: 11.2540, hint: "16:10–16:40", pills: ["🚶 5min","10:00–17:30"] },
-      { num: 4, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:40–18:00 · 逛街", pills: ["🚶 沿 Via dei Calzaiuoli"] },
-      { num: 5, kind: "main", name: "领主广场 Piazza della Signoria", lat: 43.7696, lng: 11.2559, hint: "18:00–18:40 · 露天雕塑博物馆", pills: ["🚶 继续南行"] },
+      { num: 2, kind: "main", name: "圣洛伦佐大殿 San Lorenzo", lat: 43.7750, lng: 11.2540, hint: "16:10–16:40", pills: ["🚶 5min","10:00–17:30"] },
+      { num: 3, kind: "main", name: "共和广场 Piazza Repubblica", lat: 43.7731, lng: 11.2536, hint: "16:40–18:00 · 逛街", pills: ["🚶 沿 Via dei Calzaiuoli"] },
+      { num: 4, kind: "main", name: "领主广场 Piazza della Signoria", lat: 43.7696, lng: 11.2559, hint: "18:00–18:40 · 露天雕塑博物馆", pills: ["🚶 继续南行"] },
       { num: null, kind: "dinner", name: "晚餐 · Trattoria ZaZa / Mario / Dalloste", lat: 43.7768, lng: 11.2530, hint: "19:00–20:30 · Bistecca alla Fiorentina", pills: ["🚶 回 Mercato Centrale 附近"] },
     ],
     route: [
@@ -2632,7 +2632,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v29";
+const STORAGE_KEY = "rome-florence-6days-v30";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
