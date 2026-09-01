@@ -624,9 +624,14 @@
     .list-note{font-size:10px;}
     .list-action{font-size:10px;}
     .info-card td img{max-width:60px;}
-    /* ✅ 手机端地图高度随页面宽度动态缩放（提高比例到 0.7） */
-    .mapwrap{min-height:auto;height:calc(100vw * 0.7);max-height:none;z-index:20;padding:3px;border:none;border-radius:0;background:transparent;}
-    .map{height:calc(100vw * 0.68);min-height:220px;max-height:none;z-index:20;border-radius:6px;}
+    /* ✅ 手机端地图高度随页面宽度动态缩放 */
+    .mapwrap{min-height:auto;height:calc(100vw * 0.52);max-height:none;z-index:20;padding:3px;border:none;border-radius:0;background:transparent;}
+    .map{height:calc(100vw * 0.50);min-height:180px;max-height:none;z-index:20;border-radius:6px;}
+    /* 手机端缩小 Leaflet 控件 */
+    .leaflet-marker-num{width:26px;height:26px;font-size:12px;border-width:1.5px;box-shadow:0 2px 4px rgba(0,0,0,.2);}
+    .leaflet-popup-content{margin:6px 10px;min-width:120px;font-size:11px;}
+    .leaflet-control-zoom a{width:28px;height:28px;line-height:28px;font-size:14px;}
+    .leaflet-touch .leaflet-control-zoom a{width:30px;height:30px;line-height:30px;}
     header{flex-direction:column;align-items:flex-start;gap:10px;}
     h1{font-size:30px;}
     /* ✅ 手机端 list-row 浮窗降低 z-index，让地图在最上层 */
@@ -2606,7 +2611,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v36";
+const STORAGE_KEY = "rome-florence-6days-v37";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
