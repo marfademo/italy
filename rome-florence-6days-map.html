@@ -1622,11 +1622,18 @@ function dayTimeline(d){
     listRowHTML({ type:"transport", icon:"🚶", name:"SMN 火车站 → 寄存行李 → 中央市场", time:"12:17 - 12:30", action:"步行 10min · 先寄存行李再吃饭", note:"行李柜推荐 Kibag（人工）/ Stow Your Bags（自助）" }),
     `<!-- 行李寄存 -->
     <div class="info-card"><h4>🎒 SMN 火车站 · 行李寄存指南</h4>
-    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">选择 1：Kibag（人工柜台）⭐ 推荐</div>
+    <div style="margin-top:6px;font-weight:800;color:var(--pink-deep);">选择 1：Kibag / KiPoint（人工柜台，SMN 官方寄存）⭐ 推荐</div>
+    <div class="highlight">💡 SMN 火车站官方唯一授权寄存，不是第三方合作店。</div>
     <table><tr><th>项目</th><th>说明</th></tr>
-    <tr><td>位置</td><td>16 号站台方向走</td></tr>
-    <tr><td>费用</td><td>4h 以内：€6/件；5–12h：€6 + 超时 €1/h；12h+：超时 €0.5/h</td></tr>
-    <tr><td>流程</td><td>出示护照 → 领凭证 → 取件时凭条领取并付款</td></tr></table>
+    <tr><td>位置</td><td>SMN 火车站内，16 号站台旁（沿站内蓝色 "Deposito Bagagli" 指示牌走）。还有一个入口从站外 <b>Via Valfonda 1/a</b> 进入</td></tr>
+    <tr><td>网上预约</td><td><b>€6/件</b>（网上提前预订价），含免费使用火车站卫生间（单独付费 €1.20）</td></tr>
+    <tr><td>现场费用</td><td>4h 以内：€6/件；5–12h：€6 + 超时 €1/h；12h+：超时 €0.5/h</td></tr>
+    <tr><td>流程</td><td>出示护照 → 领凭证 → 取件时凭条领取并付款</td></tr>
+    <tr><td>营业</td><td>7:00–21:00，全年 365 天无休</td></tr>
+    <tr><td>预订</td><td><a href="https://www.kibag.it" target="_blank">https://www.kibag.it</a> → 选 "Firenze Santa Maria Novella" → 选日期 → 在线付款 €6</td></tr>
+    <tr><td>保险</td><td>含保险（deposito bagagli assicurato）</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">✅ 优势</div>
+    <div style="font-size:11px;margin-top:2px;">• 官方唯一授权，不是第三方合作店<br>• 网上预订后 <b>skip the line</b>——到了直接进，不用排队<br>• 含保险（deposito bagagli assicurato）</div>
     <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">选择 2：Stow Your Bags（自助柜）</div>
     <table><tr><th>项目</th><th>说明</th></tr>
     <tr><td>位置</td><td>SMN 火车站地下通道，从站台下来后沿 "Deposito Bagagli / Luggage Storage" 指示牌走，在麦当劳对面</td></tr>
@@ -2653,7 +2660,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v25";
+const STORAGE_KEY = "rome-florence-6days-v26";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
