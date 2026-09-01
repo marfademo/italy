@@ -658,8 +658,7 @@
     <div class="toolbar">
       <button id="edit-toggle" class="tool-btn" type="button">✏️ 编辑</button>
       <button id="refetch-btn" class="tool-btn ghost" type="button" title="清除联网拉的图片缓存并重新加载（手动粘贴的图保留）" style="display:none;">🔄 重拉图片</button>
-      <button id="export-img-btn" class="tool-btn ghost" type="button" title="导出当前所有配图到 images.json（用于跨设备同步）">📦 导出配图</button>
-    </div>
+          </div>
   </header>
 
   <!-- ===== 顶部 Tab 栏 ===== -->
@@ -2349,8 +2348,7 @@ function init(){
   // 工具栏
   document.getElementById("edit-toggle").addEventListener("click", toggleEdit);
   document.getElementById("refetch-btn").addEventListener("click", refetchAllImages);
-  document.getElementById("export-img-btn").addEventListener("click", exportImageManifest);
-
+  
   // 关页/刷新：如有未保存编辑，提示
   window.addEventListener("beforeunload", (e) => {
     if (Object.keys(pendingEdits).length > 0) {
@@ -2608,7 +2606,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v34";
+const STORAGE_KEY = "rome-florence-6days-v35";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
@@ -3925,30 +3923,6 @@ function loadRowImages(row){
   applyEmptyFlag(gallery);
 }
 
-// 导出当前所有配图到 images.json（用于跨设备同步）
-function exportImageManifest(){
-  const manifest = {};
-  document.querySelectorAll(".day-panel .list-row").forEach(row => {
-    const name = row.querySelector(".name-text")?.textContent?.trim();
-    if (!name || isPendingName(name)) return;
-    const saved = localStorage.getItem(`trip-img-${name}`);
-    if (!saved) return;
-    try {
-      const imgs = JSON.parse(saved);
-      if (Array.isArray(imgs) && imgs.length > 0) {
-        manifest[name] = imgs;
-      }
-    } catch {}
-  });
-  const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "images.json";
-  a.click();
-  URL.revokeObjectURL(url);
-  alert(`已导出 ${Object.keys(manifest).length} 个景点的配图到 images.json。\n请将此文件放到 HTML 同目录下，并提交到 GitHub。`);
-}
 
 // 保存图片到 localStorage（按景点名称作 key）
 function saveRowImages(row){

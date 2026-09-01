@@ -13,7 +13,7 @@
 set -e
 
 # ===== 配置 =====
-REPO_URL="https://github.com/marfademo/-rome-florence-trip.git"  # ← 改成你的仓库 URL
+REPO_URL="git@github.com:marfademo/italy.git"
 BRANCH="gh-pages"
 INDEX_FILE="rome-florence-6days-share.html"  # 主入口文件名
 
