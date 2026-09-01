@@ -15,7 +15,7 @@ set -e
 # ===== 配置 =====
 REPO_URL="git@github.com:marfademo/italy.git"
 BRANCH="gh-pages"
-INDEX_FILE="rome-florence-6days-share.html"  # 主入口文件名
+INDEX_FILE="rome-florence-6days-map.html"  # 主入口文件名
 
 # ===== 1. 准备临时目录 =====
 WORKDIR=$(mktemp -d)
