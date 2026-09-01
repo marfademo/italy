@@ -101,17 +101,6 @@
   .mapwrap{position:relative;background:#fbf5e3;border:2px solid #f3d9a4;border-radius:12px;padding:6px;display:flex;flex-direction:column;height:680px;overflow:hidden;z-index:20;}
   .map{width:100%;height:100%;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(160,120,60,.12);z-index:20;position:relative;}
   .hotel-marker{position:absolute;top:14px;left:14px;z-index:500;background:var(--pink-soft);color:var(--pink-deep);border:2px solid var(--pink-deep);font-weight:900;font-size:12px;padding:5px 10px;border-radius:8px;box-shadow:0 2px 4px rgba(224,52,117,.25);}
-  /* 图例放在地图上方（不是叠在地图上） */
-  .map-legend{
-    position:relative;display:flex;gap:14px;justify-content:center;
-    background:#fffaf0;border:1px solid #f3d9a4;border-radius:8px;
-    padding:6px 10px;margin-bottom:6px;font-size:11px;font-weight:700;color:#5c3a00;line-height:1.6;
-  }
-  .map-legend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
-  .map-legend .dot.walk{background:var(--pink-deep);}
-  .map-legend .dot.taxi{background:var(--green-deep);}
-  .map-legend .dot.hotel{background:#f5b4ce;border:2px solid var(--pink-deep);}
-
   /* 自定义 Leaflet 标记 */
   .leaflet-marker-num{
     width:32px;height:32px;border-radius:50% 50% 50% 0;
@@ -559,12 +548,6 @@
   /* 占位符 */
   .bottom-textarea:read-only:placeholder-shown{color:#bbb;font-style:italic;}
 
-  /* 地图图例：放在地图上方（独立行） */
-  .map-legend-top{position:relative;display:flex;gap:14px;justify-content:center;
-    background:#fffaf0;border:1px solid #f3d9a4;border-radius:8px;
-    padding:6px 10px;margin-bottom:6px;font-size:11px;font-weight:700;color:#5c3a00;line-height:1.6;}
-  .map-legend-top .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle;}
-
   /* ===== 右侧行程详情 ===== */
   .timeline{position:relative;padding-left:18px;overflow:visible;}
   .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,#f5b4ce,#db2777);}
@@ -650,8 +633,6 @@
     .list-row{z-index:1;}
     /* ✅ 底部三个 panel 改为纵向堆叠，避免横向挤压 */
     .info{grid-template-columns:1fr !important;}
-    /* 地图图例 */
-    .map-legend{font-size:10px;gap:8px;padding:3px 6px;}
     /* 按钮 */
     .tool-btn{font-size:11px;padding:5px 10px;}
     .gmaps-btn{font-size:10px;}
@@ -1886,11 +1867,6 @@ function renderDayPanel(d){
   const cfg = DAYS[d];
   const left = cfg.isTransit ? renderTransitBoard() : `
         <div class="mapwrap">
-          <div class="map-legend map-legend-top">
-            <span class="dot walk"></span>步行路线
-            <span class="dot taxi"></span>打车段
-            <span class="dot hotel"></span>酒店/可选
-          </div>
           <div id="map-${d}" class="map"></div>
         </div>`;
   const hotelBadge = ""; // 去除酒店信息徽章
@@ -2632,7 +2608,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v31";
+const STORAGE_KEY = "rome-florence-6days-v32";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
