@@ -1681,6 +1681,7 @@ function dayTimeline(d){
     <tr><td><b>Sagresta Vecchia（老圣器室）</b></td><td>布鲁内莱斯基设计的第一个文艺复兴空间，多纳泰罗的灰泥浮雕</td><td>含在教堂门票</td><td></td></tr>
     <tr><td><b>Biblioteca Medicea Laurenziana</b></td><td>米开朗基罗设计的图书馆，入口处的弧形楼梯是建筑史上最著名的楼梯之一</td><td>不定期开放</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Medicibib.jpg?width=320" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table>
     <div class="warn" style="margin-top:6px;">⚠️ 注意区分：San Lorenzo 大教堂（Basilica）和 Cappelle Medicee 是两个独立入口 + 独立门票。Chapels Medici 入口在教堂后方（Piazza Madonna degli Aldobrandini）。如果时间不够，只进 Cappelle Medicee 看米开朗基罗雕塑，教堂本身可以跳过。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣洛伦佐 → 共和广场", time:"16:40", action:"沿 Via dei Calzaiuoli 往南步行 7min", note:"佛罗伦萨最热闹的步行街" }),
     listRowHTML({ type:"activity", icon:"3", name:"共和广场 Piazza della Repubblica", time:"16:40 - 18:00", action:"沿 Via dei Calzaiuoli 逛小店", note:"佛罗伦萨最热闹的步行街 · 两侧全是店铺" }),
     `<!-- Via dei Calzaiuoli 沿街小店 -->
     <div class="info-card"><h4>🛍️ Via dei Calzaiuoli 沿街小店</h4>
@@ -1691,6 +1692,7 @@ function dayTimeline(d){
     <tr><td><div><b>Madova</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Madova+Via+dei+Guicciardini+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>手套</td><td>佛罗伦萨手工皮手套，羊皮内衬丝绸，颜色几十种，冬天手感好到哭</td></tr>
     <tr><td><div><b>Rivoire</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Rivoire+Piazza+della+Signoria+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>甜品/巧克力</td><td>1872 年开业，热巧克力 + 手工巧克力，在领主广场旁边</td></tr>
     <tr><td><div><b>Caffè Gilli</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Caffe+Gilli+Piazza+della+Repubblica+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>咖啡</td><td>1733 年开业，佛罗伦萨最古老的咖啡馆之一，站着喝一杯 Espresso €1.5，或坐在共和广场拱廊下喝 Aperol Spritz €12</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"共和广场 → 领主广场", time:"18:00", action:"沿 Via dei Calzaiuoli 继续往南步行 5min", note:"穿过共和广场拱廊 → 直走即到领主广场" }),
     listRowHTML({ type:"activity", icon:"4", name:"领主广场 Piazza della Signoria", time:"18:00 - 18:40", action:"露天雕塑博物馆 · 免费", note:"旧宫 · 佣兵凉廊 · 大卫复制品 · 海神喷泉" }),
     `<!-- 领主广场 -->
     <div class="info-card"><h4>🏛️ 领主广场 · 露天雕塑博物馆</h4>
@@ -2608,7 +2610,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v32";
+const STORAGE_KEY = "rome-florence-6days-v33";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
