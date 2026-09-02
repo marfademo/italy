@@ -817,28 +817,32 @@ const DAYS = {
     timeline: dayTimeline(4),
   },
 
-  /* ---------- Day 5 市场 + 阿诺河 + 日落 ---------- */
+  /* ---------- Day 5 百花 + Oltrarno + 日落 ---------- */
   5: {
-    hotel: { name: "酒店 · S.M.Novella 火车站附近", lat: 43.7760, lng: 11.2486 },
-    center: [43.7670, 11.2550],
+    hotel: { name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526 },
+    center: [43.7700, 11.2550],
     zoom: 14,
     bounds: [[43.7600,11.2400],[43.7800,11.2700]],
-    title: "市场 + 阿诺河 + 日落",
+    title: "百花 + Oltrarno + 日落",
     badge: "DAY 5",
     date: "10.5 · FIRENZE",
-    line: "🛍️ 中央市场 → 河对岸 → 米开朗琪罗广场看日落",
+    line: "⛪ 圣母百花 → 逛街 → 圣三一桥 → Oltrarno → 米开朗琪罗广场日落",
     nodes: [
-      { num: null, kind: "hotel", name: "酒店", lat: 43.7760, lng: 11.2486, hint: "出发" },
-      { num: 1, kind: "main", name: "中央市场 Mercato Centrale", lat: 43.7768, lng: 11.2526, hint: "11:00–13:00 · 伴手礼", pills: ["🚶 3min"] },
-      { num: 2, kind: "bridge", name: "圣三一桥", lat: 43.7703, lng: 11.2508, hint: "跨阿诺河", pills: ["🚖 20'"] },
-      { num: 3, kind: "main", name: "奥尔特拉诺", lat: 43.7670, lng: 11.2470, hint: "河对岸艺术区", pills: ["🚶 5'"] },
-      { num: 4, kind: "sunset", name: "米开朗琪罗广场", lat: 43.7629, lng: 11.2650, hint: "🌅 19:00 左右日落 · 提前 1h 占座", pills: ["🚖 14'"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "出发" },
+      { num: null, kind: "meal", name: "午餐 · San Lorenzo 区", lat: 43.7763, lng: 11.2530, hint: "12:00–13:00 · Trattoria ZaZa / Mario", pills: ["🚶 3min"] },
+      { num: 1, kind: "main", name: "圣母百花大教堂", lat: 43.7731, lng: 11.2559, hint: "13:10–13:50 · 外观 + 广场", pills: ["🚶 10min","10:15–16:00"] },
+      { num: 2, kind: "bridge", name: "圣三一桥", lat: 43.7703, lng: 11.2508, hint: "15:30–15:50 · 拍老桥最佳机位", pills: ["🚶 10min"] },
+      { num: 3, kind: "main", name: "Oltrarno 街区", lat: 43.7670, lng: 11.2470, hint: "15:50–17:10 · 工匠作坊 + 古董街", pills: ["🚶 5min"] },
+      { num: 4, kind: "sunset", name: "米开朗琪罗广场", lat: 43.7629, lng: 11.2650, hint: "🌅 17:20–19:00 · 日落 18:48", pills: ["🚕 10min"] },
+      { num: null, kind: "dinner", name: "晚餐 · Dalloste / Paoli 1827", lat: 43.7700, lng: 11.2555, hint: "19:00–20:30", pills: ["🚕 下山"] },
     ],
     route: [
       { mode: "walk", from: 0, to: 1 },
-      { mode: "taxi", from: 1, to: 2 },
+      { mode: "walk", from: 1, to: 2 },
       { mode: "walk", from: 2, to: 3 },
-      { mode: "taxi", from: 3, to: 4 },
+      { mode: "walk", from: 3, to: 4 },
+      { mode: "taxi", from: 4, to: 5 },
+      { mode: "taxi", from: 5, to: 6 },
     ],
     timeline: dayTimeline(5),
   },
@@ -1697,18 +1701,133 @@ if (d===4) return [
     <tr><td>4</td><td><div>Il Santo Bevitore（漂亮饭）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Il+Santo+Bevitore+Via+di+Santo+Spirito+64+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.4★</span></td><td>€45–60</td><td>Risotto ai Funghi Porcini（牛肝菌烩饭）、Tagliata di Manzo（烤牛肉片）</td><td>佛罗伦萨最受欢迎的高端 Trattoria，烛光 + 石墙 + 大酒柜。必须提前 1–2 周预约 +39 055 216 949</td></tr></table></div>`,
   ].join("");
 
-  // ===== Day 5：市场 + 日落 =====
+// ===== Day 5：百花 + Oltrarno + 日落 =====
   if (d===5) return [
-    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 中央市场", duration:"3min" }),
-    listRowHTML({ type:"activity", icon:"1", name:"中央市场 Mercato Centrale", time:"11:00 - 13:00", action:"逛市场 · 买伴手礼", note:"一层美食 / 二层餐厅" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午饭", action:"牛肚包 / 披萨" }),
-    listRowHTML({ type:"transport", icon:"🚕", name:"中央市场 → 圣三一桥", duration:"20min" }),
-    listRowHTML({ type:"activity", icon:"2", name:"圣三一桥 & 阿诺河散步", time:"15:00 - 15:30", action:"桥上拍全景" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣三一桥 → Oltrarno", duration:"5min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"奥尔特拉诺 Oltrarno", time:"15:30 - 18:00", action:"艺术区闲逛 · 特色小店" }),
-    listRowHTML({ type:"transport", icon:"🚕", name:"Oltrarno → 米开朗琪罗广场", duration:"14min" }),
-    listRowHTML({ type:"activity", icon:"4", name:"米开朗琪罗广场", time:"18:00 - 19:20", action:"🌅 等日落", note:"提前 1h 占座" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"Oltrarno / 回酒店附近" }),
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · San Lorenzo 区", time:"12:00 - 13:00", action:"Trattoria ZaZa / Trattoria Mario / Locanda de' Medici / Panini Toscani", note:"酒店附近 · San Lorenzo 区" }),
+    `<!-- 午餐推荐 -->
+    <div class="info-card"><h4>🍝 午餐 · San Lorenzo 区 · 4 选 1</h4>
+    <div class="highlight">💡 San Lorenzo 区就在酒店旁边，步行 3 分钟。注意 Trattoria Mario 只做午餐！</div>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点/特色</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Trattoria ZaZa（首选，佛罗伦萨经典）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+ZaZa+Piazza+del+Mercato+Centrale+26+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€30–45</td><td>Bistecca alla Fiorentina（佛罗伦萨 T 骨牛排，1kg 起，2–3 人份，三分熟 al sangue 是唯一正确吃法）、Ribollita（蔬菜面包汤）、Cantucci e Vin Santo（杏仁饼干蘸甜酒）</td><td>周六晚上必须预约！电话 +39 055 215411，或 <a href="https://www.trattoriazaza.it" target="_blank">官网预订</a></td></tr>
+    <tr><td>2</td><td><div>⭐ Trattoria Mario（佛罗伦萨灵魂）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Mario+Via+Rosina+2+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€25–35</td><td>Bistecca alla Fiorentina、Pappa al Pomodoro（番茄面包汤）、Peposo alla Fornacina（红酒炖牛肉）</td><td><span class="warn">只做午餐 12:00–15:30，晚餐不开！</span>如果你想吃 Mario，中午去吃</td></tr>
+    <tr><td>3</td><td><div>Locanda de' Medici <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Locanda+de+Medici+Piazza+di+Madonna+degli+Aldobrandini+11+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.9★</span></td><td>€20–30</td><td>佛罗伦萨特色野猪肉酱面、四拼披萨、T 骨牛排、海鲜意面、提拉米苏</td><td>服务费 10%</td></tr>
+    <tr><td>4</td><td><div>Panini Toscani（最快速）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Panini+Toscani+Via+del+Canto+dei+Nelli+22+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">—</span></td><td>€8–12</td><td>Porchetta Panini（烤猪肉三明治）</td><td>Via del Canto dei Nelli 22（San Lorenzo 教堂旁）。站着吃，5 分钟搞定</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"午餐 → 圣母百花大教堂", time:"13:00 - 13:10", action:"步行 10min", note:"Via Panicale 往南 → Via dei Cerretani → 广场出现" }),
+    listRowHTML({ type:"activity", icon:"1", name:"圣母百花大教堂（外观 + 广场）", time:"13:10 - 13:50", action:"是否登顶需讨论 · 阿雯建议免费游览 or 洗礼堂套票", note:"开放 10:15–16:00 · 大教堂免费排队 · 着装要求膝盖+肩膀遮盖" }),
+    `<!-- 圣母百花大教堂 -->
+    <div class="info-card"><h4>⛪ 圣母百花大教堂 · 门票 & 排队</h4>
+    <div class="highlight">💡 大教堂免费入内，只有一个入口（南侧）。周六下午 14:00 排队约 20–30 分钟，没有安检，但着装要求：膝盖 + 肩膀遮盖（跟圣彼得大教堂一样严格）。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">🎫 门票类型</div>
+    <table class="meal-table"><tr><th>区域</th><th>价格</th><th>说明</th></tr>
+    <tr><td>大教堂（Cathedral）</td><td><b>免费</b></td><td>排队入内，周六下午 14:00 排队约 20–30 分钟</td></tr>
+    <tr><td><b>⭐ 穹顶登顶（Brunelleschi's Dome）</b></td><td>€30（Brunelleschi Pass，含所有：穹顶登顶+钟楼+洗礼堂+博物馆+地宫）</td><td>463 阶，无电梯，需提前预约时段，周六大概率约满。建筑爱好者建议买穹顶通票</td></tr>
+    <tr><td>钟楼（Giotto's Campanile）</td><td>€20（钟楼+洗礼堂+博物馆+地宫，无穹顶）</td><td>414 阶，同样需要预约</td></tr>
+    <tr><td>洗礼堂（Baptistery）</td><td>€15（洗礼堂+博物馆+地宫，无登顶）</td><td>天花板金色马赛克《最后的审判》</td></tr>
+    <tr><td>Museo dell'Opera del Duomo</td><td>含在套票中</td><td>教堂博物馆，Ghiberti 的《天堂之门》真品在此</td></tr></table>
+    <div style="font-size:10px;color:#888;margin-top:4px;">⚠️ 所有票在网上买的时候就要选好日期，从那天开始三天有效，但每个项目只能用一次。不能提前进入。钟楼和穹顶时间在买票时就必须选好时间段。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">👀 大教堂看什么</div>
+    <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th><th class="col-narrow">门票</th><th>示意图</th></tr>
+    <tr><td><b>⭐ 大教堂外立面</b></td><td>正前方</td><td>白 + 绿 + 粉三色大理石几何图案，19 世纪新哥特式立面，站在广场西南角拍全景</td><td>免费</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Santa_Maria_del_Fiore.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>⭐ 布鲁内莱斯基穹顶</b></td><td>教堂上方</td><td>1436 年建成，当时世界上最大的穹顶（直径 45.5m），红色陶瓦 + 白色肋拱，从广场任何一个角落都能看到</td><td>免费看外观</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dome_of_Cattedrale_di_Santa_Maria_del_Fiore_(Florence).jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>乔托钟楼</b></td><td>教堂右侧</td><td>82m 高，绿白红三色大理石，可以登顶（414 阶）俯瞰佛罗伦萨</td><td>登顶 €20</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/CampanileGiotto-01.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>圣乔瓦尼洗礼堂</b></td><td>教堂正前方</td><td>佛罗伦萨最古老的建筑（11 世纪），洛伦佐·吉贝尔蒂的《天堂之门》（东门，镀金青铜浮雕，原作在 Museo dell'Opera）</td><td>免费看外观</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Baptistery,_Florence.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>Museo dell'Opera del Duomo</b></td><td>教堂后方</td><td>大教堂博物馆，穹顶原始模型 + 天堂之门原作 + 米开朗基罗的《圣母怜子》（他为自己墓设计的）</td><td>€15</td><td></td></tr></table></div>`,
+    `<!-- 画小猫的爷爷 -->
+    <div class="info-card"><h4>🐱 画小猫的爷爷 · Alessandro Buccoliero</h4>
+    <div class="highlight">💡 佛罗伦萨街头艺术家，专门画小猫肖像。比较耗时，随缘。</div>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>艺术家</td><td>Alessandro Buccoliero，可 INS 提前沟通时间，但不能预约</td></tr>
+    <tr><td>取号</td><td>不管是否在 INS 上跟爷爷预约，请于 <b>13:30</b> 到乔托钟楼旁边的区域定制画像，每天大概发 6–7 个号</td></tr>
+    <tr><td>流程</td><td>拿到号以后，爷爷记录小猫信息，回家画线稿，第二天同样的时间找爷爷上色，大概 15min 一张</td></tr>
+    <tr><td>价格</td><td>一只 €15/张，两只 €20/张</td></tr></table>
+    <div style="margin-top:6px;font-weight:800;color:#7a4a00;">📍 在哪里找他</div>
+    <table><tr><th>位置</th><th>说明</th></tr>
+    <tr><td><b>主要位置</b></td><td>Piazza del Duomo 到 Via dei Calzaiuoli 之间的路段，通常在 Duomo 广场南侧或 Via dei Calzaiuoli 的起点</td></tr>
+    <tr><td><b>备选位置</b></td><td>Piazza della Repubblica（共和广场）的拱廊下</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"·", name:"共和广场 + 沿街小店", time:"13:50 - 14:50", action:"从 Duomo 广场出发，沿 Via dei Calzaiuoli 逛小店", note:"佛罗伦萨最热闹的步行街 · 两侧全是店铺" }),
+    `<!-- Via dei Calzaiuoli 沿街小店 -->
+    <div class="info-card"><h4>🛍️ Via dei Calzaiuoli 沿街小店</h4>
+    <div class="highlight">💡 沿 Via dei Calzaiuoli 往南走，这是佛罗伦萨最热闹的步行街，两侧全是店铺（Zara、H&M、意大利品牌 + 小精品店）。</div>
+    <table class="meal-table"><tr><th>店铺</th><th>类型</th><th>说明</th></tr>
+    <tr><td><div><b>Officina Profumo-Farmaceutica di Santa Maria Novella</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Officina+Profumo+Farmaceutica+di+Santa+Maria+Novella+Via+della+Scala+16+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>药妆/香水</td><td>佛罗伦萨最古老的药房（1221 年），玫瑰水、Pot-Pourri 干花香包、Acqua di Santa Maria Novella 香水，包装像 17 世纪的药瓶</td></tr>
+    <tr><td><div><b>Pineider</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pineider+Via+dei+Calzaiuoli+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>文具/皮具</td><td>1774 年开业的佛罗伦萨文具品牌，手工信纸、蜡封、钢笔，意大利最好的文具之一</td></tr>
+    <tr><td><div><b>Madova</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Madova+Via+dei+Guicciardini+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>手套</td><td>佛罗伦萨手工皮手套，羊皮内衬丝绸，颜色几十种，冬天手感好到哭</td></tr>
+    <tr><td><div><b>Rivoire</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Rivoire+Piazza+della+Signoria+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>甜品/巧克力</td><td>1872 年开业，热巧克力 + 手工巧克力，在领主广场旁边</td></tr>
+    <tr><td><div><b>Caffè Gilli</b></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Caffe+Gilli+Piazza+della+Repubblica+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>咖啡</td><td>1733 年开业，佛罗伦萨最古老的咖啡馆之一，站着喝一杯 Espresso €1.5，或坐在共和广场拱廊下喝 Aperol Spritz €12</td></tr></table>
+    <div class="warn" style="margin-top:6px;">💡 皮具购物建议：Day 4 在 San Lorenzo 露天市场建议「不要买皮具」，因为那里的货参差不齐。今天在 Via dei Calzaiuoli 和 Oltrarno 看到的皮具质量好得多。如果想买皮包/钱包/皮夹克，留到下午 Oltrarno 的手工皮具店——那里是真的工匠自己做。</div></div>`,
+    listRowHTML({ type:"activity", icon:"·", name:"领主广场 Piazza della Signoria", time:"14:50 - 15:10", action:"路过看一眼 · 露天雕塑博物馆", note:"全部免费 · 24 小时开放" }),
+    `<!-- 领主广场 -->
+    <div class="info-card"><h4>🏛️ 领主广场 · 露天雕塑博物馆</h4>
+    <div class="highlight">💡 领主广场是佛罗伦萨的政治心脏，从 13 世纪起就是佛罗伦萨共和国的权力中心。这里是一个露天雕塑博物馆，全部免费。</div>
+    <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th><th>示意图</th></tr>
+    <tr><td><b>⭐ 旧宫 Palazzo Vecchio</b></td><td>广场正面</td><td>1299 年建，佛罗伦萨市政厅，94m 高的 Arnolfo 塔是佛罗伦萨天际线的一部分。门口有大卫像的复制品（原作在学院美术馆）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_Palazzo_della_Signoria%2C_better_known_as_the_Palazzo_Vecchio.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>⭐ 佣兵凉廊 Loggia dei Lanzi</b></td><td>旧宫右侧</td><td>14 世纪建的露天雕塑廊，切利尼的《珀尔修斯与美杜莎》（青铜原作！）+ 詹博洛尼亚的《掠夺萨宾妇女》（一整块大理石雕刻的螺旋构图）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Sculptures_in_the_Loggia_dei_Lanzi.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>海神喷泉</b></td><td>广场中央</td><td>阿曼纳蒂设计，海神 + 四匹海马，米开朗基罗曾嘲笑它"浪费了大理石"</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_South_on_Neptune_Fountain,_Judith_and_Holofernes_%26_David.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>科西莫一世骑马像</b></td><td>广场北侧</td><td>詹博洛尼亚作品，美第奇家族第一代大公</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_WNW_on_the_Neptune_Fountain_1575_%26_Equestrian_Statue_of_Cosimo_I_1595.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>多纳泰罗《朱迪斯与霍洛芬斯》</b></td><td>旧宫门口左侧</td><td>多纳泰罗的青铜雕塑（原作在旧宫内部，外面是复制品）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Judith_and_Holofernes,_Donatello_Florenz-01.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"领主广场 → 圣三一桥", time:"15:20 - 15:30", action:"步行 10min", note:"沿 Via Por Santa Maria 往南 → 过河即到" }),
+    listRowHTML({ type:"activity", icon:"2", name:"圣三一桥 Ponte Santa Trinita", time:"15:30 - 15:50", action:"拍个照 · 拍老桥最经典机位", note:"佛罗伦萨最优雅的桥 · 四座四季雕塑" }),
+    `<!-- 圣三一桥 -->
+    <div class="info-card"><h4>🌉 圣三一桥 · 为什么值得来</h4>
+    <div class="highlight">💡 圣三一桥（Ponte Santa Trinita）被认为是佛罗伦萨最优雅的桥。比老桥更精致，比任何一座桥都更上镜。</div>
+    <table class="meal-table"><tr><th>看点</th><th>说明</th></tr>
+    <tr><td><b>⭐ 四座寓意雕塑</b></td><td>桥的四角各有一座大理石雕像，代表四季：春（Primavera）、夏（Estate）、秋（Autunno）、冬（Inverno）。1569 年 Ammannati 设计，据传 Michelangelo 参与了方案</td></tr>
+    <tr><td><b>桥上视角</b></td><td>站在桥中央看老桥（往东）——这是拍老桥最经典的机位，桥 + 阿诺河 + Vasari 走廊全在画框里</td></tr>
+    <tr><td><b>椭圆拱形</b></td><td>三座优雅的椭圆拱，是文艺复兴桥梁工程的杰作。二战时被德军炸毁，1958 年用原石料打捞重建</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">📸 拍照机位</div>
+    <div style="font-size:11px;margin-top:2px;">• 桥中央往东拍老桥（经典机位）<br>• 桥中央往西拍 Ponte alla Carraia + 远处山丘<br>• 四季雕塑 + 阿诺河背景</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"圣三一桥 → Oltrarno 街区", time:"15:50", action:"过桥即到 · 步行 5min", note:"" }),
+    listRowHTML({ type:"activity", icon:"3", name:"Oltrarno 街区", time:"15:50 - 17:10", action:"逛本地特色小店 · 如果今天逛不完 Day 6 可以继续来", note:"Via Maggio 古董街 · Via Santo Spirito 工匠作坊 · 手工皮具店" }),
+    `<!-- Oltrarno 街区 -->
+    <div class="info-card"><h4>🛍️ Oltrarno 街区 · 逛什么</h4>
+    <div class="highlight">💡 Oltrarno 的精髓在于「不经意地发现」——推开一扇半掩的门，里面可能是一个工匠在工作台前忙了 30 年。看到感兴趣的店就进去，跟工匠聊两句（他们大多会说一些英语）。</div>
+    <table class="meal-table"><tr><th>街道</th><th>类型</th><th>看点</th></tr>
+    <tr><td><b>⭐ Via Maggio</b></td><td>古董一条街</td><td>佛罗伦萨最著名的古董街，从 16 世纪家具到 Art Deco 灯具都有。即使不买，逛橱窗也像逛博物馆。Romano 和 Guido Bartolozzi 等古董商已在这条街经营几代人</td></tr>
+    <tr><td><b>⭐ Via Santo Spirito</b></td><td>工匠作坊 + 手工艺</td><td>独立手工艺人和小画廊，木雕工作室、金匠铺、大理石纹纸店（marbled paper）。Il Torchio（Via Santo Spirito）是佛罗伦萨最著名的手工书籍装帧和大理石纹纸店</td></tr>
+    <tr><td><b>⭐ Piazza della Passera</b></td><td>隐秘小广场</td><td>Day 4 晚餐的 4 Leoni 就在这。广场周围有几家小型工匠工作室，加上 Gelateria della Passera（Buontalenti 口味冰淇淋——传说中是 gelato 的发明者配方）</td></tr>
+    <tr><td><b>Borgo San Jacopo</b></td><td>皮具工坊</td><td>靠近老桥南端，有几家真正的手工皮具店。Scuola del Cuoio（Santa Croce 后方）是佛罗伦萨最著名的皮具学校，但 Oltrarno 这条街上的小作坊同样值得逛</td></tr>
+    <tr><td><b>Via dello Sprone</b></td><td>窄巷 + 酒窖</td><td>连接 Piazza della Passera 和 Borgo San Jacopo 的窄巷，4 Leoni 的 Enoteca 在这。黄昏时光线穿过巷子，极美</td></tr></table></div>`,
+    `<!-- Oltrarno 值得买的 -->
+    <div class="info-card"><h4>🛒 Oltrarno · 值得买的</h4>
+    <table class="meal-table"><tr><th>东西</th><th class="col-narrow">价格段</th><th>推荐店</th></tr>
+    <tr><td><b>大理石纹纸笔记本</b></td><td>€15–30</td><td>Il Torchio（Via Santo Spirito）</td></tr>
+    <tr><td><b>手工皮具（钱包/皮带）</b></td><td>€40–80</td><td>Borgo San Jacopo 沿线皮具工坊</td></tr>
+    <tr><td><b>古董小物件（银勺/版画/明信片）</b></td><td>€20–50</td><td>Via Maggio 古董店</td></tr>
+    <tr><td><b>Gelato</b></td><td>€4</td><td>Gelateria della Passera（Buontalenti 口味）</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚕", name:"Oltrarno → 米开朗琪罗广场", time:"17:10 - 17:20", action:"打车 10min or 步行 25min", note:"如果体力好可以步行上山" }),
+    listRowHTML({ type:"activity", icon:"4", name:"米开朗琪罗广场 Piazzale Michelangelo", time:"17:20 - 19:00", action:"🌅 看日落 · 日落约 18:48", note:"提前到达找好位置 · 中央栏杆 or 右侧台阶顶部" }),
+    `<!-- 米开朗琪罗广场日落 -->
+    <div class="info-card"><h4>🌅 米开朗琪罗广场 · 日落时间线</h4>
+    <div class="highlight">💡 10 月 5 日日落约 18:48（CEST）。广场中央的 David 青铜复制品可以拍一张。</div>
+    <table class="meal-table"><tr><th>时间</th><th>时段</th><th>光线</th><th>做什么</th></tr>
+    <tr><td>17:10–17:40</td><td>到达 + 安顿</td><td>午后暖光</td><td>找位置，逛一圈广场</td></tr>
+    <tr><td>17:40–18:20</td><td>金色光</td><td>暖金色，影子拉长</td><td>最佳拍照时间。Duomo 穹顶 + 钟楼 + Palazzo Vecchio + 老桥全部在正前方，整个佛罗伦萨像一幅打开的文艺复兴地图</td></tr>
+    <tr><td>18:20–18:50</td><td>日落</td><td>金色→橙色→粉红</td><td>天空开始变色，城市灯光陆续亮起。重点拍天空渐变的颜色</td></tr>
+    <tr><td>18:50–19:00</td><td>蓝调时刻</td><td>深蓝天空 + 城市灯光</td><td>下山前最后 10 分钟，拍夜景 + 灯光水面倒影的最佳时间</td></tr></table></div>`,
+    `<!-- 米开朗琪罗广场拍照机位 -->
+    <div class="info-card"><h4>📸 米开朗琪罗广场 · 拍照机位</h4>
+    <table class="meal-table"><tr><th>机位</th><th>位置</th><th>特点</th></tr>
+    <tr><td><b>⭐ 广场中央栏杆</b></td><td>正面开阔</td><td>经典机位，人多。拍全景最佳</td></tr>
+    <tr><td><b>⭐ 右侧台阶顶部</b></td><td>广场右侧</td><td>人少，带树作为前景，构图更有层次</td></tr>
+    <tr><td><b>Rampe del Poggi 台阶</b></td><td>广场下方半山腰</td><td>蓝调时刻拍老桥 + 灯光水面倒影。下山时就可以走这条路</td></tr></table>
+    <div class="highlight" style="margin-top:6px;">💡 隐藏彩蛋：如果 Piazzale 人太多，再往上走 5 分钟到 <b>San Miniato al Monte</b>（罗马式教堂，免费）。每天 17:30 有本笃会修士的 Gregorian 圣歌，人少得多，而且教堂前的广场看佛罗伦萨全景比 Piazzale 更高、更安静。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 领主广场附近", time:"19:00 - 20:30", action:"Trattoria Dalloste / Paoli 1827 / 或 Day 4 Oltrarno 晚餐", note:"打车下山 · 周六晚上建议预约" }),
+    `<!-- 晚餐推荐 -->
+    <div class="info-card"><h4>🍷 晚餐 · 3 选 1</h4>
+    <div class="highlight">💡 从米开朗琪罗广场打车下山（约 10min），回到领主广场附近吃晚餐。</div>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点/特色</th><th>备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Trattoria Dalloste Chianineria <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Dalloste+Via+dei+Cerchi+40+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€30–90</td><td>佛市 NO.1 的 T 骨牛排</td><td>Via dei Cerchi 40/R（领主广场附近）</td></tr>
+    <tr><td>2</td><td><div>Antico Ristorante Paoli 1827 <span class="tag blue">小红书推荐 · 漂亮饭</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Antico+Ristorante+Paoli+1827+Via+dei+Tavolini+12+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€30–90</td><td>200 年历史的托斯卡纳风味餐厅，T 骨牛排、海鲜烩饭、提拉米苏</td><td>有 €4.9 餐具费</td></tr>
+    <tr><td>3</td><td><div>Day 4 的 Oltrarno 晚餐</div></td><td><span class="star">—</span></td><td>€20–60</td><td>见 Day 4 晚餐 card</td><td>如果想吃 Oltrarno 的餐厅，从米开朗琪罗广场打车过去也方便</td></tr></table></div>`,
+    `<!-- 雨天备选方案 -->
+    <div class="info-card"><h4>🌧️ 雨天备选方案</h4>
+    <div class="highlight">💡 如果下雨，今天的户外行程会受影响（Piazzale 山顶风大 + 步行逛街不舒服）。</div>
+    <table class="meal-table"><tr><th>替代</th><th>说明</th></tr>
+    <tr><td><b>放弃 Piazzale Michelangelo</b></td><td>雨天没有日落，山顶风大且冷，不值得上去</td></tr>
+    <tr><td><b>Museo Novecento</b></td><td>周一开门（11:00–20:00），20 世纪意大利艺术，在 Santa Maria Novella 广场旁，€13</td></tr>
+    <tr><td><b>Palazzo Medici Riccardi</b></td><td>周一开门（9:00–19:00），Magi 礼拜堂湿壁画，€15</td></tr>
+    <tr><td><b>逛街不受影响</b></td><td>Via dei Calzaiuoli 沿街店铺都有雨棚，Oltrarno 的工匠作坊也在室内</td></tr>
+    <tr><td><b>晚餐不变</b></td><td>Oltrarno 餐厅都在室内</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 6：美术馆三连击 =====
@@ -2597,7 +2716,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v40";
+const STORAGE_KEY = "rome-florence-6days-v41";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
