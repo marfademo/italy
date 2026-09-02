@@ -2009,7 +2009,13 @@ if (d===4) return [
     ].join("");
   // ===== Day 7：托斯卡纳自驾 =====
   if (d===7) return [
-    listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡" }),
+    listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站 · 取车", time:"8:00", action:"Florence Central Train Station", note:"Piazza della Stazione, 50123 Firenze · IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡" }),
+    `<!-- 取车信息 -->
+    <div class="info-card"><h4>🚗 取车信息</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>取车地点</td><td>Florence Central Train Station, Piazza della Stazione, 50123 Firenze</td></tr>
+    <tr><td>时间</td><td>8:00</td></tr>
+    <tr><td>必需材料</td><td>IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡</td></tr></table></div>`,
     listRowHTML({ type:"transport", icon:"🚗", name:"佛罗伦萨 → 皮恩扎", duration:"1h50m", action:"A1 南行 → Bettolle/Valdichiana 出口 → SS146 景观道西行", note:"通行费€4.5 · 停 Parcheggio Pienza Sud (Via della Madonnina) · €1/h · 步行 5min 到老城" }),
     listRowHTML({ type:"activity", icon:"1", name:"皮恩扎 Pienza", time:"11:50 - 14:00", action:"文艺复兴理想城市 · UNESCO 世界遗产" }),
     listRowHTML({ type:"activity", icon:"·", name:"Duomo di Pienza", time:"耗时 10min", action:"田园全景机位", note:"Pienza 大教堂 · 文艺复兴建筑" }),
@@ -2882,7 +2888,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v49";
+const STORAGE_KEY = "rome-florence-6days-v50";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
