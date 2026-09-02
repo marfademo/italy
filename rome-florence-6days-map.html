@@ -594,6 +594,11 @@
 .info-card .gmaps-btn{display:inline-flex;align-items:center;gap:3px;margin-top:3px;color:#2563eb;text-decoration:none;font-size:11px;font-weight:600;white-space:nowrap;transition:opacity .15s;}
 .info-card .gmaps-btn:hover{opacity:.7;}
 .info-card td img{display:block;max-width:120px;height:auto;border-radius:6px;}
+  /* ===== 可折叠卡片 ===== */
+  .collapse-toggle{display:inline-block;margin-top:6px;cursor:pointer;font-size:11px;color:#2563eb;font-weight:700;user-select:none;transition:opacity .15s;}
+  .collapse-toggle:hover{opacity:.7;}
+  .info-card[data-collapsed="1"] .collapse-body{display:none;}
+  .info-card[data-collapsed="0"] .collapse-body{display:block;}
 
   @media (max-width:900px){
     /* ===== 手机端：去掉外层边框和 padding，充分利用屏幕宽度 ===== */
@@ -704,7 +709,7 @@
     <button class="tab" data-day="3"><span class="tab-num">DAY 3 · 10.3</span><span class="tab-title">🏛️ 罗马古迹串游</span><span class="tab-sub">万神殿 → 斗兽场 → 许愿池</span></button>
     <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🎨 佛罗伦萨初印象</span><span class="tab-sub">圣洛伦佐 → 碧提宫 → Boboli 日落</span></button>
     <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">⛪ 百花 + Oltrarno + 日落</span><span class="tab-sub">大教堂 → 逛街 → 圣三一桥 → 米开朗琪罗</span></button>
-    <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 圣十字 · 乌菲兹 · 老桥</span></button>
+    <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 学院美术馆 + 乌菲兹</span><span class="tab-sub">午餐 → 大卫 → 下午茶 → 乌菲兹 → 老桥 → 晚餐</span></button>
     <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">🚗 托斯卡纳自驾</span><span class="tab-sub">皮恩扎 → 蒙塔尔奇诺 → 锡耶纳</span></button>
     <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
@@ -880,26 +885,30 @@ const DAYS = {
 
   /* ---------- Day 6 美术馆三连击 ---------- */
   6: {
-    hotel: { name: "酒店 · S.M.Novella 火车站附近", lat: 43.7760, lng: 11.2486 },
-    center: [43.7710, 11.2530],
+    hotel: { name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526 },
+    center: [43.7730, 11.2550],
     zoom: 15,
     bounds: [[43.7650,11.2440],[43.7800,11.2620]],
-    title: "美术馆三连击",
+    title: "学院美术馆 + 乌菲兹",
     badge: "DAY 6",
     date: "10.6 · FIRENZE",
-    line: "🗿 大卫 → ⛪ 圣十字 → 🏛️ 乌菲兹 → 🌉 老桥",
+    line: "🍝 午餐 → 🗿 大卫 → ☕ 下午茶 → 🏛️ 乌菲兹 → 🌉 老桥 → 🍷 晚餐",
     nodes: [
-      { num: null, kind: "hotel", name: "酒店", lat: 43.7760, lng: 11.2486, hint: "出发" },
-      { num: 1, kind: "main", name: "学院美术馆（大卫像）", lat: 43.7768, lng: 11.2586, hint: "12:00 起 · 大卫像", pills: ["🚶 10min","8:15–18:20","17:20停售"] },
-      { num: 2, kind: "main", name: "圣十字圣殿", lat: 43.7690, lng: 11.2548, hint: "14:30–15:30", pills: ["🚖 11min","9:30–17:30"] },
-      { num: 3, kind: "main", name: "乌菲兹美术馆", lat: 43.7678, lng: 11.2553, hint: "15:30–18:00 · 门口有但丁爷爷", pills: ["🚶 6min","8:15–18:30","17:30停售"] },
-      { num: 4, kind: "bridge", name: "老桥 Ponte Vecchio", lat: 43.7680, lng: 11.2531, hint: "18:00–18:30", pills: ["🚶 2min"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Faenza 7", lat: 43.7752, lng: 11.2526, hint: "出发" },
+      { num: null, kind: "meal", name: "午餐 · Mercato Centrale", lat: 43.7768, lng: 11.2526, hint: "11:10–12:10 · 吃饱饱看美术馆", pills: ["🚶 5min"] },
+      { num: 1, kind: "main", name: "学院美术馆 Accademia", lat: 43.7768, lng: 11.2586, hint: "12:20–14:00 · 大卫像", pills: ["🚶 5min","8:15–18:50"] },
+      { num: null, kind: "meal", name: "下午茶 · Caffè Gilli", lat: 43.7715, lng: 11.2540, hint: "14:15–15:30 · 甜品咖啡", pills: ["🚶 10min"] },
+      { num: 2, kind: "main", name: "乌菲兹美术馆 Uffizi", lat: 43.7678, lng: 11.2553, hint: "16:00–18:30 · 波提切利/达芬奇", pills: ["🚶 5min","8:15–18:30"] },
+      { num: 3, kind: "bridge", name: "老桥 Ponte Vecchio", lat: 43.7680, lng: 11.2531, hint: "18:30–19:00 · 日落", pills: ["🚶 2min"] },
+      { num: null, kind: "dinner", name: "晚餐 · Buca Poldo / Proconsolo", lat: 43.7698, lng: 11.2560, hint: "19:00–20:30", pills: ["🚶 5min"] },
     ],
     route: [
       { mode: "walk", from: 0, to: 1 },
-      { mode: "taxi", from: 1, to: 2 },
+      { mode: "walk", from: 1, to: 2 },
       { mode: "walk", from: 2, to: 3 },
       { mode: "walk", from: 3, to: 4 },
+      { mode: "walk", from: 4, to: 5 },
+      { mode: "walk", from: 5, to: 6 },
     ],
     timeline: dayTimeline(6),
   },
@@ -1114,6 +1123,14 @@ async function geocodeAndUpdateMarkers(d){
   });
 
   await Promise.allSettled(tasks);
+}
+
+// 可折叠卡片展开/收起
+function toggleCollapse(btn){
+  const card = btn.closest(".info-card");
+  if (!card) return;
+  card.dataset.collapsed = card.dataset.collapsed === "1" ? "0" : "1";
+  btn.textContent = card.dataset.collapsed === "1" ? "展开 ▸" : "收起 ▾";
 }
 
 // 单个 list-row HTML（工厂）
@@ -1861,20 +1878,154 @@ if (d===4) return [
     <tr><td><b>晚餐不变</b></td><td>Oltrarno 餐厅都在室内</td></tr></table></div>`,
   ].join("");
 
-  // ===== Day 6：美术馆三连击 =====
+// ===== Day 6：学院美术馆 + 乌菲兹 =====
   if (d===6) return [
-    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 学院美术馆", duration:"10min" }),
-    listRowHTML({ type:"activity", icon:"1", name:"学院美术馆（大卫像）", time:"12:00 - 14:00", action:"大卫像必看", note:"8:15–18:20 · 17:20 停售" }),
-    listRowHTML({ type:"meal", icon:"🍝", name:"午饭", action:"学院附近" }),
-    listRowHTML({ type:"transport", icon:"🚕", name:"学院 → 圣十字圣殿", duration:"11min" }),
-    listRowHTML({ type:"activity", icon:"2", name:"圣十字圣殿", time:"14:30 - 15:30", action:"米开朗基罗 / 伽利略墓", note:"9:30–17:30" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"圣十字 → 乌菲兹", duration:"6min" }),
-    listRowHTML({ type:"activity", icon:"3", name:"乌菲兹美术馆", time:"15:30 - 18:00", action:"门口有但丁爷爷 · 波提切利 / 达芬奇", note:"8:15–18:30 · 17:30 停售" }),
-    listRowHTML({ type:"transport", icon:"🚶", name:"乌菲兹 → 老桥", duration:"2min" }),
-    listRowHTML({ type:"activity", icon:"4", name:"老桥 Ponte Vecchio", time:"18:00 - 18:30", action:"拍日落余晖" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚饭", action:"老桥附近" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"酒店 → 午餐地点", duration:"10min" }),
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · Mercato Centrale / Panini Toscani", time:"11:10 - 12:10", action:"逛美术馆耗体力，要吃饱饱" }),
+    `<!-- 午餐选择 -->
+    <div class="info-card"><h4>🍝 午餐 · 3 选 1</h4>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">推荐</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Mercato Centrale 二楼 <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Mercato+Centrale+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>—</td><td>€12–18</td><td>Pasta Fresca（新鲜手工意面）、Il Lampredotto（牛肚包）、La Pizzeria（那不勒斯披萨）</td><td><span class="highlight">首选，最稳妥</span>。20+ 摊位各吃各的，速度快。吃完走 5 分钟到 Accademia</td></tr>
+    <tr><td>2</td><td><div>Panini Toscani <span class="tag green">最快速</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Panini+Toscani+Via+del+Canto+dei+Nelli+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€8–12</td><td>Porchetta Panini（烤猪肉三明治）、Schiacciata con Salame Toscano</td><td>San Lorenzo 教堂旁，Accademia 步行 5 分钟。站着吃或带走，5 分钟搞定。如果你 11:50 才到，选这个</td></tr>
+    <tr><td>3</td><td>Day 5 午餐 card 中的餐厅</td><td>—</td><td>—</td><td>—</td><td>想好好吃一顿的话，在酒店附近</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"午餐地点 → 学院美术馆", duration:"10min" }),
+    listRowHTML({ type:"activity", icon:"1", name:"学院美术馆 Galleria dell'Accademia", time:"12:20 - 14:00", action:"大卫像 · 囚徒厅 · 乐器博物馆", note:"8:15–18:50 · 最后入场 18:20" }),
+    `<!-- 学院美术馆入场 -->
+    <div class="info-card"><h4>🎫 入场</h4>
+    <div class="highlight">12:20 到门口，找到「Reserved / Prenotato」队伍（不是「Without Reservation」长队）。出示预约凭证换实体票或直接扫码入场。12:30 准时入场，进门直接往最里面走——David 在尽头。</div>
+    <div class="warn">学院美术馆 90% 的人只看 David 就走了。但他们错过了真正值得看的东西。</div></div>`,
+    `<!-- 学院美术馆精华路线 -->
+    <div class="info-card"><h4>🗿 精华路线（1h30）</h4>
+    <table class="meal-table"><tr><th class="col-narrow">顺序</th><th class="col-narrow">时长</th><th>看点</th><th>为什么重要</th></tr>
+    <tr><td>1</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Prisoners（囚徒厅）</td><td>这是比 David 更能让你理解 Michelangelo 的地方。四座未完成的雕塑——《觉醒的奴隶》《年轻的奴隶》《阿特拉斯》《有胡子的奴隶》——人形从大理石中挣扎出来，像是被石头困住。Michelangelo 说「雕塑就是把多余的大理石去掉」，这里你亲眼看到这个过程</td></tr>
+    <tr><td>2</td><td>15 min</td><td><span class="star">⭐⭐⭐</span> David</td><td>站在 Tribuna 中央，5.17m 高，头顶穹顶天窗的自然光。绕一圈看——正面是冷静的决断，侧面是紧绷的肌肉，背面是投石带（slingshot）藏在手里。这是 1501–1504 年，Michelangelo 26 岁时的作品</td></tr>
+    <tr><td>3</td><td>10 min</td><td>St. Matthew</td><td>Michelangelo 另一件未完成作品，1505 年。圣马太从石头中浮现，半完成状态比完成品更有张力</td></tr>
+    <tr><td>4</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Colossus（巨像厅）</td><td>15–16 世纪祭坛画，包括 Botticelli、Perugino、Filippino Lippi。重点看 Botticelli 的《Madonna of the Sea》——这是他在 Uffizi 的《春》《维纳斯的诞生》之外的另一种风格</td></tr>
+    <tr><td>5</td><td>15 min</td><td><span class="star">⭐</span> Musical Instruments Museum（乐器博物馆）</td><td>藏在学院美术馆深处，大多数人直接跳过，但这是全欧洲最好的历史乐器收藏之一。Stradivari 1690 年的中提琴、1650 年的大键琴、Bartolomeo Cristofori 最早期的钢琴——他是美第奇家族的乐器制造师，钢琴的发明者</td></tr>
+    <tr><td>6</td><td>10 min</td><td>Gipsoteca Bartolini（石膏模型馆）</td><td>19 世纪雕塑家 Lorenzo Bartolini 的石膏模型，如果你对 19 世纪雕塑感兴趣；如果累了可以跳过，省体力给乌菲兹</td></tr>
+    <tr><td>7</td><td>5 min</td><td>13–14 世纪展厅</td><td>出口前的金底圣像画（Gold-ground panels），Giotto 及其追随者。这是文艺复兴前的「黎明」——在隔壁 Uffizi 你将看到这个黎明如何变成正午</td></tr></table></div>`,
+    `<!-- 再看 David -->
+    <div class="info-card"><h4>👀 再看 David</h4>
+    <div class="highlight">如果你在学院美术馆只做一件事，花 15 分钟站在 David 面前，绕三圈。</div>
+    <table><tr><th class="col-narrow">圈</th><th>看什么</th></tr>
+    <tr><td>第一圈（正面）</td><td>看他凝视远方的表情——不是已经胜利的骄傲，而是战斗前的冷静判断。这跟 Donatello 的 David（头戴帽、踩着 Goliath 的头、已经赢了）完全不同</td></tr>
+    <tr><td>第二圈（侧面）</td><td>看他右手暴起的血管、紧绷的颈部和前臂肌肉——Michelangelo 对人体的解剖学理解超越了所有同时代人</td></tr>
+    <tr><td>第三圈（背面）</td><td>注意他左手握着的投石带——David 的武器不是剑，而是智慧和技巧。佛罗伦萨人把 David 看作自己的象征：小城市用智慧战胜大国（米兰、教皇国）</td></tr></table></div>`,
+    `<!-- 拍照 -->
+    <div class="info-card"><h4>📸 拍照</h4>
+    <div class="highlight">David 可以用手机拍（不开闪光灯），但雕像太大、天窗光太强，iPhone 拍出来容易过曝。建议：降低曝光补偿 –0.7 到 –1.0，或者后期拉暗。</div>
+    <div class="highlight">囚徒厅的雕塑比 David 更好拍——光线均匀，游客少，雕塑的大理石纹理在照片里非常震撼。</div></div>`,
+    listRowHTML({ type:"meal", icon:"☕", name:"下午茶 · 甜品咖啡", time:"14:15 - 15:30", action:"中场休息～在领主广场的范围内，比较顺路" }),
+    `<!-- 下午茶选择 -->
+    <div class="info-card"><h4>☕ 下午茶 · 4 选 1</h4>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Caffè Gilli <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Caffe+Gilli+Piazza+della+Repubblica+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.3★</span></td><td>€8–15</td><td>Espresso / Cappuccino、Cantuccini con Vin Santo（杏仁脆饼蘸甜酒）、Torta della Nonna（祖母蛋糕）、Millefoglie（千层酥）</td><td><span class="highlight">首选，主城区最有腔调</span>。1733 年开业，Art Nouveau 装潢，水晶吊灯 + 大理石台面。坐室内比室外更美，或先坐室内看完装潢再搬到室外。共和广场，Accademia 步行 10 分钟</td></tr>
+    <tr><td>2</td><td><div>La Strega Nocciola <span class="tag green">最轻松</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=La+Strega+Nocciola+Via+Ricasoli+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€4–7</td><td>Pistacchio（开心果）、Nocciola（榛子）、Crema di Grom（鸡蛋奶油）</td><td>Accademia 出门右转，步行 1 分钟！手工 Gelato，评价极高。可以买了边走边吃，但如果要坐下来休息，还是去 Caffè Gilli</td></tr>
+    <tr><td>3</td><td><div>Ditta Artigianale <span class="tag blue">精品咖啡</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ditta+Artigianale+Via+dei+Neri+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€5–10</td><td>Flat White / Cold Brew、Carrot Cake 或 Avocado Toast</td><td>第三波咖啡浪潮在佛罗伦萨的代表，离 Uffizi 很近，喝完走 5 分钟就到。如果喝腻了 Espresso 想换换风格</td></tr>
+    <tr><td>4</td><td><div>Rivoire <span class="tag blue">景观位</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Rivoire+Piazza+della+Signoria+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">3.3★</span></td><td>€10–18</td><td>Cioccolata Calda（热巧克力，浓到几乎像布丁，用勺子吃）、Pasticcini（小点心拼盘）</td><td>1872 年开业，正对旧宫和佣兵凉廊的雕塑。景观比 Gilli 更好，但价格更贵，游客更多</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"下午茶 → 乌菲兹美术馆", duration:"5min" }),
+    listRowHTML({ type:"activity", icon:"2",  name:"乌菲兹美术馆 Galleria degli Uffizi", time:"16:00 - 18:30", action:"波提切利 · 达芬奇 · 卡拉瓦乔 · 提香", note:"8:15–18:30 · 最后入场约 17:30" }),
+    `<!-- 乌菲兹入场 -->
+    <div class="info-card"><h4>🎫 入场</h4>
+    <div class="highlight">15:45 到 Uffizi 门口，找到「Reserved」入口。乌菲兹有 50+ 个展厅、2,000+ 件藏品，全看完至少 4–5 小时。你只有 2.5 小时。你必须做出选择：只看精华。</div></div>`,
+    `<!-- 乌菲兹第一段 -->
+    <div class="info-card" data-collapsed="1"><h4>🏛️ 第一段：早期文艺复兴｜Rooms 2–8（30 min）</h4>
+    <div class="collapse-toggle" onclick="toggleCollapse(this)">展开 ▸</div>
+    <div class="collapse-body">
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>2</td><td>Maestà di Ognissanti</td><td>Giotto</td><td>1310</td><td>圣母坐在金色宝座上，但她是有体积的——这是拜占庭扁平风格到文艺复兴三维空间的转折点</td></tr>
+    <tr><td>2</td><td>Maestà di Santa Trinità</td><td>Cimabue</td><td>1285</td><td>对比旁边的 Giotto——Cimabue 是 Giotto 的老师，但他画的圣母还是扁平的。站在这两幅画中间，你看到了艺术的进化</td></tr>
+    <tr><td>3</td><td>Annunciation</td><td>Simone Martini</td><td>1333</td><td>哥特式的优雅巅峰，天使 Gabriel 的金色袍子在发光</td></tr>
+    <tr><td>7</td><td>Battle of San Romano</td><td>Paolo Uccello</td><td>1438</td><td>透视法的狂热实验——断裂的长矛、倒下的骑士、马匹，全部按照透视网格排列。Uccello 对透视法着迷到妻子说他「宁愿画线也不愿睡觉」</td></tr>
+    <tr><td>8</td><td>Duke and Duchess of Urbino</td><td>Piero della Francesca</td><td>1472</td><td>侧面双人像，地位和权力的最冷酷表达。公爵的鼻子被削掉了一半（他年轻时在一次比武中受伤），画家没有美化，而是如实画了</td></tr></table></div></div>`,
+    `<!-- 乌菲兹第二段 -->
+    <div class="info-card"><h4>🏛️ 第二段：Botticelli 厅｜Rooms 10–14（25 min）<span class="star">⭐</span></h4>
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《春》Primavera</td><td>Botticelli</td><td>1482</td><td>全世界最著名的画之一。9 个人物在橘子树林中——Venus 居中，左侧是美惠三女神，右侧是 Zephyrus 追逐 Chloris（她嘴里吐出花朵变成 Flora）。500 年后，你还在尝试理解这幅画到底在说什么</td></tr>
+    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《维纳斯的诞生》</td><td>Botticelli</td><td>1485</td><td>Venus 站在贝壳上从海中升起，Zephyrus 和 Aura 吹着风送她上岸，Horae（时序女神）拿着花袍迎接她。这是第一幅几乎真人大小、非基督教的裸体画——打破了中世纪 1000 年的禁忌。她的身体比例是不对的（脖子太长、肩膀太斜），但就是这种「不对」让她的美超越了真实</td></tr></table>
+    <div class="highlight">💡 在 Botticelli 厅多站一会儿。这里人最多，但如果你能挤到画前，抬头看 Venus 的脸——她的表情不是喜悦，而是淡淡的忧伤。没有人知道为什么。</div></div>`,
+    `<!-- 乌菲兹第三段 -->
+    <div class="info-card" data-collapsed="1"><h4>🏛️ 第三段：Leonardo 厅｜Room 15（15 min）</h4>
+    <div class="collapse-toggle" onclick="toggleCollapse(this)">展开 ▸</div>
+    <div class="collapse-body">
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>15</td><td><span class="star">⭐</span> 《天使报喜》Annunciation</td><td>Leonardo da Vinci</td><td>1472</td><td>Leonardo 20 岁时的作品。天使 Gabriel 跪在花园里，圣母坐在书桌前——注意天使的翅膀（Leonardo 仔细研究过鸟类翅膀的解剖），还有背景中远山的 sfumato（晕涂法）——Leonardo 的标志性技法在这里第一次出现</td></tr>
+    <tr><td>15</td><td>《三王来朝》Adoration of the Magi</td><td>Leonardo da Vinci</td><td>1481</td><td>未完成，但正因为未完成，你能看到 Leonardo 是如何构建画面的——复杂的透视系统、数十个人物互相作用、马匹在背景中扬起前蹄。这是一幅未完成的革命宣言</td></tr></table></div></div>`,
+    `<!-- 乌菲兹第四段 -->
+    <div class="info-card" data-collapsed="1"><h4>🏛️ 第四段：Tribuna + 走廊｜Room 18–19（10 min）</h4>
+    <div class="collapse-toggle" onclick="toggleCollapse(this)">展开 ▸</div>
+    <div class="collapse-body">
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th>画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>18</td><td>Tribuna</td><td>—</td><td>1584</td><td>八角形房间，美第奇家族用来展示他们最珍贵的藏品。红色天鹅绒墙壁 + 珍珠母贝穹顶 + 镶嵌地板——这是 16 世纪版本的「珠宝盒」。看一眼不需要停留</td></tr>
+    <tr><td>走廊</td><td><span class="star">⭐</span> 《拉奥孔》群像</td><td>Baccio Bandinelli</td><td>1525</td><td>梵蒂冈的 Laocoön 大理石原件（1506 年出土）的复制品。Michelangelo 在罗马看到出土时第一批赶到现场的人之一——Laocoön 的发现彻底改变了文艺复兴雕塑的方向</td></tr></table></div></div>`,
+    `<!-- 乌菲兹第五段 -->
+    <div class="info-card" data-collapsed="1"><h4>🏛️ 第五段：Raphael + 德国画家｜Rooms 26, 29, 20（15 min）</h4>
+    <div class="collapse-toggle" onclick="toggleCollapse(this)">展开 ▸</div>
+    <div class="collapse-body">
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>26</td><td><span class="star">⭐</span> 《金翅雀圣母》Madonna of the Goldfinch</td><td>Raphael</td><td>1506</td><td>圣母玛利亚 + 小耶稣 + 小圣约翰，三角形构图，Raphael 式的温柔达到了顶峰。金翅雀（圣约翰递给耶稣的）是受难（Passion）的预兆——耶稣长大后会被钉十字架，头上戴荆棘冠</td></tr>
+    <tr><td>29</td><td>《教皇利奥十世与两位红衣主教》</td><td>Raphael</td><td>1518</td><td>美第奇教皇 Leo X（Lorenzo il Magnifico 的儿子）+ 他的两位红衣主教表亲。注意教皇手中的放大镜——他高度近视，这面放大镜象征着他的学识和权力</td></tr>
+    <tr><td>20</td><td>《圣母子与天使》Madonna and Child with Angels</td><td>Dürer</td><td>1506</td><td>德国最伟大的画家在意大利画的——北方文艺复兴的精密细节（天使的头发、衣褶）融入意大利的温暖光线</td></tr></table></div></div>`,
+    `<!-- 乌菲兹第六段 -->
+    <div class="info-card"><h4>🏛️ 第六段：Caravaggio + 北方画家｜Rooms 90, 96–97（20 min）</h4>
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>90</td><td><span class="star">⭐</span> 《美杜莎》Medusa</td><td>Caravaggio</td><td>1597</td><td>画在盾牌上，美杜莎被斩首的那一瞬间，惊恐、痛苦、还活着。注意蛇缠绕的头发——Caravaggio 用镜子照着自己画的脸（把美杜莎画成了自己的脸）</td></tr>
+    <tr><td>90</td><td><span class="star">⭐</span> 《酒神巴克斯》Bacchus</td><td>Caravaggio</td><td>1596</td><td>年轻的酒神，手里拿着酒杯，脸色微红、眼神迷离——他喝醉了。水果篮边缘的苹果已经开始腐烂，这片叶子在枯萎——Caravaggio 把短暂和死亡藏在享乐的场景里</td></tr>
+    <tr><td>96–97</td><td>《以撒的牺牲》Sacrifice of Isaac</td><td>Caravaggio</td><td>1603</td><td>Abraham 准备杀死儿子 Isaac，天使突然出现抓住他的手。注意 Isaac 的脸——那不是圣人的顺从，而是一个真正被吓坏的孩子的尖叫。Caravaggio 用真实的人做模特，画的是真实的人性</td></tr>
+    <tr><td>96–97</td><td>《犹滴斩首何乐弗尼》Judith Beheading Holofernes</td><td>Artemisia Gentileschi</td><td>1620</td><td>这是 Uffizi 最重要的女性画家作品。Artemisia 画的是犹太女英雄犹滴割下亚述将军何乐弗尼的头——她画这个场景时把自己画成了犹滴。与 Caravaggio 同样强烈的明暗对比，但女性的视角完全不同</td></tr></table></div>`,
+    `<!-- 乌菲兹第七段 -->
+    <div class="info-card"><h4>🏛️ 第七段：Titian + 出口｜Rooms 83, 28（15 min）</h4>
+    <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
+    <tr><td>83</td><td><span class="star">⭐⭐⭐</span> 《乌尔比诺的维纳斯》Venus of Urbino</td><td>Titian</td><td>1538</td><td>Day 4 在 Pitti Palace 如果你没看到原作，它在 Uffizi。裸体 Venus 斜倚在床榻上，眼神直直地看着你——没有羞耻、没有神话借口、只是一个女人看着她爱的人。这是西方艺术史上最有影响力的裸体画之一，Manet 的 Olympia（1863）直接致敬了它</td></tr>
+    <tr><td>28</td><td>《花神》Flora</td><td>Titian</td><td>1515</td><td>理想化的女性美，金色头发 + 半透明肌肤，威尼斯画派色彩技法的巅峰</td></tr></table></div>`,
+    `<!-- 时间不够怎么办 -->
+    <div class="info-card"><h4>⏱️ 如果时间不够</h4>
+    <div class="highlight">如果发现已经 18:00 了还没看完，按这个优先级砍：</div>
+    <table class="meal-table"><tr><th class="col-narrow">优先级</th><th>必须看</th><th>没时间可以跳过</th></tr>
+    <tr><td><span class="warn">🔴 不可跳过</span></td><td>Botticelli《春》+《维纳斯的诞生》、Leonardo《天使报喜》、Caravaggio《美杜莎》、Titian《乌尔比诺的维纳斯》</td><td>—</td></tr>
+    <tr><td>🟡 尽量看</td><td>Giotto/Cimabue 对比、Raphael《金翅雀圣母》、Caravaggio《酒神》</td><td>Artemisia Gentileschi、Dürer</td></tr>
+    <tr><td>🟢 跳过了也不后悔</td><td>—</td><td>Paolo Uccello《San Romano 之战》、Piero della Francesca 双人像、德国/荷兰展厅</td></tr></table></div>`,
+    `<!-- 乌菲兹生存指南 -->
+    <div class="info-card"><h4>📋 乌菲兹生存指南</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>👟 硬石地板</td><td>2.5 小时站立，穿最舒服的鞋</td></tr>
+    <tr><td>🌡️ 空调</td><td>10 月室内温度约 20–22°C，但人多时会闷</td></tr>
+    <tr><td>🚻 厕所</td><td>一楼和二楼都有，但排队。建议在 Botticelli 厅之后去一次</td></tr>
+    <tr><td>☕ 咖啡馆</td><td>二楼尽头有 Uffizi Café（露台！可以俯瞰领主广场的屋顶），如果腿累了，花 10 分钟坐在露台喝杯咖啡再继续</td></tr>
+    <tr><td>📸 拍照</td><td>可以拍照，不能用闪光灯。Botticelli 的《春》和《维纳斯的诞生》前永远人山人海，拍不到正中央——没关系，从侧面也能拍到，或者干脆不拍，站在那里看</td></tr>
+    <tr><td>🚫 禁止</td><td>大背包（必须寄存）、自拍杆、食物和水（不能吃喝）</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"3", name:"老桥日落 Ponte Vecchio", time:"18:30 - 19:00", action:"乌菲兹出门左转 2 分钟", note:"日落后的蓝调时刻" }),
+    `<!-- 老桥 -->
+    <div class="info-card"><h4>🌉 老桥 · 看什么</h4>
+    <table><tr><th class="col-narrow">时间</th><th>做什么</th></tr>
+    <tr><td>18:30–18:45</td><td>在老桥上走一个来回——两侧的金饰店（17 世纪以来一直是珠宝店）在夕阳里闪闪发光，桥中央有开敞段可以看到阿诺河上下游</td></tr>
+    <tr><td>18:45–19:00</td><td>日落后的蓝调时刻，老桥的灯光刚亮起来，河水映出金色和蓝色</td></tr></table></div>`,
+    `<!-- 老桥拍照机位 -->
+    <div class="info-card"><h4>📸 拍照机位</h4>
+    <table><tr><th>机位</th><th>拍什么</th></tr>
+    <tr><td>老桥中央开敞段</td><td>拍阿诺河上游（往东，Ponte alle Grazie 方向）+ 夕阳倒影</td></tr>
+    <tr><td>老桥中央</td><td>拍阿诺河下游（往西，Ponte Santa Trinita 方向）+ 远处山丘</td></tr>
+    <tr><td>河边 Lungarno degli Acciaiuoli</td><td>从河边拍老桥全景——如果你还有力气，走到河边，这是拍老桥 + 河面倒影的最佳机位</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐", time:"19:00 - 20:30", action:"Buca Poldo / Osteria del Proconsolo / Trattoria il Bargello / Oltrarno" }),
+    `<!-- 晚餐选择 -->
+    <div class="info-card"><h4>🍷 晚餐 · 4 选 1</h4>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Buca Poldo <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Buca+Poldo+Via+dei+Tavolini+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€35–50</td><td><span class="star">⭐</span> Bistecca alla Fiorentina（T 骨牛排，1kg 起，al sangue，两人分享）、Pappardelle al Cinghiale（野猪肉宽面）、Ribollita（蔬菜面包汤，秋冬限定）、Cantucci e Vin Santo（饭后必点）</td><td><span class="highlight">首选，16 世纪酒窖，氛围最绝</span>。石墙拱顶 + 暖黄灯光 + 大酒柜。据说 Leonardo da Vinci 和 Michelangelo 可能在这里喝过酒。建议提前 3–5 天预约 +39 055 287 698</td></tr>
+    <tr><td>2</td><td><div>Osteria del Proconsolo <span class="tag green">优雅精致</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+del+Proconsolo+Via+del+Proconsolo+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€35–45</td><td><span class="star">⭐</span> Tagliata di Manzo con Rucola e Grana（烤牛肉片配芝麻菜和帕尔马干酪）、Risotto ai Funghi Porcini（牛肝菌烩饭）、Pici al Ragù Toscano（托斯卡纳肉酱手擀面）</td><td>Bargello 博物馆对面，优雅但不过分正式，墙面有精致的壁画装饰。适合「今天看了两座美术馆，晚上想好好吃一顿但又不想太端着」。建议提前 3–5 天预约</td></tr>
+    <tr><td>3</td><td><div>Trattoria il Bargello <span class="tag green">轻松地道</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+il+Bargello+Borgo+dei+Greci+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€25–35</td><td><span class="star">⭐</span> Peposo alla Fornacina（红酒黑胡椒炖牛肉）、Pappa al Pomodoro（番茄面包汤）、Crostini di Fegatini（鸡肝酱烤面包，前菜）</td><td>Bargello 博物馆旁边，轻松的家庭式 Trattoria，有小庭院。预约较容易，提前 1–2 天即可</td></tr>
+    <tr><td>4</td><td>走回 Oltrarno（过老桥 5 分钟）</td><td>—</td><td>—</td><td>Day 4 和 Day 5 的晚餐推荐全部适用</td><td>—</td></tr></table></div>`,
+    `<!-- 今日必带 -->
+    <div class="info-card"><h4>🎒 今天必带</h4>
+    <table><tr><td>🎫 Accademia 门票（手机截图 + 邮件）</td><td>🎫 Uffizi 门票（手机截图 + 邮件）</td></tr>
+    <tr><td>🛂 护照（换取门票时可能需要核对姓名）</td><td>🔋 充电宝（两家博物馆不允许用闪光灯，但手机拍照耗电快）</td></tr>
+    <tr><td>👟 舒适的鞋（乌菲兹走 2.5 小时全是硬石地板，腿会累）</td><td>💧 小瓶水（博物馆内不能喝水，但排队和路上喝）</td></tr></table></div>`,
+    `<!-- 体力管理 -->
+    <div class="info-card"><h4>💪 体力管理</h4>
+    <div class="warn">今天是你整趟旅行中最「费腿」的一天。乌菲兹美术馆是狭长的 U 型走廊，2.5 小时不间断站立 + 行走，硬石地板对腿和腰是考验。</div>
+    <table><tr><td>上午睡到自然醒，11:30 出门吃午饭</td></tr>
+    <tr><td>午餐吃好但不要太撑——吃完直接进学院美术馆，胃里太满会影响看 David 的状态</td></tr>
+    <tr><td>圣十字殿有长椅可以坐，是今天的「中场休息站」</td></tr></table></div>`,
   ].join("");
-
   // ===== Day 7：托斯卡纳自驾 =====
   if (d===7) return [
     listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡" }),
@@ -2650,25 +2801,28 @@ const DEFAULT_TIPS = {
   ],
   6: [
     [
-      `<span class="tipicon">💶</span>货币：欧元 €`,
-      `<span class="tipicon">🗣️</span>语言：意大利语`,
-      `<span class="tipicon">🚇</span>佛罗伦萨步行 + 打车`,
-      `<span class="tipicon">🚕</span>打车 1 次，预估 €10`,
-      `<span class="tipicon">👟</span>舒适运动鞋`,
+      `<span class="tipicon">🎫</span>Accademia 门票（手机截图 + 邮件）`,
+      `<span class="tipicon">🎫</span>Uffizi 门票（手机截图 + 邮件）`,
+      `<span class="tipicon">🛂</span>护照（换取门票时可能需要核对姓名）`,
+      `<span class="tipicon">🔋</span>充电宝（手机拍照耗电快）`,
+      `<span class="tipicon">👟</span>舒适的鞋（乌菲兹走 2.5h 硬石地板）`,
+      `<span class="tipicon">💧</span>小瓶水（博物馆内不能喝，排队和路上喝）`,
     ],
     [
       `学院美术馆 / 乌菲兹 <b>必须提前预约</b>`,
       `大卫像在学院美术馆`,
-      `乌菲兹门口有 <b>但丁爷爷</b>`,
+      `学院美术馆 <b>18:20 停止入场</b>`,
       `乌菲兹 <b>17:30 停止入场</b>`,
-      `学院 <b>17:20 停止入场</b>`,
+      `乌菲兹 50+ 展厅 · 精华路线 2.5h`,
+      `硬石地板穿着舒适鞋`,
     ],
     [
-      `⏰ 12:00 出发，18:30 老桥`,
-      `🍝 午饭提前 11:30`,
-      `🌉 老桥日落余晖最美`,
-      `📸 老桥拍照黄金时段 17:00-18:30`,
-      `🎫 三个美术馆共约 €30`,
+      `⏰ 11:00 出发，20:30 晚餐`,
+      `🍝 午餐吃饱（看美术馆耗体力）`,
+      `☕ 下午茶 14:15–15:30 中场休息`,
+      `🌉 老桥日落 18:30–19:00`,
+      `👟 今天是最「费腿」的一天`,
+      `📸 David 拍照降低曝光补偿 –0.7 到 –1.0`,
     ],
   ],
   7: [
@@ -2747,7 +2901,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v43";
+const STORAGE_KEY = "rome-florence-6days-v44";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
