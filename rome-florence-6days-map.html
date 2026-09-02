@@ -652,8 +652,8 @@
   <!-- ===== 顶部标题 ===== -->
   <header>
     <div>
-      <h1>罗马 <span class="day">+</span> 佛罗伦萨<span class="small">6 天 City Walk</span><span class="flag-ita" title="Italy"></span></h1>
-      <div class="subtitle">🇮🇹 罗马 3 天 + 佛罗伦萨 3 天 · 深度玩转意大利双城</div>
+      <h1>🇮🇹 意大利双城 <span class="day">+</span> 托斯卡纳<span class="small">12 天深度游</span><span class="flag-ita" title="Italy"></span></h1>
+      <div class="subtitle">罗马 3 天 + 佛罗伦萨 4 天 + 托斯卡纳自驾 1 天 · 2026.10.1–10.12</div>
     </div>
     <div class="city-card">
       <div class="city-icons">🏛️⛪🗼</div>
@@ -668,12 +668,12 @@
 
   <!-- ===== 顶部 Tab 栏 ===== -->
   <nav class="tabs" id="tabs">
-    <button class="tab" data-day="1"><span class="tab-num">DAY 1 · 10.1</span><span class="tab-title">🛫 出发 / 抵达</span><span class="tab-sub">跨境巴士 + 2 航班</span></button>
-    <button class="tab" data-day="2"><span class="tab-num">DAY 2 · 10.2</span><span class="tab-title">⛪ 梵蒂冈深度</span><span class="tab-sub">教廷与艺术一日</span></button>
-    <button class="tab" data-day="3"><span class="tab-num">DAY 3 · 10.3</span><span class="tab-title">🏛️ 罗马古迹串游</span><span class="tab-sub">万神殿 → 斗兽场</span></button>
-    <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🎨 佛罗伦萨初印象</span><span class="tab-sub">中央市场 / 百花 / 领主 / T骨牛排</span></button>
-    <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">🌅 阿诺河 + 日落</span><span class="tab-sub">市场 / 老桥 / 米开朗琪罗</span></button>
-    <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 乌菲兹 · 老桥</span></button>
+    <button class="tab" data-day="1"><span class="tab-num">DAY 1 · 10.1</span><span class="tab-title">🛫 出发 / 抵达</span><span class="tab-sub">深圳 → 香港 → 伊斯坦布尔 → 罗马</span></button>
+    <button class="tab" data-day="2"><span class="tab-num">DAY 2 · 10.2</span><span class="tab-title">⛪ 梵蒂冈深度</span><span class="tab-sub">圣彼得 · 博物馆 · 西斯廷</span></button>
+    <button class="tab" data-day="3"><span class="tab-num">DAY 3 · 10.3</span><span class="tab-title">🏛️ 罗马古迹串游</span><span class="tab-sub">万神殿 → 斗兽场 → 许愿池</span></button>
+    <button class="tab" data-day="4"><span class="tab-num">DAY 4 · 10.4</span><span class="tab-title">🎨 佛罗伦萨初印象</span><span class="tab-sub">圣洛伦佐 → 碧提宫 → Boboli 日落</span></button>
+    <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">⛪ 百花 + Oltrarno + 日落</span><span class="tab-sub">大教堂 → 逛街 → 圣三一桥 → 米开朗琪罗</span></button>
+    <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 美术馆三连击</span><span class="tab-sub">大卫 · 圣十字 · 乌菲兹 · 老桥</span></button>
     <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">🚗 托斯卡纳自驾</span><span class="tab-sub">皮恩扎 → 蒙塔尔奇诺 → 锡耶纳</span></button>
     <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
@@ -2716,7 +2716,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v41";
+const STORAGE_KEY = "rome-florence-6days-v42";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
