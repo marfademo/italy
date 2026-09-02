@@ -1929,15 +1929,13 @@ if (d===4) return [
     <div class="info-card"><h4>🎫 入场</h4>
     <div class="highlight">15:45 到 Uffizi 门口，找到「Reserved」入口。乌菲兹有 50+ 个展厅、2,000+ 件藏品，全看完至少 4–5 小时。你只有 2.5 小时。你必须做出选择：只看精华。</div></div>`,
     `<!-- 乌菲兹第一段 -->
-    <div class="info-card" data-collapsed="1"><h4>🏛️ 第一段：早期文艺复兴｜Rooms 2–8（30 min）</h4>
-    <div class="collapse-toggle" onclick="toggleCollapse(this)">展开 ▸</div>
-    <div class="collapse-body">
+    <div class="info-card"><h4>🏛️ 第一段：早期文艺复兴｜Rooms 2–8（30 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
     <tr><td>2</td><td>Maestà di Ognissanti</td><td>Giotto</td><td>1310</td><td>圣母坐在金色宝座上，但她是有体积的——这是拜占庭扁平风格到文艺复兴三维空间的转折点</td></tr>
     <tr><td>2</td><td>Maestà di Santa Trinità</td><td>Cimabue</td><td>1285</td><td>对比旁边的 Giotto——Cimabue 是 Giotto 的老师，但他画的圣母还是扁平的。站在这两幅画中间，你看到了艺术的进化</td></tr>
     <tr><td>3</td><td>Annunciation</td><td>Simone Martini</td><td>1333</td><td>哥特式的优雅巅峰，天使 Gabriel 的金色袍子在发光</td></tr>
     <tr><td>7</td><td>Battle of San Romano</td><td>Paolo Uccello</td><td>1438</td><td>透视法的狂热实验——断裂的长矛、倒下的骑士、马匹，全部按照透视网格排列。Uccello 对透视法着迷到妻子说他「宁愿画线也不愿睡觉」</td></tr>
-    <tr><td>8</td><td>Duke and Duchess of Urbino</td><td>Piero della Francesca</td><td>1472</td><td>侧面双人像，地位和权力的最冷酷表达。公爵的鼻子被削掉了一半（他年轻时在一次比武中受伤），画家没有美化，而是如实画了</td></tr></table></div></div>`,
+    <tr><td>8</td><td>Duke and Duchess of Urbino</td><td>Piero della Francesca</td><td>1472</td><td>侧面双人像，地位和权力的最冷酷表达。公爵的鼻子被削掉了一半（他年轻时在一次比武中受伤），画家没有美化，而是如实画了</td></tr></table></div>`,
     `<!-- 乌菲兹第二段 -->
     <div class="info-card"><h4>🏛️ 第二段：Botticelli 厅｜Rooms 10–14（25 min）<span class="star">⭐</span></h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th></tr>
@@ -2890,7 +2888,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v46";
+const STORAGE_KEY = "rome-florence-6days-v47";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
