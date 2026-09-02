@@ -2014,18 +2014,7 @@ if (d===4) return [
     <tr><td>2</td><td><div>Osteria del Proconsolo <span class="tag green">优雅精致</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+del+Proconsolo+Via+del+Proconsolo+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.7★</span></td><td>€35–45</td><td><span class="star">⭐</span> Tagliata di Manzo con Rucola e Grana（烤牛肉片配芝麻菜和帕尔马干酪）、Risotto ai Funghi Porcini（牛肝菌烩饭）、Pici al Ragù Toscano（托斯卡纳肉酱手擀面）</td><td>Bargello 博物馆对面，优雅但不过分正式，墙面有精致的壁画装饰。适合「今天看了两座美术馆，晚上想好好吃一顿但又不想太端着」。建议提前 3–5 天预约</td></tr>
     <tr><td>3</td><td><div>Trattoria il Bargello <span class="tag green">轻松地道</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+il+Bargello+Borgo+dei+Greci+Firenze" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.6★</span></td><td>€25–35</td><td><span class="star">⭐</span> Peposo alla Fornacina（红酒黑胡椒炖牛肉）、Pappa al Pomodoro（番茄面包汤）、Crostini di Fegatini（鸡肝酱烤面包，前菜）</td><td>Bargello 博物馆旁边，轻松的家庭式 Trattoria，有小庭院。预约较容易，提前 1–2 天即可</td></tr>
     <tr><td>4</td><td>走回 Oltrarno（过老桥 5 分钟）</td><td>—</td><td>—</td><td>Day 4 和 Day 5 的晚餐推荐全部适用</td><td>—</td></tr></table></div>`,
-    `<!-- 今日必带 -->
-    <div class="info-card"><h4>🎒 今天必带</h4>
-    <table><tr><td>🎫 Accademia 门票（手机截图 + 邮件）</td><td>🎫 Uffizi 门票（手机截图 + 邮件）</td></tr>
-    <tr><td>🛂 护照（换取门票时可能需要核对姓名）</td><td>🔋 充电宝（两家博物馆不允许用闪光灯，但手机拍照耗电快）</td></tr>
-    <tr><td>👟 舒适的鞋（乌菲兹走 2.5 小时全是硬石地板，腿会累）</td><td>💧 小瓶水（博物馆内不能喝水，但排队和路上喝）</td></tr></table></div>`,
-    `<!-- 体力管理 -->
-    <div class="info-card"><h4>💪 体力管理</h4>
-    <div class="warn">今天是你整趟旅行中最「费腿」的一天。乌菲兹美术馆是狭长的 U 型走廊，2.5 小时不间断站立 + 行走，硬石地板对腿和腰是考验。</div>
-    <table><tr><td>上午睡到自然醒，11:30 出门吃午饭</td></tr>
-    <tr><td>午餐吃好但不要太撑——吃完直接进学院美术馆，胃里太满会影响看 David 的状态</td></tr>
-    <tr><td>圣十字殿有长椅可以坐，是今天的「中场休息站」</td></tr></table></div>`,
-  ].join("");
+    ].join("");
   // ===== Day 7：托斯卡纳自驾 =====
   if (d===7) return [
     listRowHTML({ type:"activity", icon:"·", name:"佛罗伦萨火车站", time:"8:00", action:"取车", note:"IDP 国际驾照 · 护照 · 租车合同 · 提车单 · 本人信用卡" }),
@@ -2810,19 +2799,19 @@ const DEFAULT_TIPS = {
     ],
     [
       `学院美术馆 / 乌菲兹 <b>必须提前预约</b>`,
-      `大卫像在学院美术馆`,
-      `学院美术馆 <b>18:20 停止入场</b>`,
-      `乌菲兹 <b>17:30 停止入场</b>`,
-      `乌菲兹 50+ 展厅 · 精华路线 2.5h`,
-      `硬石地板穿着舒适鞋`,
+      `大卫像在学院美术馆 · 学院 <b>18:20 停止入场</b>`,
+      `乌菲兹 <b>17:30 停止入场</b> · 50+ 展厅 · 精华路线 2.5h`,
+      `<span class="warn">今天是最「费腿」的一天</span>：乌菲兹狭长 U 型走廊，2.5h 不间断站立 + 行走`,
+      `乌菲兹硬石地板对腿和腰是考验，穿最舒服的鞋`,
+      `二楼尽头有 Uffizi Café（露台！），腿累了花 10 分钟坐露台喝咖啡`,
     ],
     [
-      `⏰ 11:00 出发，20:30 晚餐`,
-      `🍝 午餐吃饱（看美术馆耗体力）`,
-      `☕ 下午茶 14:15–15:30 中场休息`,
-      `🌉 老桥日落 18:30–19:00`,
-      `👟 今天是最「费腿」的一天`,
+      `⏰ 上午睡到自然醒，11:30 出门`,
+      `🍝 午餐吃饱但不要太撑（吃完直接进学院美术馆，胃太满影响看 David 状态）`,
+      `☕ 下午茶 14:15–15:30 中场休息，恢复体力`,
+      `🌉 老桥日落 18:30–19:00，乌菲兹出门左转 2 分钟`,
       `📸 David 拍照降低曝光补偿 –0.7 到 –1.0`,
+      `🗿 囚徒厅雕塑比 David 更好拍——光线均匀，游客少`,
     ],
   ],
   7: [
@@ -2901,7 +2890,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v44";
+const STORAGE_KEY = "rome-florence-6days-v45";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
