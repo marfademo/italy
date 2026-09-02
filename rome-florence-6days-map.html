@@ -644,6 +644,37 @@
     .transit-board{height:auto;padding:6px;}
     .transit-board svg{max-width:100%;}
   }
+  /* ===== 手机横屏：恢复桌面左右双栏布局 ===== */
+  @media (max-width:900px) and (orientation: landscape){
+    .day-panel.active{grid-template-columns:340px 1fr;gap:12px;padding:8px;border:2px solid #f3d9a4;border-radius:12px;background:#fffaf0;}
+    .day-panel .right-col{padding:10px 12px;border:2px solid #f3d9a4;border-radius:10px;background:var(--cream);}
+    .day-panel h2{font-size:20px;margin:0 0 4px;}
+    .day-panel .date{font-size:12px;margin-bottom:4px;}
+    .mapwrap{min-height:auto;height:calc(100vh - 60px);max-height:none;z-index:20;padding:3px;border:2px solid #f3d9a4;border-radius:10px;background:#fbf5e3;}
+    .map{height:100%;min-height:auto;max-height:none;z-index:20;border-radius:6px;}
+    .tabs{gap:2px;margin:0 0 6px;padding:2px;border:none;border-radius:0;background:transparent;}
+    .tab{padding:4px 6px;border-radius:5px;min-width:auto;flex:0 0 auto;border-width:1px;}
+    .tab .tab-num{font-size:9px;}
+    .tab .tab-title{font-size:11px;}
+    .tab .tab-sub{font-size:9px;}
+    .info-card{padding:4px 6px;margin:3px 0;border-radius:5px;font-size:11px;}
+    .info-card h4{font-size:12px;margin:0 0 4px;}
+    .info-card table{font-size:10px;}
+    .list-row{padding:3px 4px;margin:2px 0;border-radius:5px;font-size:11px;}
+    body:not(.edit-mode) .list-row{gap:3px;}
+    .list-icon{width:22px;height:22px;font-size:10px;}
+    .list-name{font-size:11px;}
+    .list-time{font-size:10px;}
+    .list-note{font-size:9px;}
+    .leaflet-marker-num{width:24px;height:24px;font-size:10px;border-width:1.5px;}
+    .leaflet-control-zoom a{width:24px;height:24px;line-height:24px;font-size:12px;}
+    .leaflet-touch .leaflet-control-zoom a{width:26px;height:26px;line-height:26px;}
+    .info{grid-template-columns:1fr 1fr !important;}
+    .page{padding:4px 4px 8px;border-radius:6px;border:none;box-shadow:none;}
+    header{flex-direction:row;align-items:center;gap:8px;}
+    h1{font-size:18px;}
+    .tool-btn{font-size:10px;padding:4px 8px;}
+  }
 </style>
 </head>
 <body>
@@ -2716,7 +2747,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v42";
+const STORAGE_KEY = "rome-florence-6days-v43";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
