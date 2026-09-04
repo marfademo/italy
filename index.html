@@ -85,7 +85,7 @@
 
   /* ===== Day 内容 ===== */
   .day-panel{display:none;}
-  .day-panel.active{display:grid;grid-template-columns:380px 1fr;gap:18px;background:#fffaf0;border:2px solid #f3d9a4;border-radius:16px;padding:14px;animation:fade .25s ease;align-items:start;}
+  .day-panel.active{display:grid;grid-template-columns:1fr 2fr;gap:18px;background:#fffaf0;border:2px solid #f3d9a4;border-radius:16px;padding:14px;animation:fade .25s ease;align-items:start;}
   @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
   .day-panel .left-col{position:relative;display:flex;flex-direction:column;}
   .day-panel .right-col{background:var(--cream);border:2px solid #f3d9a4;border-radius:12px;padding:14px 16px;min-width:0;overflow:hidden;}
@@ -651,7 +651,7 @@
   }
   /* ===== 手机横屏：恢复桌面左右双栏布局 ===== */
   @media (max-width:900px) and (orientation: landscape){
-    .day-panel.active{grid-template-columns:340px 1fr;gap:12px;padding:8px;border:2px solid #f3d9a4;border-radius:12px;background:#fffaf0;}
+    .day-panel.active{grid-template-columns:1fr 2fr;gap:12px;padding:8px;border:2px solid #f3d9a4;border-radius:12px;background:#fffaf0;}
     .day-panel .right-col{padding:10px 12px;border:2px solid #f3d9a4;border-radius:10px;background:var(--cream);}
     .day-panel h2{font-size:20px;margin:0 0 4px;}
     .day-panel .date{font-size:12px;margin-bottom:4px;}
@@ -714,8 +714,8 @@
     <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="10"><span class="tab-num">DAY 10 · 10.10</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
-    <button class="tab" data-day="11"><span class="tab-num">DAY 11 · 10.11</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
-    <button class="tab" data-day="12"><span class="tab-num">DAY 12 · 10.12</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="11"><span class="tab-num">DAY 11 · 10.11</span><span class="tab-title">🚗 多洛米蒂 → 米兰</span><span class="tab-sub">Ortisei → 大教堂 → 长廊 → Eataly</span></button>
+    <button class="tab" data-day="12"><span class="tab-num">DAY 12 · 10.12</span><span class="tab-title">🛬 返程</span><span class="tab-sub">米兰 → 阿布扎比 → 香港</span></button>
   </nav>
 
   <!-- ===== 各 Day 内容面板 ===== -->
@@ -983,26 +983,40 @@ const DAYS = {
     timeline: dayTimeline(10),
   },
   11: {
-    isTransit: true,
     badge: "DAY 11",
-    title: "待规划",
-    date: "10.11",
-    line: "📝 点击编辑按钮添加行程",
-    hotel: { name: "", lat: 0, lng: 0 },
-    center: [0, 0],
-    zoom: 1,
-    bounds: [[-90,-180],[90,180]],
-    nodes: [],
-    route: [],
+    title: "多洛米蒂 → 米兰",
+    date: "10.11 · ORTISEI → MILANO",
+    line: "🚗 Ortisei → A22 → A4 → 米兰 Duomo → 长廊 → 晚餐 → Eataly",
+    hotel: { name: "酒店 · Via Verbano 1", lat: 45.6180, lng: 8.7270 },
+    center: [45.4700, 9.1900],
+    zoom: 11,
+    bounds: [[45.4600,9.1200],[45.4800,9.2200]],
+    nodes: [
+      { num: null, kind: "hotel", name: "Ortisei · 出发", lat: 46.5760, lng: 11.6710, hint: "8:00 出发" },
+      { num: null, kind: "transit", name: "休息站 · Autogrill", lat: 45.8800, lng: 11.0300, hint: "12:00–12:20 · 咖啡+换司机", pills: ["🚗 2h30"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Verbano 1", lat: 45.6180, lng: 8.7270, hint: "14:00–15:00 · 入住休整" },
+      { num: 1, kind: "main", name: "米兰大教堂 Duomo", lat: 45.4641, lng: 9.1919, hint: "17:00–17:30 · 外观", pills: ["🚗 50min"] },
+      { num: 2, kind: "main", name: "埃马努埃莱二世长廊", lat: 45.4658, lng: 9.1900, hint: "17:30–18:30", pills: ["🚶 1min"] },
+      { num: null, kind: "dinner", name: "晚餐 · Brera 区", lat: 45.4710, lng: 9.1880, hint: "18:30–19:40", pills: ["🚶 5min"] },
+      { num: 3, kind: "main", name: "Eataly Milano Smeraldo", lat: 45.4810, lng: 9.1870, hint: "20:00–21:00 · 伴手礼", pills: ["🚕 10min"] },
+    ],
+    route: [
+      { mode: "taxi", from: 0, to: 1 },
+      { mode: "taxi", from: 1, to: 2 },
+      { mode: "taxi", from: 2, to: 3 },
+      { mode: "walk", from: 3, to: 4 },
+      { mode: "walk", from: 4, to: 5 },
+      { mode: "taxi", from: 5, to: 6 },
+    ],
     timeline: dayTimeline(11),
   },
   12: {
     isTransit: true,
     badge: "DAY 12",
-    title: "待规划",
-    date: "10.12",
-    line: "📝 点击编辑按钮添加行程",
-    hotel: { name: "", lat: 0, lng: 0 },
+    title: "返程",
+    date: "10.12 · MXP → AUH → HKG",
+    line: "🛬 米兰 → 阿布扎比 → 香港 · 全程约 26h",
+    hotel: { name: "酒店 · Via Verbano, 1", lat: 45.6180, lng: 8.7270 },
     center: [0, 0],
     zoom: 1,
     bounds: [[-90,-180],[90,180]],
@@ -1366,6 +1380,18 @@ function attachRowHandlers(row){
   };
   if (editMode) attachDragHandlers(row);
 
+  // 编辑态：row 任意位置粘贴图片 → 自动添加到画廊（每个 row 都绑，不受 gallery 是否已存在影响）
+  if (!row.dataset.pasteBound) {
+    row.dataset.pasteBound = "1";
+    row.addEventListener("paste", (e) => {
+      if (!editMode) return;
+      const g = ensureImgGallery(row);
+      handleImgPaste(e, g, row);
+    });
+    // 编辑态：row 级 drop zone（支持文件拖入）
+    attachRowDropZone(row);
+  }
+
   // 图片画廊：补挂 img-del / 选中 / 添加 / 全屏查看事件
   const gallery = row.querySelector(".img-gallery");
   if (gallery && gallery.dataset.handlersBound !== "1") {
@@ -1704,7 +1730,7 @@ if (d===4) return [
     <tr><td><b>⭐ Basilica di San Lorenzo</b></td><td>布鲁内莱斯基设计的文艺复兴教堂，灰白色 pietra serena 石材 + 金色拱顶，简洁到极致</td><td>€9</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_-_Basilica_di_San_Lorenzo_001.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
     <tr><td><b>⭐ Cappelle Medicee（美第奇礼拜堂）</b></td><td>从教堂后方独立入口进入。米开朗基罗的《昼》《夜》《暮》《晨》四座雕塑，分别在洛伦佐和朱利亚诺的墓上——这是米开朗基罗最著名的雕塑群之一</td><td>€9</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_-_Cappelle_medicee.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
     <tr><td><b>Sagresta Vecchia（老圣器室）</b></td><td>布鲁内莱斯基设计的第一个文艺复兴空间，多纳泰罗的灰泥浮雕</td><td>含在教堂门票</td><td></td></tr>
-    <tr><td><b>Biblioteca Medicea Laurenziana</b></td><td>米开朗基罗设计的图书馆，入口处的弧形楼梯是建筑史上最著名的楼梯之一</td><td>不定期开放</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Medicibib.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table>
+    <tr><td><b>Biblioteca Medicea Laurenziana</b></td><td>米开朗基罗设计的图书馆，入口处的弧形楼梯是建筑史上最著名的楼梯之一</td><td>不定期开放</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Medicibib.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table>
     <div class="warn" style="margin-top:6px;">⚠️ 注意区分：San Lorenzo 大教堂（Basilica）和 Cappelle Medicee 是两个独立入口 + 独立门票。Cappelle Medicee 入口在教堂后方（Piazza Madonna degli Aldobrandini）。如果时间不够，只进 Cappelle Medicee 看米开朗基罗雕塑，教堂本身可以跳过。</div>
     <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">💰 进不进教堂？</div>
     <div style="font-size:11px;margin-top:2px;">教堂内部 €9，美第奇家族旧圣器室（Brunelleschi 设计）和新圣器室（米开朗基罗设计，含《昼》《夜》《晨》《暮》四尊雕塑）需要额外票 €9。</div></div>`,
@@ -1808,20 +1834,20 @@ if (d===4) return [
     <div class="info-card"><h4>🏛️ 领主广场 · 露天雕塑博物馆</h4>
     <div class="highlight">💡 领主广场是佛罗伦萨的政治心脏，从 13 世纪起就是佛罗伦萨共和国的权力中心。这里是一个露天雕塑博物馆，全部免费。</div>
     <table class="meal-table"><tr><th>看点</th><th>位置</th><th>说明</th><th>示意图</th></tr>
-    <tr><td><b>⭐ 旧宫 Palazzo Vecchio</b></td><td>广场正面</td><td>1299 年建，佛罗伦萨市政厅，94m 高的 Arnolfo 塔是佛罗伦萨天际线的一部分。门口有大卫像的复制品（原作在学院美术馆）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_Palazzo_della_Signoria%2C_better_known_as_the_Palazzo_Vecchio.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td><b>⭐ 佣兵凉廊 Loggia dei Lanzi</b></td><td>旧宫右侧</td><td>14 世纪建的露天雕塑廊，切利尼的《珀尔修斯与美杜莎》（青铜原作！）+ 詹博洛尼亚的《掠夺萨宾妇女》（一整块大理石雕刻的螺旋构图）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Sculptures_in_the_Loggia_dei_Lanzi.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td><b>海神喷泉</b></td><td>广场中央</td><td>阿曼纳蒂设计，海神 + 四匹海马，米开朗基罗曾嘲笑它"浪费了大理石"</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_South_on_Neptune_Fountain,_Judith_and_Holofernes_%26_David.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td><b>科西莫一世骑马像</b></td><td>广场北侧</td><td>詹博洛尼亚作品，美第奇家族第一代大公</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Firenze_-_Florence_-_Piazza_della_Signoria_-_View_WNW_on_the_Neptune_Fountain_1575_%26_Equestrian_Statue_of_Cosimo_I_1595.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td><b>多纳泰罗《朱迪斯与霍洛芬斯》</b></td><td>旧宫门口左侧</td><td>多纳泰罗的青铜雕塑（原作在旧宫内部，外面是复制品）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Judith_and_Holofernes,_Donatello_Florenz-01.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td><b>⭐ 旧宫 Palazzo Vecchio</b></td><td>广场正面</td><td>1299 年建，佛罗伦萨市政厅，94m 高的 Arnolfo 塔是佛罗伦萨天际线的一部分。门口有大卫像的复制品（原作在学院美术馆）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_Palazzo_della_Signoria%2C_better_known_as_the_Palazzo_Vecchio.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>⭐ 佣兵凉廊 Loggia dei Lanzi</b></td><td>旧宫右侧</td><td>14 世纪建的露天雕塑廊，切利尼的《珀尔修斯与美杜莎》（青铜原作！）+ 詹博洛尼亚的《掠夺萨宾妇女》（一整块大理石雕刻的螺旋构图）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sculptures_in_the_Loggia_dei_Lanzi.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>海神喷泉</b></td><td>广场中央</td><td>阿曼纳蒂设计，海神 + 四匹海马，米开朗基罗曾嘲笑它"浪费了大理石"</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Firenze_-_Florence_-_Piazza_della_Signoria_-_View_South_on_Neptune_Fountain,_Judith_and_Holofernes_%26_David.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>科西莫一世骑马像</b></td><td>广场北侧</td><td>詹博洛尼亚作品，美第奇家族第一代大公</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cosimo_Medici_Piazza_signoria_Florence.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>多纳泰罗《朱迪斯与霍洛芬斯》</b></td><td>旧宫门口左侧</td><td>多纳泰罗的青铜雕塑（原作在旧宫内部，外面是复制品）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Judith_and_Holofernes,_Donatello_Florenz-01.jpg" style="width:120px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     listRowHTML({ type:"transport", icon:"🚶", name:"领主广场 → 圣三一桥", time:"15:20 - 15:30", action:"步行 10min", note:"沿 Via Por Santa Maria 往南 → 过河即到" }),
     listRowHTML({ type:"activity", icon:"2", name:"圣三一桥 Ponte Santa Trinita", time:"15:30 - 15:50", action:"拍个照 · 拍老桥最经典机位", note:"佛罗伦萨最优雅的桥 · 四座四季雕塑" }),
     `<!-- 圣三一桥 -->
     <div class="info-card"><h4>🌉 圣三一桥 · 为什么值得来</h4>
     <div class="highlight">💡 圣三一桥（Ponte Santa Trinita）被认为是佛罗伦萨最优雅的桥。比老桥更精致，比任何一座桥都更上镜。</div>
-    <table class="meal-table"><tr><th>看点</th><th>说明</th></tr>
-    <tr><td><b>⭐ 四座寓意雕塑</b></td><td>桥的四角各有一座大理石雕像，代表四季：春（Primavera）、夏（Estate）、秋（Autunno）、冬（Inverno）。1569 年 Ammannati 设计，据传 Michelangelo 参与了方案</td></tr>
-    <tr><td><b>桥上视角</b></td><td>站在桥中央看老桥（往东）——这是拍老桥最经典的机位，桥 + 阿诺河 + Vasari 走廊全在画框里</td></tr>
-    <tr><td><b>椭圆拱形</b></td><td>三座优雅的椭圆拱，是文艺复兴桥梁工程的杰作。二战时被德军炸毁，1958 年用原石料打捞重建</td></tr></table>
+    <table class="meal-table"><tr><th>看点</th><th>说明</th><th class="col-narrow">示意图</th></tr>
+    <tr><td><b>⭐ 四座寓意雕塑</b></td><td>桥的四角各有一座大理石雕像，代表四季：春（Primavera）、夏（Estate）、秋（Autunno）、冬（Inverno）。1569 年 Ammannati 设计，据传 Michelangelo 参与了方案</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_santa_trinita_florence.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>桥上视角</b></td><td>站在桥中央看老桥（往东）——这是拍老桥最经典的机位，桥 + 阿诺河 + Vasari 走廊全在画框里</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio_from_Ponte_Santa_Trinita_Blue_hour.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>椭圆拱形</b></td><td>三座优雅的椭圆拱，是文艺复兴桥梁工程的杰作。二战时被德军炸毁，1958 年用原石料打捞重建</td><td></td></tr></table>
     <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">📸 拍照机位</div>
     <div style="font-size:11px;margin-top:2px;">• 桥中央往东拍老桥（经典机位）<br>• 桥中央往西拍 Ponte alla Carraia + 远处山丘<br>• 四季雕塑 + 阿诺河背景</div></div>`,
     listRowHTML({ type:"transport", icon:"🚶", name:"圣三一桥 → Oltrarno 街区", time:"15:50", action:"过桥即到 · 步行 5min", note:"" }),
@@ -1854,10 +1880,10 @@ if (d===4) return [
     <tr><td>18:50–19:00</td><td>蓝调时刻</td><td>深蓝天空 + 城市灯光</td><td>下山前最后 10 分钟，拍夜景 + 灯光水面倒影的最佳时间</td></tr></table></div>`,
     `<!-- 米开朗琪罗广场拍照机位 -->
     <div class="info-card"><h4>📸 米开朗琪罗广场 · 拍照机位</h4>
-    <table class="meal-table"><tr><th>机位</th><th>位置</th><th>特点</th></tr>
-    <tr><td><b>⭐ 广场中央栏杆</b></td><td>正面开阔</td><td>经典机位，人多。拍全景最佳</td></tr>
-    <tr><td><b>⭐ 右侧台阶顶部</b></td><td>广场右侧</td><td>人少，带树作为前景，构图更有层次</td></tr>
-    <tr><td><b>Rampe del Poggi 台阶</b></td><td>广场下方半山腰</td><td>蓝调时刻拍老桥 + 灯光水面倒影。下山时就可以走这条路</td></tr></table>
+    <table class="meal-table"><tr><th>机位</th><th>位置</th><th>特点</th><th class="col-narrow">示意图</th></tr>
+    <tr><td><b>⭐ 广场中央栏杆</b></td><td>正面开阔</td><td>经典机位，人多。拍全景最佳</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Florence_Sunset_from_Piazzale_Michelangelo_-_Flickr_-_nan_palmero.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>⭐ 右侧台阶顶部</b></td><td>广场右侧</td><td>人少，带树作为前景，构图更有层次</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vista_de_Florencia_desde_Piazzale_Michelangelo,_Italia,_2022-09-18,_DD_199.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td><b>Rampe del Poggi 台阶</b></td><td>广场下方半山腰</td><td>蓝调时刻拍老桥 + 灯光水面倒影。下山时就可以走这条路</td><td></td></tr></table>
     <div class="highlight" style="margin-top:6px;">💡 隐藏彩蛋：如果 Piazzale 人太多，再往上走 5 分钟到 <b>San Miniato al Monte</b>（罗马式教堂，免费）。每天 17:30 有本笃会修士的 Gregorian 圣歌，人少得多，而且教堂前的广场看佛罗伦萨全景比 Piazzale 更高、更安静。</div></div>`,
     listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · 领主广场附近", time:"19:00 - 20:30", action:"Trattoria Dalloste / Paoli 1827 / 或 Day 4 Oltrarno 晚餐", note:"打车下山 · 周六晚上建议预约" }),
     `<!-- 晚餐推荐 -->
@@ -1897,20 +1923,20 @@ if (d===4) return [
     `<!-- 学院美术馆精华路线 -->
     <div class="info-card"><h4>🗿 精华路线（1h30）</h4>
     <table class="meal-table"><tr><th class="col-narrow">顺序</th><th class="col-narrow">时长</th><th>看点</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>1</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Prisoners（囚徒厅）</td><td>这是比 David 更能让你理解 Michelangelo 的地方。四座未完成的雕塑——《觉醒的奴隶》《年轻的奴隶》《阿特拉斯》《有胡子的奴隶》——人形从大理石中挣扎出来，像是被石头困住。Michelangelo 说「雕塑就是把多余的大理石去掉」，这里你亲眼看到这个过程</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Accademia_di_Belle_Arti,_Firenze,_galleria,_prigioni_di_michelangelo_01.JPG" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>2</td><td>15 min</td><td><span class="star">⭐⭐⭐</span> David</td><td>站在 Tribuna 中央，5.17m 高，头顶穹顶天窗的自然光。绕一圈看——正面是冷静的决断，侧面是紧绷的肌肉，背面是投石带（slingshot）藏在手里。这是 1501–1504 年，Michelangelo 26 岁时的作品</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Michelangelo%27s_David_-_right_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>3</td><td>10 min</td><td>St. Matthew</td><td>Michelangelo 另一件未完成作品，1505 年。圣马太从石头中浮现，半完成状态比完成品更有张力</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Michelangelo,_san_matteo,_firenze,_02.JPG" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>4</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Colossus（巨像厅）</td><td>15–16 世纪祭坛画，包括 Botticelli、Perugino、Filippino Lippi。重点看 Botticelli 的《Madonna of the Sea》——这是他在 Uffizi 的《春》《维纳斯的诞生》之外的另一种风格</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Sandro_Botticelli_-_Madonna_del_Mare_(Galleria_dell%27Accademia,_Florence).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>5</td><td>15 min</td><td><span class="star">⭐</span> Musical Instruments Museum（乐器博物馆）</td><td>藏在学院美术馆深处，大多数人直接跳过，但这是全欧洲最好的历史乐器收藏之一。Stradivari 1690 年的中提琴、1650 年的大键琴、Bartolomeo Cristofori 最早期的钢琴——他是美第奇家族的乐器制造师，钢琴的发明者</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Museo_degli_strumenti_musicali,_Firenze,_02.JPG" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>1</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Prisoners（囚徒厅）</td><td>这是比 David 更能让你理解 Michelangelo 的地方。四座未完成的雕塑——《觉醒的奴隶》《年轻的奴隶》《阿特拉斯》《有胡子的奴隶》——人形从大理石中挣扎出来，像是被石头困住。Michelangelo 说「雕塑就是把多余的大理石去掉」，这里你亲眼看到这个过程</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo_-_Atlas.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>2</td><td>15 min</td><td><span class="star">⭐⭐⭐</span> David</td><td>站在 Tribuna 中央，5.17m 高，头顶穹顶天窗的自然光。绕一圈看——正面是冷静的决断，侧面是紧绷的肌肉，背面是投石带（slingshot）藏在手里。这是 1501–1504 年，Michelangelo 26 岁时的作品</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%27s_David_-_right_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>3</td><td>10 min</td><td>St. Matthew</td><td>Michelangelo 另一件未完成作品，1505 年。圣马太从石头中浮现，半完成状态比完成品更有张力</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo_buonarroti,_san_matteo,_1505-1506_circa,_non-finito_per_il_duomo_di_firenze.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>4</td><td>15 min</td><td><span class="star">⭐</span> Hall of the Colossus（巨像厅）</td><td>15–16 世纪祭坛画，包括 Botticelli、Perugino、Filippino Lippi。重点看 Botticelli 的《Madonna of the Sea》——这是他在 Uffizi 的《春》《维纳斯的诞生》之外的另一种风格</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Botticelli,_madonna_del_Mare.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>5</td><td>15 min</td><td><span class="star">⭐</span> Musical Instruments Museum（乐器博物馆）</td><td>藏在学院美术馆深处，大多数人直接跳过，但这是全欧洲最好的历史乐器收藏之一。Stradivari 1690 年的中提琴、1650 年的大键琴、Bartolomeo Cristofori 最早期的钢琴——他是美第奇家族的乐器制造师，钢琴的发明者</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Museo_degli_strumenti_musicali,_firenze,_02.JPG" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
     <tr><td>6</td><td>10 min</td><td>Gipsoteca Bartolini（石膏模型馆）</td><td>19 世纪雕塑家 Lorenzo Bartolini 的石膏模型，如果你对 19 世纪雕塑感兴趣；如果累了可以跳过，省体力给乌菲兹</td><td></td></tr>
     <tr><td>7</td><td>5 min</td><td>13–14 世纪展厅</td><td>出口前的金底圣像画（Gold-ground panels），Giotto 及其追随者。这是文艺复兴前的「黎明」——在隔壁 Uffizi 你将看到这个黎明如何变成正午</td><td></td></tr></table></div>`,
     `<!-- 再看 David -->
     <div class="info-card"><h4>👀 再看 David</h4>
     <div class="highlight">如果你在学院美术馆只做一件事，花 15 分钟站在 David 面前，绕三圈。</div>
     <table><tr><th class="col-narrow">圈</th><th>看什么</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>第一圈（正面）</td><td>看他凝视远方的表情——不是已经胜利的骄傲，而是战斗前的冷静判断。这跟 Donatello 的 David（头戴帽、踩着 Goliath 的头、已经赢了）完全不同</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Michelangelo%27s_David_-_front_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>第二圈（侧面）</td><td>看他右手暴起的血管、紧绷的颈部和前臂肌肉——Michelangelo 对人体的解剖学理解超越了所有同时代人</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Michelangelo%27s_David_-_right_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>第三圈（背面）</td><td>注意他左手握着的投石带——David 的武器不是剑，而是智慧和技巧。佛罗伦萨人把 David 看作自己的象征：小城市用智慧战胜大国（米兰、教皇国）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Michelangelo%27s_David_-_back_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>第一圈（正面）</td><td>看他凝视远方的表情——不是已经胜利的骄傲，而是战斗前的冷静判断。这跟 Donatello 的 David（头戴帽、踩着 Goliath 的头、已经赢了）完全不同</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%27David%27_by_Michelangelo_FI_Acca_JBS_003.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>第二圈（侧面）</td><td>看他右手暴起的血管、紧绷的颈部和前臂肌肉——Michelangelo 对人体的解剖学理解超越了所有同时代人</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%27s_David_-_right_view.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>第三圈（背面）</td><td>注意他左手握着的投石带——David 的武器不是剑，而是智慧和技巧。佛罗伦萨人把 David 看作自己的象征：小城市用智慧战胜大国（米兰、教皇国）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%27David%27_by_Michelangelo_FI_Acca_JBS_019.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 拍照 -->
     <div class="info-card"><h4>📸 拍照</h4>
     <div class="highlight">David 可以用手机拍（不开闪光灯），但雕像太大、天窗光太强，iPhone 拍出来容易过曝。建议：降低曝光补偿 –0.7 到 –1.0，或者后期拉暗。</div>
@@ -1931,45 +1957,45 @@ if (d===4) return [
     `<!-- 乌菲兹第一段 -->
     <div class="info-card"><h4>🏛️ 第一段：早期文艺复兴｜Rooms 2–8（30 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>2</td><td>Maestà di Ognissanti</td><td>Giotto</td><td>1310</td><td>圣母坐在金色宝座上，但她是有体积的——这是拜占庭扁平风格到文艺复兴三维空间的转折点</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Giotto_di_Bondone_-_Madonna_Enthroned_-_WGA09335.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>2</td><td>Maestà di Santa Trinità</td><td>Cimabue</td><td>1285</td><td>对比旁边的 Giotto——Cimabue 是 Giotto 的老师，但他画的圣母还是扁平的。站在这两幅画中间，你看到了艺术的进化</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Cimabue_Trinita_Madonna.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>3</td><td>Annunciation</td><td>Simone Martini</td><td>1333</td><td>哥特式的优雅巅峰，天使 Gabriel 的金色袍子在发光</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Simone_Martini_-_The_Annunciation_and_Two_Saints_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>7</td><td>Battle of San Romano</td><td>Paolo Uccello</td><td>1438</td><td>透视法的狂热实验——断裂的长矛、倒下的骑士、马匹，全部按照透视网格排列。Uccello 对透视法着迷到妻子说他「宁愿画线也不愿睡觉」</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:San_Romano_Battle_(Paolo_Uccello,_London)_01.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>8</td><td>Duke and Duchess of Urbino</td><td>Piero della Francesca</td><td>1472</td><td>侧面双人像，地位和权力的最冷酷表达。公爵的鼻子被削掉了一半（他年轻时在一次比武中受伤），画家没有美化，而是如实画了</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Piero_della_Francesca_-_The_Duke_and_Duchess_of_Urbino_-_WGA17595.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>2</td><td>Maestà di Ognissanti</td><td>Giotto</td><td>1310</td><td>圣母坐在金色宝座上，但她是有体积的——这是拜占庭扁平风格到文艺复兴三维空间的转折点</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Giotto,_Maest%C3%A0_di_Ognissanti,_Uffizi,_Firenze.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>2</td><td>Maestà di Santa Trinità</td><td>Cimabue</td><td>1285</td><td>对比旁边的 Giotto——Cimabue 是 Giotto 的老师，但他画的圣母还是扁平的。站在这两幅画中间，你看到了艺术的进化</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cimabue_Trinita_Madonna.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>3</td><td>Annunciation</td><td>Simone Martini</td><td>1333</td><td>哥特式的优雅巅峰，天使 Gabriel 的金色袍子在发光</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Simone_Martini_and_Lippo_Memmi_-_The_Annunciation_and_Two_Saints_-_WGA15010.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>7</td><td>Battle of San Romano</td><td>Paolo Uccello</td><td>1438</td><td>透视法的狂热实验——断裂的长矛、倒下的骑士、马匹，全部按照透视网格排列。Uccello 对透视法着迷到妻子说他「宁愿画线也不愿睡觉」</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/San_Romano_Battle_(Paolo_Uccello,_London)_01.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>8</td><td>Duke and Duchess of Urbino</td><td>Piero della Francesca</td><td>1472</td><td>侧面双人像，地位和权力的最冷酷表达。公爵的鼻子被削掉了一半（他年轻时在一次比武中受伤），画家没有美化，而是如实画了</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Piero_della_Francesca_-_Portraits_of_the_Duke_and_Duchess_of_Urbino,_Federico_da_Montefeltro_and_Battista_Sforza_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 乌菲兹第二段 -->
     <div class="info-card"><h4>🏛️ 第二段：Botticelli 厅｜Rooms 10–14（25 min）<span class="star">⭐</span></h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《春》Primavera</td><td>Botticelli</td><td>1482</td><td>全世界最著名的画之一。9 个人物在橘子树林中——Venus 居中，左侧是美惠三女神，右侧是 Zephyrus 追逐 Chloris（她嘴里吐出花朵变成 Flora）。500 年后，你还在尝试理解这幅画到底在说什么</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Botticelli-primavera.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《维纳斯的诞生》</td><td>Botticelli</td><td>1485</td><td>Venus 站在贝壳上从海中升起，Zephyrus 和 Aura 吹着风送她上岸，Horae（时序女神）拿着花袍迎接她。这是第一幅几乎真人大小、非基督教的裸体画——打破了中世纪 1000 年的禁忌。她的身体比例是不对的（脖子太长、肩膀太斜），但就是这种「不对」让她的美超越了真实</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table>
+    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《春》Primavera</td><td>Botticelli</td><td>1482</td><td>全世界最著名的画之一。9 个人物在橘子树林中——Venus 居中，左侧是美惠三女神，右侧是 Zephyrus 追逐 Chloris（她嘴里吐出花朵变成 Flora）。500 年后，你还在尝试理解这幅画到底在说什么</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Botticelli-primavera.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>10–14</td><td><span class="star">⭐⭐⭐</span> 《维纳斯的诞生》</td><td>Botticelli</td><td>1485</td><td>Venus 站在贝壳上从海中升起，Zephyrus 和 Aura 吹着风送她上岸，Horae（时序女神）拿着花袍迎接她。这是第一幅几乎真人大小、非基督教的裸体画——打破了中世纪 1000 年的禁忌。她的身体比例是不对的（脖子太长、肩膀太斜），但就是这种「不对」让她的美超越了真实</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table>
     <div class="highlight">💡 在 Botticelli 厅多站一会儿。这里人最多，但如果你能挤到画前，抬头看 Venus 的脸——她的表情不是喜悦，而是淡淡的忧伤。没有人知道为什么。</div></div>`,
     `<!-- 乌菲兹第三段 -->
     <div class="info-card"><h4>🏛️ 第三段：Leonardo 厅｜Room 15（15 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>15</td><td><span class="star">⭐</span> 《天使报喜》Annunciation</td><td>Leonardo da Vinci</td><td>1472</td><td>Leonardo 20 岁时的作品。天使 Gabriel 跪在花园里，圣母坐在书桌前——注意天使的翅膀（Leonardo 仔细研究过鸟类翅膀的解剖），还有背景中远山的 sfumato（晕涂法）——Leonardo 的标志性技法在这里第一次出现</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Leonardo_da_Vinci_-_Annunciazione_(dettaglio).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>15</td><td>《三王来朝》Adoration of the Magi</td><td>Leonardo da Vinci</td><td>1481</td><td>未完成，但正因为未完成，你能看到 Leonardo 是如何构建画面的——复杂的透视系统、数十个人物互相作用、马匹在背景中扬起前蹄。这是一幅未完成的革命宣言</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Leonardo_da_Vinci_-_Adoration_of_the_Magi_-_Uffizi.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>15</td><td><span class="star">⭐</span> 《天使报喜》Annunciation</td><td>Leonardo da Vinci</td><td>1472</td><td>Leonardo 20 岁时的作品。天使 Gabriel 跪在花园里，圣母坐在书桌前——注意天使的翅膀（Leonardo 仔细研究过鸟类翅膀的解剖），还有背景中远山的 sfumato（晕涂法）——Leonardo 的标志性技法在这里第一次出现</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Leonardo_da_Vinci_-_Annunciazione_(dettaglio).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>15</td><td>《三王来朝》Adoration of the Magi</td><td>Leonardo da Vinci</td><td>1481</td><td>未完成，但正因为未完成，你能看到 Leonardo 是如何构建画面的——复杂的透视系统、数十个人物互相作用、马匹在背景中扬起前蹄。这是一幅未完成的革命宣言</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Leonardo_da_Vinci_-_Adorazione_dei_Magi_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 乌菲兹第四段 -->
     <div class="info-card"><h4>🏛️ 第四段：Tribuna + 走廊｜Room 18–19（10 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th>画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>18</td><td>Tribuna</td><td>—</td><td>1584</td><td>八角形房间，美第奇家族用来展示他们最珍贵的藏品。红色天鹅绒墙壁 + 珍珠母贝穹顶 + 镶嵌地板——这是 16 世纪版本的「珠宝盒」。看一眼不需要停留</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Tribuna_degli_Uffizi%2C_Florence.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>走廊</td><td><span class="star">⭐</span> 《拉奥孔》群像</td><td>Baccio Bandinelli</td><td>1525</td><td>梵蒂冈的 Laocoön 大理石原件（1506 年出土）的复制品。Michelangelo 在罗马看到出土时第一批赶到现场的人之一——Laocoön 的发现彻底改变了文艺复兴雕塑的方向</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Laocoonte_Pio-Clementino_Inv1059_III1.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>18</td><td>Tribuna</td><td>—</td><td>1584</td><td>八角形房间，美第奇家族用来展示他们最珍贵的藏品。红色天鹅绒墙壁 + 珍珠母贝穹顶 + 镶嵌地板——这是 16 世纪版本的「珠宝盒」。看一眼不需要停留</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tribuna_uffizi.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>走廊</td><td><span class="star">⭐</span> 《拉奥孔》群像</td><td>Baccio Bandinelli</td><td>1525</td><td>梵蒂冈的 Laocoön 大理石原件（1506 年出土）的复制品。Michelangelo 在罗马看到出土时第一批赶到现场的人之一——Laocoön 的发现彻底改变了文艺复兴雕塑的方向</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Laocoon_by_Baccio_Bandinelli-Uffizi.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 乌菲兹第五段 -->
     <div class="info-card"><h4>🏛️ 第五段：Raphael + 德国画家｜Rooms 26, 29, 20（15 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>26</td><td><span class="star">⭐</span> 《金翅雀圣母》Madonna of the Goldfinch</td><td>Raphael</td><td>1506</td><td>圣母玛利亚 + 小耶稣 + 小圣约翰，三角形构图，Raphael 式的温柔达到了顶峰。金翅雀（圣约翰递给耶稣的）是受难（Passion）的预兆——耶稣长大后会被钉十字架，头上戴荆棘冠</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Raffaello_Sanzio_-_Madonna_del_Cardellino_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>29</td><td>《教皇利奥十世与两位红衣主教》</td><td>Raphael</td><td>1518</td><td>美第奇教皇 Leo X（Lorenzo il Magnifico 的儿子）+ 他的两位红衣主教表亲。注意教皇手中的放大镜——他高度近视，这面放大镜象征着他的学识和权力</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Raffaello_Sanzio_-_Ritratto_di_Leone_X_coi_cardinali_Giulio_de%27_Medici_e_Luigi_de%27_Rossi_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>20</td><td>《圣母子与天使》Madonna and Child with Angels</td><td>Dürer</td><td>1506</td><td>德国最伟大的画家在意大利画的——北方文艺复兴的精密细节（天使的头发、衣褶）融入意大利的温暖光线</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Albrecht_D%C3%BCrer_-_Madonna_and_Child_with_Angels_(Uffizi).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>26</td><td><span class="star">⭐</span> 《金翅雀圣母》Madonna of the Goldfinch</td><td>Raphael</td><td>1506</td><td>圣母玛利亚 + 小耶稣 + 小圣约翰，三角形构图，Raphael 式的温柔达到了顶峰。金翅雀（圣约翰递给耶稣的）是受难（Passion）的预兆——耶稣长大后会被钉十字架，头上戴荆棘冠</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Raffaello_Sanzio_-_Madonna_del_Cardellino_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>29</td><td>《教皇利奥十世与两位红衣主教》</td><td>Raphael</td><td>1518</td><td>美第奇教皇 Leo X（Lorenzo il Magnifico 的儿子）+ 他的两位红衣主教表亲。注意教皇手中的放大镜——他高度近视，这面放大镜象征着他的学识和权力</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Raffaello_Sanzio_-_Ritratto_di_Leone_X_coi_cardinali_Giulio_de%27_Medici_e_Luigi_de%27_Rossi_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>20</td><td>《圣母子与天使》Madonna and Child with Angels</td><td>Dürer</td><td>1506</td><td>德国最伟大的画家在意大利画的——北方文艺复兴的精密细节（天使的头发、衣褶）融入意大利的温暖光线</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Albrecht_D%C3%BCrer_061.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 乌菲兹第六段 -->
     <div class="info-card"><h4>🏛️ 第六段：Caravaggio + 北方画家｜Rooms 90, 96–97（20 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>90</td><td><span class="star">⭐</span> 《美杜莎》Medusa</td><td>Caravaggio</td><td>1597</td><td>画在盾牌上，美杜莎被斩首的那一瞬间，惊恐、痛苦、还活着。注意蛇缠绕的头发——Caravaggio 用镜子照着自己画的脸（把美杜莎画成了自己的脸）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Caravaggio_-_Medusa_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>90</td><td><span class="star">⭐</span> 《酒神巴克斯》Bacchus</td><td>Caravaggio</td><td>1596</td><td>年轻的酒神，手里拿着酒杯，脸色微红、眼神迷离——他喝醉了。水果篮边缘的苹果已经开始腐烂，这片叶子在枯萎——Caravaggio 把短暂和死亡藏在享乐的场景里</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Caravaggio_-_Bacchus_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>96–97</td><td>《以撒的牺牲》Sacrifice of Isaac</td><td>Caravaggio</td><td>1603</td><td>Abraham 准备杀死儿子 Isaac，天使突然出现抓住他的手。注意 Isaac 的脸——那不是圣人的顺从，而是一个真正被吓坏的孩子的尖叫。Caravaggio 用真实的人做模特，画的是真实的人性</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Caravaggio_-_Sacrificio_di_Isacco_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>96–97</td><td>《犹滴斩首何乐弗尼》Judith Beheading Holofernes</td><td>Artemisia Gentileschi</td><td>1620</td><td>这是 Uffizi 最重要的女性画家作品。Artemisia 画的是犹太女英雄犹滴割下亚述将军何乐弗尼的头——她画这个场景时把自己画成了犹滴。与 Caravaggio 同样强烈的明暗对比，但女性的视角完全不同</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Artemisia_Gentileschi_-_Judith_Beheading_Holofernes_-_Uffizi.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>90</td><td><span class="star">⭐</span> 《美杜莎》Medusa</td><td>Caravaggio</td><td>1597</td><td>画在盾牌上，美杜莎被斩首的那一瞬间，惊恐、痛苦、还活着。注意蛇缠绕的头发——Caravaggio 用镜子照着自己画的脸（把美杜莎画成了自己的脸）</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caravaggio_-_Medusa_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>90</td><td><span class="star">⭐</span> 《酒神巴克斯》Bacchus</td><td>Caravaggio</td><td>1596</td><td>年轻的酒神，手里拿着酒杯，脸色微红、眼神迷离——他喝醉了。水果篮边缘的苹果已经开始腐烂，这片叶子在枯萎——Caravaggio 把短暂和死亡藏在享乐的场景里</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caravaggio_-_Bacchus.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>96–97</td><td>《以撒的牺牲》Sacrifice of Isaac</td><td>Caravaggio</td><td>1603</td><td>Abraham 准备杀死儿子 Isaac，天使突然出现抓住他的手。注意 Isaac 的脸——那不是圣人的顺从，而是一个真正被吓坏的孩子的尖叫。Caravaggio 用真实的人做模特，画的是真实的人性</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caravaggio_-_Sacrificio_di_Isacco_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>96–97</td><td>《犹滴斩首何乐弗尼》Judith Beheading Holofernes</td><td>Artemisia Gentileschi</td><td>1620</td><td>这是 Uffizi 最重要的女性画家作品。Artemisia 画的是犹太女英雄犹滴割下亚述将军何乐弗尼的头——她画这个场景时把自己画成了犹滴。与 Caravaggio 同样强烈的明暗对比，但女性的视角完全不同</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Artemisia_Gentileschi_-_Giuditta_decapita_Oloferne_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 乌菲兹第七段 -->
     <div class="info-card"><h4>🏛️ 第七段：Titian + 出口｜Rooms 83, 28（15 min）</h4>
     <table class="meal-table"><tr><th class="col-narrow">房间</th><th>作品</th><th class="col-narrow">画家</th><th class="col-narrow">年份</th><th>为什么重要</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>83</td><td><span class="star">⭐⭐⭐</span> 《乌尔比诺的维纳斯》Venus of Urbino</td><td>Titian</td><td>1538</td><td>Day 4 在 Pitti Palace 如果你没看到原作，它在 Uffizi。裸体 Venus 斜倚在床榻上，眼神直直地看着你——没有羞耻、没有神话借口、只是一个女人看着她爱的人。这是西方艺术史上最有影响力的裸体画之一，Manet 的 Olympia（1863）直接致敬了它</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Tiziano_-_Venere_di_Urbino_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>28</td><td>《花神》Flora</td><td>Titian</td><td>1515</td><td>理想化的女性美，金色头发 + 半透明肌肤，威尼斯画派色彩技法的巅峰</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Titian_-_Flora_-_Uffizi.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>83</td><td><span class="star">⭐⭐⭐</span> 《乌尔比诺的维纳斯》Venus of Urbino</td><td>Titian</td><td>1538</td><td>Day 4 在 Pitti Palace 如果你没看到原作，它在 Uffizi。裸体 Venus 斜倚在床榻上，眼神直直地看着你——没有羞耻、没有神话借口、只是一个女人看着她爱的人。这是西方艺术史上最有影响力的裸体画之一，Manet 的 Olympia（1863）直接致敬了它</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tiziano_-_Venere_di_Urbino_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>28</td><td>《花神》Flora</td><td>Titian</td><td>1515</td><td>理想化的女性美，金色头发 + 半透明肌肤，威尼斯画派色彩技法的巅峰</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tiziano_-_Flora_-_Google_Art_Project.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     `<!-- 时间不够怎么办 -->
     <div class="info-card"><h4>⏱️ 如果时间不够</h4>
     <div class="highlight">如果发现已经 18:00 了还没看完，按这个优先级砍：</div>
@@ -1995,9 +2021,9 @@ if (d===4) return [
     `<!-- 老桥拍照机位 -->
     <div class="info-card"><h4>📸 拍照机位</h4>
     <table><tr><th>机位</th><th>拍什么</th><th class="col-narrow">示意图</th></tr>
-    <tr><td>老桥中央开敞段</td><td>拍阿诺河上游（往东，Ponte alle Grazie 方向）+ 夕阳倒影</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Ponte_Vecchio_at_sunset_(Florence).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>老桥中央</td><td>拍阿诺河下游（往西，Ponte Santa Trinita 方向）+ 远处山丘</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Arno_River_and_Ponte_Vecchio%2C_Florence.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
-    <tr><td>河边 Lungarno degli Acciaiuoli</td><td>从河边拍老桥全景——如果你还有力气，走到河边，这是拍老桥 + 河面倒影的最佳机位</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath:Ponte_Vecchio%2C_Florence%2C_Italy.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
+    <tr><td>老桥中央开敞段</td><td>拍阿诺河上游（往东，Ponte alle Grazie 方向）+ 夕阳倒影</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio_al_tramonto_(Firenze)_-_Ponte_Vecchio_at_sunset_(Florence).jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>老桥中央</td><td>拍阿诺河下游（往西，Ponte Santa Trinita 方向）+ 远处山丘</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Arno_River_and_Ponte_Vecchio%2C_Florence.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr>
+    <tr><td>河边 Lungarno degli Acciaiuoli</td><td>从河边拍老桥全景——如果你还有力气，走到河边，这是拍老桥 + 河面倒影的最佳机位</td><td><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ponte_Vecchio_Sunset,_Florence,_Italy.jpg" style="width:100px;height:auto;border-radius:6px;" loading="lazy" onerror="this.style.display='none'"/></td></tr></table></div>`,
     listRowHTML({ type:"meal", icon:"🍷", name:"晚餐", time:"19:00 - 20:30", action:"Buca Poldo / Osteria del Proconsolo / Trattoria il Bargello / Oltrarno" }),
     `<!-- 晚餐选择 -->
     <div class="info-card"><h4>🍷 晚餐 · 4 选 1</h4>
@@ -2110,10 +2136,136 @@ if (d===4) return [
     listRowHTML({ type:"transport", icon:"🚗", name:"锡耶纳 → 佛罗伦萨（酒店）", duration:"1h15m", action:"SI-FI 高速", note:"通行费€3.5 · Siena Nord 入口 → Firenze Sud 出口" }),
   ].join("");
 
-  // ===== Day 8–12：空白页 =====
-  if (d===8 || d===9 || d===10 || d===11 || d===12) return [
+  // ===== Day 8–10, 12：空白页 =====
+  if (d===8 || d===9 || d===10) return [
     listRowHTML({ type:"activity", icon:"·", name:"新条目" }),
   ].join("");
+
+  // ===== Day 12：返程 =====
+  if (d===12) return [
+    listRowHTML({ type:"activity", icon:"·", name:"酒店 · 起床", time:"7:00 - 8:00", action:"洗漱、收拾行李、早餐、退房", note:"" }),
+    listRowHTML({ type:"transport", icon:"🚕", name:"酒店送机 → MXP T1", time:"8:00 - 8:15", action:"约 10 km", note:"提前一天预约送机服务" }),
+    listRowHTML({ type:"activity", icon:"🛂", name:"MXP T1 · 退税 + 值机 + 安检", time:"8:15 - 11:00", action:"逛免税店", note:"" }),
+    `<!-- 退税流程 -->
+    <div class="info-card"><h4>🛃 退税流程</h4>
+    <div class="highlight">💡 单店满 €155 即可退税。如果退税商品要托运，必须在值机托运之前办。如果退税商品放在随身行李里，可以先值机再退税，更从容。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">🏢 退税柜台</div>
+    <table class="meal-table"><tr><th>公司</th><th>位置</th><th>说明</th></tr>
+    <tr><td><b>Global Blue</b></td><td>T1 出发层，值机大厅</td><td>最常用的退税公司，Prada/Gucci/LV 等大多走这个</td></tr>
+    <tr><td><b>Planet</b></td><td>T1 出发层，Global Blue 旁边</td><td>部分品牌用 Planet</td></tr>
+    <tr><td><b>海关（Dogana）</b></td><td>退税柜台旁边</td><td>如果退税单需要人工盖章，来这里</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">💳 退税方式</div>
+    <table class="meal-table"><tr><th>方式</th><th>优点</th><th>缺点</th></tr>
+    <tr><td><span class="star">⭐</span> 退信用卡</td><td>汇率好，不用排队取现金</td><td>到账可能 1–4 周</td></tr>
+    <tr><td>退现金</td><td>当场拿到钱</td><td>手续费高（每笔 €3–5），汇率差</td></tr></table>
+    <div class="highlight" style="margin-top:6px;">💡 建议：退信用卡。你前面还有值机+安检，退现金要多排一次队，不划算。</div>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">💰 退税金额速查</div>
+    <table class="meal-table"><tr><th>消费金额（同一家店）</th><th>退税率</th></tr>
+    <tr><td>€155–€1,549</td><td>12%</td></tr>
+    <tr><td>€1,550–€3,099</td><td>14%</td></tr>
+    <tr><td>€3,100+</td><td>15.5%</td></tr></table></div>`,
+    `<!-- 值机+托运+安检 -->
+    <div class="info-card"><h4>✈️ 值机 + 托运 + 安检</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td><b>值机柜台</b></td><td>T1 出发层，找 Etihad Airways 值机区</td></tr>
+    <tr><td><b>行李</b></td><td>两件 23kg 托运行李（Etihad 经济舱标准），行李直挂香港</td></tr>
+    <tr><td><b>确认行李</b></td><td>值机时跟地勤确认："Baggage checked through to Hong Kong, right?"</td></tr>
+    <tr><td><b>安检</b></td><td>液体限 100ml/瓶</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"·", name:"登机口", time:"11:10", action:"", note:"" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"米兰 → 阿布扎比", time:"11:40 - 19:40", action:"航班 EY0082 · 含餐食", note:"MXP → AUH · 飞行约 8h" }),
+    listRowHTML({ type:"activity", icon:"·", name:"阿布扎比 AUH 转机", time:"19:40 - 21:10", action:"1h30 转机 · 行李直挂 · 不用入境", note:"" }),
+    listRowHTML({ type:"transport", icon:"✈️", name:"阿布扎比 → 香港", time:"21:10 - 09:00(+1)", action:"航班 EY0870 · 含餐食", note:"AUH → HKG · 飞行约 8h" }),
+    ].join("");
+
+  // ===== Day 11：多洛米蒂 → 米兰 =====
+  if (d===11) return [
+    listRowHTML({ type:"activity", icon:"·", name:"酒店 · 收拾行李 · 吃早餐", time:"8:00 - 10:00", action:"Ortisei 出发前准备", note:"海拔 1236m · 下山比上山轻松" }),
+    `<!-- 路线概览 -->
+    <div class="info-card"><h4>🚗 路线概览 · Ortisei → 米兰（约 375 km，4h）</h4>
+    <table class="meal-table"><tr><th class="col-narrow">段</th><th>道路</th><th class="col-narrow">距离</th><th class="col-narrow">耗时</th><th>路况</th></tr>
+    <tr><td>Ortisei → Bolzano</td><td>SS242</td><td>35 km</td><td>40 min</td><td><span class="warn">⚠️</span> 山谷公路，隧道 + 弯道，下山比上山轻松</td></tr>
+    <tr><td>Bolzano → Verona</td><td>A22（南行）</td><td>170 km</td><td>1h40</td><td>高速，两侧山势渐退</td></tr>
+    <tr><td>Verona → 米兰外环</td><td>A4（西行）</td><td>130 km</td><td>1h15</td><td>高速，平原，车流量大</td></tr>
+    <tr><td>米兰外环 → Casorate</td><td>A8/A26</td><td>40 km</td><td>25 min</td><td>高速，往 Malpensa 方向</td></tr></table>
+    <div style="margin-top:6px;font-size:11px;color:#7a4a00;white-space:pre-line;font-family:monospace;">Ortisei（海拔 1236m）
+│  SS242 下山（35 km，40 min）
+│  经 Ponte Gardena → 隧道群
+├─ Bolzano Nord 上 A22
+│  A22 Brennero 南行（约 180 km，2h）
+│  经 Trento → Rovereto → Verona
+├─ 换 A4 西行（约 100 km，1h）
+│  经 Brescia → Bergamo → 米兰外环
+├─ 换 A8/A26 往 Malpensa 方向
+├─ 出口 Casorate Sempione
+└─ 酒店（Via Verbano, 1，距 Malpensa 约 10 km）</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚗", name:"Ortisei → Trento 段", time:"10:00 - 12:00", action:"S242 → A22，山谷公路 + 高速", note:"" }),
+    listRowHTML({ type:"activity", icon:"·", name:"休息站（A22 沿线）", time:"12:00 - 12:20", action:"咖啡 + 厕所 + 换司机" }),
+    `<!-- 休息站 -->
+    <div class="info-card"><h4>☕ 休息站</h4>
+    <table class="meal-table"><tr><th>休息站</th><th>位置</th><th class="col-narrow">大概时间</th><th>说明</th></tr>
+    <tr><td>Autogrill Nogaredo</td><td>A22，Rovereto 附近</td><td>出发后 1h30</td><td>最早的休息点</td></tr>
+    <tr><td><span class="star">⭐</span> Autogrill Scaligera</td><td>A4，Verona 附近</td><td>出发后 2h30</td><td><span class="highlight">推荐这里。</span>开了 2.5 小时，刚好换司机。从这里开始进入平原，风景从山变成农田</td></tr>
+    <tr><td>Autogrill Brianza</td><td>A4，Bergamo 附近</td><td>出发后 3h30</td><td>如果不需要可以跳过，直接开到酒店</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚗", name:"Trento → Casorate Sempione（酒店）", time:"12:20 - 14:00", action:"A22 → A4 → A8/A26，直达酒店", note:"" }),
+    listRowHTML({ type:"activity", icon:"·", name:"酒店入住 · 休整", time:"14:00 - 15:00", action:"Via Verbano, 1, Casorate Sempione (VA), 21011", note:"到酒店后记得约第二天送机服务" }),
+    listRowHTML({ type:"transport", icon:"🚗", name:"酒店 → 米兰 Duomo", time:"15:00 - 16:00", action:"约 50 km · 50 分钟", note:"周日 15:00 出发，米兰进城方向不堵" }),
+    listRowHTML({ type:"activity", icon:"·", name:"还车点", time:"16:00 - 16:30", action:"Largo Corsia dei Servi 15, 20122 Milano", note:"大教堂东北角 · 步行到 Duomo 2 分钟" }),
+    `<!-- 还车注意事项 -->
+    <div class="info-card"><h4>🚗 还车注意事项</h4>
+    <table><tr><th>事项</th><th>说明</th></tr>
+    <tr><td>⛽ 加满油</td><td>拍加油收据照片留底</td></tr>
+    <tr><td>📸 拍照</td><td>拍车身四周照片（防止后续划痕纠纷）</td></tr>
+    <tr><td>🧾 押金票据</td><td>还车后取回押金票据</td></tr>
+    <tr><td>🕐 无人值守</td><td>周日部分还车点可能无人值守（钥匙投箱），提前确认营业时间</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"☕", name:"下午茶 · Duomo · 简单垫垫", time:"16:30 - 17:00", action:"Luini / Spontini / Cioccolatitaliani 3 选 1" }),
+    `<!-- 下午茶选择 -->
+    <div class="info-card"><h4>☕ 下午茶 · 3 选 1</h4>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Luini <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Luini+Via+Santa+Radegonda+16+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€5–8</td><td><span class="star">⭐</span> Panzerotti（炸面团包）——经典款（Mozzarella + 番茄，€3.5）、Pugliese（Mozzarella + 番茄 + 火腿，€4.5）、Ricotta e Spinaci（Ricotta 奶酪 + 菠菜）</td><td><span class="highlight">首选，米兰人排了 130 年的队</span>。1888 年开业，米兰最传奇的小吃店。Duomo 步行 2 分钟。买了边走边吃，走到长廊刚好吃完。如果排队太长（超过 20 人），隔壁 Spontini 是备选</td></tr>
+    <tr><td>2</td><td><div>Spontini <span class="tag green">厚底披萨</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Spontini+Via+Santa+Radegonda+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€6–9</td><td>Margherita（厚底、芝士多到拉丝、底部焦脆，€6.5）、Diavola（辣味萨拉米，€8）</td><td>1953 年开业，米兰最著名的切片披萨。和那不勒斯薄底完全不同——厚底、松软、芝士堆到溢出。一片就饱。站着吃，5 分钟搞定</td></tr>
+    <tr><td>3</td><td><div>Cioccolatitaliani <span class="tag blue">甜品</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Cioccolatitaliani+Via+San+Raffaele+2+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.4★</span></td><td>€5–8</td><td>Gelato（开心果 + 榛子双球，€5）、Crepes alla Nutella（Nutella 可丽饼，€6）</td><td>米兰本土连锁，品质稳定。如果想吃甜的而不是咸的，这里最快。人多但翻台快，5 分钟搞定</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"1", name:"米兰大教堂（外观）", time:"17:00 - 17:30", action:"不入内，周日门票 €10+，排队 30–45 分钟", note:"8:00–19:00" }),
+    `<!-- 大教堂拍照 -->
+    <div class="info-card"><h4>📸 拍照</h4>
+    <table><tr><th>机位</th><th>说明</th></tr>
+    <tr><td><b>正立面</b></td><td>站远一点（广场中央偏后），用广角拍全 135 座尖塔</td></tr>
+    <tr><td><b>金色 Madonnina</b></td><td>教堂最高塔尖的镀金圣母像，手机长焦拉到最大</td></tr>
+    <tr><td><b>和鸽子合影</b></td><td><span class="warn">⚠️</span> 不要接受任何人递过来的鸽子食物（经典骗局，塞你手里然后要钱）</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"2", name:"埃马努埃莱二世长廊", time:"17:30 - 18:30", action:"玻璃穹顶 · Prada 创始店 · 踩牛蛋", note:"Galleria Vittorio Emanuele II" }),
+    `<!-- 长廊逛什么 -->
+    <div class="info-card"><h4>🏛️ 埃马努埃莱二世长廊 · 逛什么</h4>
+    <table class="meal-table"><tr><th>看点</th><th>说明</th></tr>
+    <tr><td><span class="star">⭐</span> 玻璃穹顶</td><td>四个方向的玻璃穹顶交叉，自然光透过，下午 17:30 的光线极美</td></tr>
+    <tr><td>Prada 创始店</td><td>1913 年 Mario Prada 在这里开了第一家店，就在长廊内</td></tr>
+    <tr><td>Camparino in Galleria</td><td>Davide Campari 1915 年开的酒吧，米兰开胃酒文化的发源地。不用进去喝，橱窗看一眼就行</td></tr>
+    <tr><td><span class="star">⭐</span> 踩牛蛋</td><td>长廊中央地面有一个公牛马赛克图案（都灵市徽），米兰人相信踩住牛睾丸转三圈会带来好运。看看地上那个坑——几百万人踩过</td></tr></table>
+    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">📸 拍照</div>
+    <div style="font-size:11px;margin-top:2px;">• 玻璃穹顶从下往上拍（广角）<br>• 长廊尽头（北端）回头看——拱门 + 穹顶的纵深构图</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Brera 区", time:"18:30 - 19:40", action:"Nabucco / Ristorante Galleria / Trattoria Milanese 3 选 1" }),
+    `<!-- 晚餐选择 -->
+    <div class="info-card"><h4>🍷 晚餐 · 3 选 1</h4>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>Nabucco <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Nabucco+Via+Fiori+Chiari+10+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–50</td><td>Lamb Chops（羊排，嫩到不行，口碑最好）、海鲜面（料足、面不夹生，中国人友好）、果味白葡萄酒</td><td><span class="highlight">首选，Brera 石巷</span>。暖黄灯光 + 白桌布。建议提前预约 +39 02 805 1004</td></tr>
+    <tr><td>2</td><td><div>Ristorante Galleria <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ristorante+Galleria+Galleria+Vittorio+Emanuele+II+75+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€35–50</td><td><span class="star">⭐</span> Risotto alla Milanese con Ossobuco（藏红花烩饭 + 炖小牛膝）、Cotoletta alla Milanese（米兰炸牛排）、Pizza</td><td><span class="highlight">就在长廊里，最方便</span>。长廊二层，窗外就是玻璃穹顶。长廊内唯一一家做传统米兰菜的正餐厅。建议提前预约 +39 02 8646 4833</td></tr>
+    <tr><td>3</td><td><div>Trattoria Milanese <span class="tag green">本地人经典</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Milanese+Via+Santa+Marta+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–45</td><td><span class="star">⭐</span> Risotto alla Milanese（米兰烩饭）、Cotoletta alla Milanese（厚切带骨）、Cassoeula（卷心菜炖猪肉，秋冬限定）</td><td>Dal 1933，米兰传统 Trattoria，木墙板 + 暖黄灯光。不是精致摆盘，是米兰人吃了三代人的味道。建议提前 3–5 天 +39 02 8645 2454</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚕", name:"打车去超市", time:"19:40 - 19:50", action:"Duomo → Eataly", note:"约 10 分钟" }),
+    listRowHTML({ type:"activity", icon:"3", name:"Eataly Milano Smeraldo", time:"20:00 - 21:00", action:"品质高端超市 · 伴手礼天堂", note:"Piazza XXV Aprile 10 · 营业至 23:00" }),
+    `<!-- Eataly -->
+    <div class="info-card"><h4>🛒 Eataly Milano Smeraldo <span class="star">⭐</span>（必去）</h4>
+    <div class="highlight">💡 三层楼的意大利美食殿堂，不只是超市，是美食主题公园。一楼咖啡 + 甜品 + 新鲜意面，二楼酒 + 橄榄油 + 酱料，三楼餐厅。</div>
+    <table class="meal-table"><tr><th>东西</th><th class="col-narrow">价格段</th><th>说明</th></tr>
+    <tr><td><b>橄榄油</b></td><td>€10–20/瓶</td><td>托斯卡纳 IGP 或西西里 DOP</td></tr>
+    <tr><td><b>巴萨米克醋</b></td><td>€8–25/瓶</td><td>Modena IGP 陈酿，看年份</td></tr>
+    <tr><td><b>松露酱 / 松露油</b></td><td>€8–15/小瓶</td><td>Tartufo bianco / nero</td></tr>
+    <tr><td><b>干意面</b></td><td>€5–8/包</td><td>手工青铜模具意面</td></tr>
+    <tr><td><b>Pesto alla Genovese</b></td><td>€6–10</td><td>热那亚罗勒青酱</td></tr>
+    <tr><td><b>Cantucci</b></td><td>€5–8</td><td>托斯卡纳杏仁脆饼</td></tr>
+    <tr><td><b>Limoncello</b></td><td>€12–18</td><td>柠檬利口酒</td></tr>
+    <tr><td><b>意大利葡萄酒</b></td><td>€15–50</td><td>Barolo、Brunello di Montalcino、Chianti Classico</td></tr>
+    <tr><td><b>Panettone / Pandoro</b></td><td>€15–25</td><td>米兰传统圣诞蛋糕（如果 10 月有卖）</td></tr></table>
+    <div class="highlight" style="margin-top:6px;">💡 建议：只去 Eataly。三层楼已经够你买一小时的，而且品质碾压普通超市。Esselunga 虽然便宜但周日 20:00 关门，你 19:40 从晚餐出来赶过去已经来不及了。Eataly 开到 23:00，从容。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚕", name:"打车回酒店", time:"21:00 - 22:00", action:"米兰 → Via Verbano, 1, Casorate Sempione", note:"约 50 km · 40–50 分钟" }),
+    ].join("");
 
   return "";
 }
@@ -2842,8 +2994,59 @@ const DEFAULT_TIPS = {
   8: [[], [], []],
   9: [[], [], []],
   10: [[], [], []],
-  11: [[], [], []],
-  12: [[], [], []],
+  11: [
+    [
+      `<span class="tipicon">🛂</span>护照 + IDP 国际驾照 + 租车合同`,
+      `<span class="tipicon">⛽</span>还车前加满油（拍收据留底）`,
+      `<span class="tipicon">📸</span>还车前拍车身四周照片`,
+      `<span class="tipicon">🧥</span>10 月米兰 10–20°C，早晚微凉`,
+      `<span class="tipicon">💶</span>€100–150 现金（晚餐 + 购物）`,
+    ],
+    [
+      `<b>SS242 下山</b>：40 min 山谷公路，比上山轻松，注意隧道限速`,
+      `<b>A22 高速</b>：Brennero 南行，2h 穿越 Trento → Rovereto → Verona`,
+      `<b>休息站推荐</b>：Autogrill Scaligera（A4，Verona 附近），开 2.5h 后换司机`,
+      `<b>周日进城</b>：15:00 出发米兰进城不堵，约 50 分钟`,
+      `<b>还车</b>：Largo Corsia dei Servi 15，周日可能无人值守（钥匙投箱），提前确认`,
+      `<b>大教堂</b>：周日开放 8:00–19:00，不入内（门票 €10+，排队 30–45 分钟）`,
+    ],
+    [
+      `🚗 8:00 出发，A22 → A4 → A8/A26，全程约 375 km / 4h`,
+      `☕ 12:00 休息站（Autogrill Scaligera），换司机 + 咖啡`,
+      `🏨 14:00 酒店入住，休整 1h`,
+      `🚗 15:00 出发去米兰 Duomo，还车 16:00–16:30`,
+      `☕ 16:30 下午茶（Luini Panzerotti / Spontini / Cioccolatitaliani）`,
+      `⛪ 17:00 大教堂外观，17:30 长廊`,
+      `🍷 18:30 晚餐（Brera 区 / 长廊内）`,
+      `🛒 20:00 Eataly 买伴手礼（营业至 23:00）`,
+      `🚕 21:00 打车回酒店（约 50 km，40–50 min）`,
+    ],
+  ],
+  12: [
+    [
+      `<span class="tipicon">🛂</span>护照 + 登机牌 + 退税单`,
+      `<span class="tipicon">🧾</span>购物小票（退税需要）`,
+      `<span class="tipicon">💳</span>退税信用卡（退信用卡汇率更好）`,
+      `<span class="tipicon">🎒</span>随身行李：液体限 100ml/瓶`,
+      `<span class="tipicon">🧥</span>机上温度偏低，带件薄外套`,
+    ],
+    [
+      `<b>退税</b>：单店满 €155 即可退税，Global Blue 在 T1 值机大厅`,
+      `<b>退税顺序</b>：退税商品放随身行李 → 先值机 → 再退税（更从容）`,
+      `<b>退税方式</b>：建议退信用卡，汇率好，退现金要多排队 + 手续费`,
+      `<b>行李</b>：Etihad 经济舱两件 23kg 托运，行李直挂香港`,
+      `<b>值机</b>：跟地勤确认 "Baggage checked through to Hong Kong, right?"`,
+      `<b>转机</b>：AUH 1h30 转机，行李直挂不用入境，时间充裕`,
+    ],
+    [
+      `🏨 7:00 起床，8:00 送机（提前一天预约）`,
+      `🚕 8:00–8:15 酒店 → MXP T1（约 10 km）`,
+      `🛃 8:15–11:00 退税 → 值机 → 安检 → 免税店`,
+      `✈️ 11:40 MXP → AUH（EY0082，含餐）`,
+      `🕌 19:40 AUH 转机（1h30，行李直挂）`,
+      `✈️ 21:10 AUH → HKG（EY0870，含餐）`,
+    ],
+  ],
 };
 
 function renderBottomInfo(d){
@@ -2888,7 +3091,7 @@ function syncBottomTextareas(){
 /* =========================================================
    编辑模式 + localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = "rome-florence-6days-v50";
+const STORAGE_KEY = "rome-florence-6days-v55";
 let editMode = false;
 // 暂存编辑（不直接写入 localStorage，直到点 ✅ 才提交）
 let pendingEdits = {};
@@ -3822,20 +4025,11 @@ function attachImgGalleryHandlers(gallery, row){
     });
   }
 
-  // 编辑态：row 任意位置粘贴 → 自动添加到画廊
-  row.addEventListener("paste", (e) => {
-    if (!editMode) return;
-    const g = ensureImgGallery(row);
-    handleImgPaste(e, g, row);
-  });
-
   // 非编辑态下，折叠态首图点击切换展开/收起（图4 ▼）
   bindCoverCollapse(gallery, row);
 
   // 编辑态：图片拖拽排序
   attachImgDragHandlers(gallery, row);
-  // 编辑态：行级 drop zone（支持文件拖入 .img-add）
-  attachRowDropZone(row);
 }
 
 // 同步设置 .img-thumb 的 draggable 状态：编辑态 true，否则 false
