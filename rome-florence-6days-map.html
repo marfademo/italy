@@ -2802,17 +2802,6 @@ function init(){
     .then(data => { window._imgManifest = data; console.log("[init] images.json loaded, entries:", Object.keys(data).length); })
     .catch(() => { console.log("[init] images.json 未找到，仅使用 localStorage"); });
 
-  // ✅ 首次打开时，若无 GitHub token 则弹一次输入框（用于自动同步图片到 images.json）
-  if (!getGhToken()) {
-    setTimeout(() => {
-      const t = prompt("🔑 输入 GitHub fine-grained token（用于自动同步图片到 images.json）：\n\n留空则跳过，仅本地保存。\n可在控制台运行 setGhToken('xxx') 重新设置。");
-      if (t && t.trim()) {
-        setGhToken(t.trim());
-        console.log("[gh-sync] token 已保存，图片变更将自动同步到 GitHub。");
-      }
-    }, 1500);
-  }
-
   // 默认激活 Day 2（等 images.json 加载完成后再渲染图片，避免时序问题）
   initImagesJson.then(() => {
     activateDay(2);
@@ -4689,85 +4678,6 @@ function saveRowImages(row){
       }
       alert("⚠️ 图片保存失败：浏览器本地存储已满。\n\n已自动清理旧的大图缓存，但仍不够空间。\n建议：删除部分已粘贴的图片后重试。");
     }
-  }
-  // ✅ 图片变化后，自动同步到 GitHub 的 images.json（防抖）
-  scheduleAutoUpload();
-}
-
-// ===== 自动同步图片到 GitHub 的 images.json =====
-const GH_REPO = "marfademo/italy";
-const GH_BRANCH = "gh-pages"; // 页面部署在 gh-pages，images.json 也放这个分支，线上 fetch 才能读到
-const GH_TOKEN_KEY = "gh-token"; // fine-grained token 存 localStorage
-
-function getGhToken(){
-  try { return localStorage.getItem(GH_TOKEN_KEY) || ""; } catch { return ""; }
-}
-function setGhToken(t){
-  try { localStorage.setItem(GH_TOKEN_KEY, t); } catch {}
-}
-
-// 收集所有 trip-img-* 为 manifest 对象
-function collectImageManifest(){
-  const manifest = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const k = localStorage.key(i);
-    if (!k || !k.startsWith("trip-img-")) continue;
-    let arr = null;
-    try { arr = JSON.parse(localStorage.getItem(k)); } catch {}
-    if (!Array.isArray(arr) || arr.length === 0) continue;
-    manifest[k.slice("trip-img-".length)] = arr;
-  }
-  return manifest;
-}
-
-let _uploadTimer = null;
-function scheduleAutoUpload(){
-  if (!getGhToken()) return; // 未配置 token 则跳过
-  if (_uploadTimer) clearTimeout(_uploadTimer);
-  _uploadTimer = setTimeout(() => { uploadImagesToGithub(); }, 2000);
-}
-
-async function uploadImagesToGithub(){
-  const token = getGhToken();
-  if (!token) return;
-  const manifest = collectImageManifest();
-  const json = JSON.stringify(manifest, null, 2);
-
-  try {
-    // 1) 获取 images.json 当前 blob sha（若存在）
-    let sha = null;
-    try {
-      const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/images.json?ref=${GH_BRANCH}`, {
-        headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" },
-      });
-      if (r.ok) { const data = await r.json(); sha = data.sha; }
-    } catch {}
-
-    // 2) 上传/更新 images.json
-    const body = {
-      message: "sync: 自动上传手动粘贴图片到 images.json",
-      content: btoa(unescape(encodeURIComponent(json))), // UTF-8 安全的 base64
-      branch: GH_BRANCH,
-    };
-    if (sha) body.sha = sha;
-
-    const resp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/images.json`, {
-      method: "PUT",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/vnd.github+json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    if (resp.ok) {
-      console.log(`[gh-sync] images.json 已上传（${Object.keys(manifest).length} 个景点，${(json.length/1024).toFixed(0)} KB）`);
-    } else {
-      const err = await resp.json().catch(() => ({}));
-      console.warn("[gh-sync] 上传失败:", resp.status, err.message || "");
-    }
-  } catch (e) {
-    console.warn("[gh-sync] 异常:", e.message);
   }
 }
 
