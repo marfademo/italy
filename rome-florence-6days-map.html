@@ -698,6 +698,7 @@
     </div>
     <div class="toolbar">
       <button id="edit-toggle" class="tool-btn" type="button">✏️ 编辑</button>
+      <button id="export-img-btn" class="tool-btn ghost" type="button" title="把手动粘贴的图片导出为 images.json，用于同步到 GitHub">📦 导出图片</button>
       <button id="refetch-btn" class="tool-btn ghost" type="button" title="清除联网拉的图片缓存并重新加载（手动粘贴的图保留）" style="display:none;">🔄 重拉图片</button>
           </div>
   </header>
@@ -2838,6 +2839,7 @@ function init(){
   // 工具栏
   document.getElementById("edit-toggle").addEventListener("click", toggleEdit);
   document.getElementById("refetch-btn").addEventListener("click", refetchAllImages);
+  document.getElementById("export-img-btn").addEventListener("click", exportImagesJson);
   
   // 关页/刷新：如有未保存编辑，提示
   window.addEventListener("beforeunload", (e) => {
@@ -3239,6 +3241,37 @@ async function refetchAllImages(){
   await autoFetchRowImages(d);
   if (editMode) ensureAddBoxes();
   alert(`已清理 ${cleared} 个旧缓存，并重新加载当前 Day 的图片。`);
+}
+
+// 导出所有手动粘贴的图片（localStorage 里的 trip-img-*）为 images.json，用于同步到 GitHub
+function exportImagesJson(){
+  const manifest = {};
+  let count = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (!k || !k.startsWith("trip-img-")) continue;
+    let arr = null;
+    try { arr = JSON.parse(localStorage.getItem(k)); } catch {}
+    if (!Array.isArray(arr) || arr.length === 0) continue;
+    const name = k.slice("trip-img-".length);
+    manifest[name] = arr;
+    count += arr.length;
+  }
+  if (count === 0) {
+    alert("没有找到手动粘贴的图片（localStorage 里没有 trip-img-* 数据）。");
+    return;
+  }
+  const json = JSON.stringify(manifest, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "images.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert(`已导出 ${count} 张图片（${Object.keys(manifest).length} 个景点）到 images.json。\n\n请把下载的 images.json 放到项目根目录（与 rome-florence-6days-map.html 同级），然后提交到 GitHub。`);
 }
 
 function mergeOverrides(){
