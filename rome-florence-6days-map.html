@@ -2655,6 +2655,34 @@ function focusSpotByName(name){
   focusSpot(idx, true);
 }
 
+// 多源瓦片：优先 CARTO，加载失败自动降级到 OSM，再降级到备用源。
+// 用于对抗浏览器扩展拦截瓦片请求（某些扩展会把瓦片替换成需要 API key 的服务，导致底图空白）。
+function addResilientTileLayer(map){
+  const sources = [
+    { url: "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors © CARTO" },
+    { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors" },
+    { url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors", subdomains: "abc" },
+  ];
+  let idx = 0;
+  const layer = L.tileLayer(sources[idx].url, {
+    maxZoom: 19,
+    attribution: sources[idx].attribution,
+    ...(sources[idx].subdomains ? { subdomains: sources[idx].subdomains } : {}),
+  });
+  layer.on("tileerror", () => {
+    // 当前源连续失败则切到下一个源
+    idx++;
+    if (idx >= sources.length) return;
+    const next = sources[idx];
+    layer.setUrl(next.url, false);
+    layer.options.attribution = next.attribution;
+    if (next.subdomains) layer.options.subdomains = next.subdomains;
+    console.warn(`[map] 瓦片源切换 → ${next.url}`);
+  });
+  layer.addTo(map);
+  return layer;
+}
+
 function activateDay(d){
   // tab active
   document.querySelectorAll("#tabs .tab").forEach(t => t.classList.toggle("active", String(t.dataset.day) === String(d)));
@@ -2685,10 +2713,7 @@ function activateDay(d){
   if (!map) {
     map = L.map("map-" + d, { zoomControl: true, scrollWheelZoom: true })
             .setView(DAYS[d].center, DAYS[d].zoom);
-    L.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "© OpenStreetMap contributors © CARTO",
-    }).addTo(map);
+    addResilientTileLayer(map);
   } else {
     // 复用 map，把 dom 移到新的 panel
     const container = document.getElementById("map-" + d);
@@ -2697,10 +2722,7 @@ function activateDay(d){
       map.remove();
       map = L.map("map-" + d, { zoomControl: true, scrollWheelZoom: true })
               .setView(DAYS[d].center, DAYS[d].zoom);
-      L.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: "© OpenStreetMap contributors © CARTO",
-      }).addTo(map);
+      addResilientTileLayer(map);
     }
   }
   // 清旧图层
