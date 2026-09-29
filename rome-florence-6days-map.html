@@ -992,29 +992,33 @@ const DAYS = {
   },
   11: {
     badge: "DAY 11",
-    title: "多洛米蒂 → 米兰",
-    date: "10.11 · ORTISEI → MILANO",
-    line: "🚗 Ortisei → A22 → A4 → 米兰 Duomo → 长廊 → 晚餐 → Eataly",
-    hotel: { name: "酒店 · Via Verbano 1", lat: 45.6180, lng: 8.7270 },
-    center: [45.4700, 9.1900],
-    zoom: 11,
-    bounds: [[45.4600,9.1200],[45.4800,9.2200]],
+    title: "米兰市区一日游",
+    date: "10.11 · MILANO",
+    line: "🛅 Centrale 寄存 → Duomo → 长廊 → Brera → 城堡公园 → Eataly",
+    hotel: { name: "酒店 · Via Tonale 12", lat: 45.4850, lng: 9.2030 },
+    center: [45.4700, 9.1850],
+    zoom: 14,
+    bounds: [[45.4550,9.1550],[45.4900,9.2150]],
     nodes: [
-      { num: null, kind: "hotel", name: "Ortisei · 出发", lat: 46.5760, lng: 11.6710, hint: "8:00 出发" },
-      { num: null, kind: "transit", name: "休息站 · Autogrill", lat: 45.8800, lng: 11.0300, hint: "12:00–12:20 · 咖啡+换司机", pills: ["🚗 2h30"] },
-      { num: null, kind: "hotel", name: "酒店 · Via Verbano 1", lat: 45.6180, lng: 8.7270, hint: "14:00–15:00 · 入住休整" },
-      { num: 1, kind: "main", name: "米兰大教堂 Duomo", lat: 45.4641, lng: 9.1919, hint: "17:00–17:30 · 外观", pills: ["🚗 50min"] },
-      { num: 2, kind: "main", name: "埃马努埃莱二世长廊", lat: 45.4658, lng: 9.1900, hint: "17:30–18:30", pills: ["🚶 1min"] },
-      { num: null, kind: "dinner", name: "晚餐 · Brera 区", lat: 45.4710, lng: 9.1880, hint: "18:30–19:40", pills: ["🚶 5min"] },
-      { num: 3, kind: "main", name: "Eataly Milano Smeraldo", lat: 45.4810, lng: 9.1870, hint: "20:00–21:00 · 伴手礼", pills: ["🚕 10min"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Tonale 12", lat: 45.4850, lng: 9.2030, hint: "10:00 · 退房", pills: ["🚶 5min"] },
+      { num: null, kind: "activity", name: "米兰火车站 · 寄存行李", lat: 45.4859, lng: 9.2051, hint: "10:00–10:30 · KiPoint / Radical Storage / Stow your bags" },
+      { num: 1, kind: "main", name: "米兰大教堂 Duomo", lat: 45.4641, lng: 9.1919, hint: "11:00–11:30 · 外观", pills: ["🚶 30min"] },
+      { num: 2, kind: "main", name: "埃马努埃莱二世长廊", lat: 45.4658, lng: 9.1900, hint: "12:30–13:30", pills: ["🚶 1min"] },
+      { num: 3, kind: "main", name: "Rinascente 百货顶楼 7F", lat: 45.4655, lng: 9.1898, hint: "13:30–14:30 · 隐藏机位", pills: ["🚶 1min"] },
+      { num: 4, kind: "main", name: "Brera 区", lat: 45.4710, lng: 9.1880, hint: "14:00–16:00 · 石巷 + 画廊", pills: ["🚶 10min"] },
+      { num: 5, kind: "main", name: "斯福尔扎城堡 → 森皮内奥公园 → 和平之门", lat: 45.4735, lng: 9.1720, hint: "16:10–18:00 · 城堡中庭 + 公园 + 凯旋门", pills: ["🚶 10min"] },
+      { num: null, kind: "dinner", name: "晚餐 · Brera 区", lat: 45.4710, lng: 9.1880, hint: "18:00–19:30 · Nabucco / Osteria del Treno / Trattoria Milanese", pills: ["🚶 20min"] },
+      { num: 6, kind: "main", name: "Eataly Milano Smeraldo", lat: 45.4810, lng: 9.1870, hint: "19:30–21:00 · 伴手礼", pills: ["🚕 10min"] },
     ],
     route: [
-      { mode: "taxi", from: 0, to: 1 },
-      { mode: "taxi", from: 1, to: 2 },
-      { mode: "taxi", from: 2, to: 3 },
+      { mode: "walk", from: 0, to: 1 },
+      { mode: "walk", from: 1, to: 2 },
+      { mode: "walk", from: 2, to: 3 },
       { mode: "walk", from: 3, to: 4 },
       { mode: "walk", from: 4, to: 5 },
-      { mode: "taxi", from: 5, to: 6 },
+      { mode: "walk", from: 5, to: 6 },
+      { mode: "walk", from: 6, to: 7 },
+      { mode: "taxi", from: 7, to: 8 },
     ],
     timeline: dayTimeline(11),
   },
@@ -2233,92 +2237,115 @@ if (d===4) return [
 
   // ===== Day 11：多洛米蒂 → 米兰 =====
   if (d===11) return [
-    listRowHTML({ type:"activity", icon:"·", name:"酒店 · 收拾行李 · 吃早餐", time:"8:00 - 10:00", action:"Ortisei 出发前准备", note:"海拔 1236m · 下山比上山轻松" }),
-    `<!-- 路线概览 -->
-    <div class="info-card"><h4>🚗 路线概览 · Ortisei → 米兰（约 375 km，4h）</h4>
-    <table class="meal-table"><tr><th class="col-narrow">段</th><th>道路</th><th class="col-narrow">距离</th><th class="col-narrow">耗时</th><th>路况</th></tr>
-    <tr><td>Ortisei → Bolzano</td><td>SS242</td><td>35 km</td><td>40 min</td><td><span class="warn">⚠️</span> 山谷公路，隧道 + 弯道，下山比上山轻松</td></tr>
-    <tr><td>Bolzano → Verona</td><td>A22（南行）</td><td>170 km</td><td>1h40</td><td>高速，两侧山势渐退</td></tr>
-    <tr><td>Verona → 米兰外环</td><td>A4（西行）</td><td>130 km</td><td>1h15</td><td>高速，平原，车流量大</td></tr>
-    <tr><td>米兰外环 → Casorate</td><td>A8/A26</td><td>40 km</td><td>25 min</td><td>高速，往 Malpensa 方向</td></tr></table>
-    <div style="margin-top:6px;font-size:11px;color:#7a4a00;white-space:pre-line;font-family:monospace;">Ortisei（海拔 1236m）
-│  SS242 下山（35 km，40 min）
-│  经 Ponte Gardena → 隧道群
-├─ Bolzano Nord 上 A22
-│  A22 Brennero 南行（约 180 km，2h）
-│  经 Trento → Rovereto → Verona
-├─ 换 A4 西行（约 100 km，1h）
-│  经 Brescia → Bergamo → 米兰外环
-├─ 换 A8/A26 往 Malpensa 方向
-├─ 出口 Casorate Sempione
-└─ 酒店（Via Verbano, 1，距 Malpensa 约 10 km）</div></div>`,
-    listRowHTML({ type:"transport", icon:"🚗", name:"Ortisei → Trento 段", time:"10:00 - 12:00", action:"S242 → A22，山谷公路 + 高速", note:"" }),
-    listRowHTML({ type:"activity", icon:"·", name:"休息站（A22 沿线）", time:"12:00 - 12:20", action:"咖啡 + 厕所 + 换司机" }),
-    `<!-- 休息站 -->
-    <div class="info-card"><h4>☕ 休息站</h4>
-    <table class="meal-table"><tr><th>休息站</th><th>位置</th><th class="col-narrow">大概时间</th><th>说明</th></tr>
-    <tr><td>Autogrill Nogaredo</td><td>A22，Rovereto 附近</td><td>出发后 1h30</td><td>最早的休息点</td></tr>
-    <tr><td><span class="star">⭐</span> Autogrill Scaligera</td><td>A4，Verona 附近</td><td>出发后 2h30</td><td><span class="highlight">推荐这里。</span>开了 2.5 小时，刚好换司机。从这里开始进入平原，风景从山变成农田</td></tr>
-    <tr><td>Autogrill Brianza</td><td>A4，Bergamo 附近</td><td>出发后 3h30</td><td>如果不需要可以跳过，直接开到酒店</td></tr></table></div>`,
-    listRowHTML({ type:"transport", icon:"🚗", name:"Trento → Casorate Sempione（酒店）", time:"12:20 - 14:00", action:"A22 → A4 → A8/A26，直达酒店", note:"" }),
-    listRowHTML({ type:"activity", icon:"·", name:"酒店入住 · 休整", time:"14:00 - 15:00", action:"Via Verbano, 1, Casorate Sempione (VA), 21011", note:"到酒店后记得约第二天送机服务" }),
-    listRowHTML({ type:"transport", icon:"🚗", name:"酒店 → 米兰 Duomo", time:"15:00 - 16:00", action:"约 50 km · 50 分钟", note:"周日 15:00 出发，米兰进城方向不堵" }),
-    listRowHTML({ type:"activity", icon:"·", name:"还车点", time:"16:00 - 16:30", action:"Largo Corsia dei Servi 15, 20122 Milano", note:"大教堂东北角 · 步行到 Duomo 2 分钟" }),
-    `<!-- 还车注意事项 -->
-    <div class="info-card"><h4>🚗 还车注意事项</h4>
-    <table><tr><th>事项</th><th>说明</th></tr>
-    <tr><td>⛽ 加满油</td><td>拍加油收据照片留底</td></tr>
-    <tr><td>📸 拍照</td><td>拍车身四周照片（防止后续划痕纠纷）</td></tr>
-    <tr><td>🧾 押金票据</td><td>还车后取回押金票据</td></tr>
-    <tr><td>🕐 无人值守</td><td>周日部分还车点可能无人值守（钥匙投箱），提前确认营业时间</td></tr></table></div>`,
-    listRowHTML({ type:"meal", icon:"☕", name:"下午茶 · Duomo · 简单垫垫", time:"16:30 - 17:00", action:"Luini / Spontini / Cioccolatitaliani 3 选 1" }),
-    `<!-- 下午茶选择 -->
-    <div class="info-card"><h4>☕ 下午茶 · 3 选 1</h4>
+    listRowHTML({ type:"activity", icon:"·", name:"酒店 · 退房", time:"10:00", action:"酒店 · Via Tonale 12", note:"收拾行李、退房" }),
+    listRowHTML({ type:"activity", icon:"·", name:"米兰火车站 · 寄存行李", time:"10:00 - 10:30", action:"Milano Centrale / 附近寄存点", note:"KiPoint / Radical Storage / Stow your bags" }),
+    `<!-- 寄存点 -->
+    <div class="info-card"><h4>🛅 寄存点</h4>
+    <table class="meal-table"><tr><th>寄存点</th><th>位置</th><th>价格</th><th>营业时间</th></tr>
+    <tr><td><b>KiPoint</b></td><td>站内地下一层（Piano Interrato），商业走廊</td><td>€6/件/前4小时，之后每小时加收€1</td><td>6:00–23:00</td></tr>
+    <tr><td><b>Radical Storage</b></td><td>站台层侧翼</td><td>三件行李€21/天（含保险费）</td><td>all day</td></tr>
+    <tr><td><b>Stow your bags</b></td><td>出站步行5分钟</td><td>MAX尺寸，24€/天</td><td>7:00–23:00</td></tr>
+    <tr><td><b>bounce luggage（可app预约，人工看管）</b></td><td>出站步行5分钟</td><td>约 €5/件/天</td><td>-24:00</td></tr></table></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"米兰火车站 → 米兰大教堂", time:"10:30 - 11:00", action:"步行", note:"约 30 min" }),
+    listRowHTML({ type:"activity", icon:"1", name:"米兰大教堂 Duomo di Milano", time:"11:00 - 11:30", action:"广场外观 · 拍照", note:"8:00–19:00" }),
+    `<!-- 广场骗局 -->
+    <div class="info-card"><h4>⚠️ 广场骗局</h4>
+    <div class="warn">不要接受任何人递过来的鸽子食物、手链、鲜花——塞你手里然后要钱。对拿单反的人说「no, grazie」然后走开。想拍鸽子就自己拍，不要让人「帮」你。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍝", name:"午餐", time:"11:30 - 12:30", action:"Spontini / Luini 2 选 1", note:"Duomo 步行 2 分钟" }),
+    `<!-- 午餐选择 -->
+    <div class="info-card"><h4>🍝 午餐 · 2 选 1</h4>
     <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
-    <tr><td>1</td><td><div>Luini <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Luini+Via+Santa+Radegonda+16+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€5–8</td><td><span class="star">⭐</span> Panzerotti（炸面团包）——经典款（Mozzarella + 番茄，€3.5）、Pugliese（Mozzarella + 番茄 + 火腿，€4.5）、Ricotta e Spinaci（Ricotta 奶酪 + 菠菜）</td><td><span class="highlight">首选，米兰人排了 130 年的队</span>。1888 年开业，米兰最传奇的小吃店。Duomo 步行 2 分钟。买了边走边吃，走到长廊刚好吃完。如果排队太长（超过 20 人），隔壁 Spontini 是备选</td></tr>
-    <tr><td>2</td><td><div>Spontini <span class="tag green">厚底披萨</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Spontini+Via+Santa+Radegonda+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€6–9</td><td>Margherita（厚底、芝士多到拉丝、底部焦脆，€6.5）、Diavola（辣味萨拉米，€8）</td><td>1953 年开业，米兰最著名的切片披萨。和那不勒斯薄底完全不同——厚底、松软、芝士堆到溢出。一片就饱。站着吃，5 分钟搞定</td></tr>
-    <tr><td>3</td><td><div>Cioccolatitaliani <span class="tag blue">甜品</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Cioccolatitaliani+Via+San+Raffaele+2+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.4★</span></td><td>€5–8</td><td>Gelato（开心果 + 榛子双球，€5）、Crepes alla Nutella（Nutella 可丽饼，€6）</td><td>米兰本土连锁，品质稳定。如果想吃甜的而不是咸的，这里最快。人多但翻台快，5 分钟搞定</td></tr></table></div>`,
-    listRowHTML({ type:"activity", icon:"1", name:"米兰大教堂（外观）", time:"17:00 - 17:30", action:"不入内，周日门票 €10+，排队 30–45 分钟", note:"8:00–19:00" }),
-    `<!-- 大教堂拍照 -->
-    <div class="info-card"><h4>📸 拍照</h4>
-    <table><tr><th>机位</th><th>说明</th></tr>
-    <tr><td><b>正立面</b></td><td>站远一点（广场中央偏后），用广角拍全 135 座尖塔</td></tr>
-    <tr><td><b>金色 Madonnina</b></td><td>教堂最高塔尖的镀金圣母像，手机长焦拉到最大</td></tr>
-    <tr><td><b>和鸽子合影</b></td><td><span class="warn">⚠️</span> 不要接受任何人递过来的鸽子食物（经典骗局，塞你手里然后要钱）</td></tr></table></div>`,
-    listRowHTML({ type:"activity", icon:"2", name:"埃马努埃莱二世长廊", time:"17:30 - 18:30", action:"玻璃穹顶 · Prada 创始店 · 踩牛蛋", note:"Galleria Vittorio Emanuele II" }),
+    <tr><td>1</td><td><div>⭐ Spontini</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Spontini+Via+Santa+Radegonda+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€6–9</td><td>Margherita（厚底、芝士多到拉丝、底部焦脆，€6.5）</td><td><span class="highlight">最快，最中国胃友好</span>。1953 年开业，米兰最著名的厚底切片披萨。一片就饱</td></tr>
+    <tr><td>2</td><td><div>Luini</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Luini+Via+Santa+Radegonda+16+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€5–8</td><td>Panzerotti 经典款（Mozzarella + 番茄，€3.5）</td><td>1888 年开业，米兰传奇。如果排队超过 15 人，换 Spontini 更省时间</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"2", name:"埃马努埃莱二世长廊", time:"12:30 - 13:30", action:"奢侈品 · 历史老店 · 踩牛蛋 · 退税", note:"Galleria Vittorio Emanuele II" }),
     `<!-- 长廊逛什么 -->
     <div class="info-card"><h4>🏛️ 埃马努埃莱二世长廊 · 逛什么</h4>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">奢侈品（注意：周日部分可能关门）</div>
+    <table class="meal-table"><tr><th>品牌</th><th>位置</th><th>亮点</th></tr>
+    <tr><td><b>⭐ Prada 创始店</b></td><td>东臂</td><td>1913 年全球第一家 Prada，黑檀木货架+水晶吊灯。不是普通门店，是朝圣地</td></tr>
+    <tr><td><b>Louis Vuitton</b></td><td>北臂</td><td>两层旗舰店，可刻字。周日可能关门，确认当天是否营业</td></tr>
+    <tr><td><b>Gucci</b></td><td>东臂</td><td>橱窗装置很艺术，本身就是打卡点</td></tr>
+    <tr><td><b>Versace</b></td><td>北臂</td><td>金色巴洛克风橱窗，视觉冲击力拉满</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">有意思的小店（周日大多开门）</div>
+    <table class="meal-table"><tr><th>店</th><th>年代</th><th>亮点</th></tr>
+    <tr><td><b>⭐ Libreria Bocca</b></td><td>1775</td><td>意大利最老书店之一，艺术/建筑/摄影画册。买米兰画册最有格调的地方</td></tr>
+    <tr><td><b>⭐ Pasticceria Marchesi 1824</b></td><td>1824</td><td>米兰最老甜品店（现属 Prada 集团），巧克力、马卡龙。伴手礼好选择</td></tr>
+    <tr><td><b>Camparino in Galleria</b></td><td>1915</td><td>黄铜吧台+大理石，看一眼就是 1915 年的米兰</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">历史老店（看橱窗就行）</div>
+    <table class="meal-table"><tr><th>店</th><th>年代</th><th>看点</th></tr>
+    <tr><td><b>Savini</b></td><td>1867</td><td>米兰上流社会餐厅，门口历史照片——100 年前穿燕尾服的米兰人</td></tr>
+    <tr><td><b>Biffi Caffè</b></td><td>1867</td><td>米兰最老咖啡馆，espresso 站着喝 €2</td></tr></table>
+    <div style="font-weight:800;color:var(--pink-deep);margin-top:6px;">🛍️ 隐藏折扣店：DMagazine ⭐</div>
+    <div style="font-size:11px;margin-top:2px;">长廊地下层藏着米兰最大的连锁奢侈品折扣店。Prada、Gucci 等品牌过季款/样品，折扣 30%–70%。</div>
+    <div style="font-weight:800;color:var(--pink-deep);margin-top:6px;">🐂 踩牛蛋 ⭐</div>
+    <div style="font-size:11px;margin-top:2px;">中央地面都灵市徽公牛马赛克，踩住睾丸用脚跟转三圈求好运。看看地上被百万人踩出的坑。</div>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">💶 退税</div>
+    <div style="font-size:11px;margin-top:2px;">非欧盟游客购物满 €155（同一家店、同一天）可退税 12%–15.5%。结账时出示护照开 Tax Free 单据 → Day 12 机场 Global Blue / Planet 柜台盖章 → 退回信用卡。</div></div>`,
+    listRowHTML({ type:"activity", icon:"3", name:"Rinascente 百货顶楼 7F", time:"13:30 - 14:30", action:"隐藏机位 · 天台咖啡", note:"正对 Duomo 尖塔群" }),
+    `<!-- Rinascente 7F -->
+    <div class="info-card"><h4>🏢 Rinascente 百货顶楼 7F</h4>
+    <table class="meal-table"><tr><th>楼层</th><th>内容</th></tr>
+    <tr><td>4F</td><td>免费厕所</td></tr>
+    <tr><td>6F</td><td>设计家居+小件，最有意思的楼层</td></tr>
+    <tr><td>7F</td><td>米兰最漂亮的隐藏机位，天台酒吧/咖啡，点一杯 Cappuccino（€6–8）</td></tr></table>
+    <div class="highlight">正对 Duomo 尖塔群——这个角度比广场上仰拍强 10 倍。135 座尖塔在你齐平的高度，金色 Madonnina 近在眼前。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"Duomo → Brera 区", time:"14:00 - 14:10", action:"步行", note:"约 10 min" }),
+    listRowHTML({ type:"activity", icon:"4", name:"Brera 区", time:"14:00 - 16:00", action:"石巷 · 画廊 · 小众香水 · 旧书店", note:"Via Fiori Chiari · Via Madonnina" }),
+    `<!-- Brera 逛什么 -->
+    <div class="info-card"><h4>🎨 Brera 区 · 逛什么</h4>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">第一站：Via Fiori Chiari + Via Madonnina（石巷核心）</div>
+    <div style="font-size:11px;margin-top:2px;">Brera 的灵魂——两条窄石巷交叉，两侧独立画廊、古董店、手工皮具、小众香水、旧书店。没有连锁品牌。</div>
+    <table class="meal-table"><tr><th>店铺</th><th>地址</th><th>亮点</th></tr>
+    <tr><td>🕯️ ⭐ Olfattorio Bar à Parfums</td><td>Via Fiori Chiari 8</td><td>小众香水实验室，按香味分子分类。30ml €35–50</td></tr>
+    <tr><td>🎨 Galleria d'Arte Maggiore</td><td>Via Madonnina 3</td><td>现代艺术画廊，免费，橱窗每季换展</td></tr>
+    <tr><td>📚 Libreria Il Museo del Louvre</td><td>Via Fiori Chiari 16</td><td>专营艺术画册的旧书店</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">第二站：Pinacoteca di Brera 庭院（可选）</div>
+    <div style="font-size:11px;margin-top:2px;">📍 Via Brera 28（石巷步行 2 分钟）· 🟢 只进庭院，不进美术馆。17 世纪宫殿中庭免费进入，拱廊 + 雕塑 + 茉莉花藤。如果 Day 6 在佛罗伦萨已经看了 Uffizi + Accademia，完全不用进内部。</div></div>`,
+    listRowHTML({ type:"transport", icon:"🚶", name:"Brera 区 → 斯福尔扎城堡", time:"16:00 - 16:10", action:"步行", note:"Brera 区北端（Via Pontaccio）直通 Castello Sforzesco 正门" }),
+    listRowHTML({ type:"activity", icon:"5", name:"斯福尔扎城堡 → 森皮内奥公园 → 和平之门", time:"16:10 - 18:00", action:"城堡中庭 · 公园 · 凯旋门", note:"全程顺路，相连景点" }),
+    `<!-- 城堡 / 公园 / 和平之门 -->
+    <div class="info-card"><h4>🏰 斯福尔扎城堡 → 森皮内奥公园 → 和平之门</h4>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">🏰 第一站：Castello Sforzesco（斯福尔扎城堡）｜16:10–16:40</div>
+    <table class="meal-table"><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>📍</td><td>Piazza Castello</td></tr>
+    <tr><td>历史</td><td>15 世纪米兰公爵的城堡，达·芬奇曾在此工作</td></tr>
+    <tr><td>🟢</td><td>进中庭免费——拱廊 + 水井 + 城垛，30 min 拍照足够</td></tr>
+    <tr><td>博物馆</td><td>€5，今天不进——在意大利已经看够博物馆了</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">🌳 第二站：Parco Sempione（森皮内奥公园）｜16:40–17:25</div>
     <table class="meal-table"><tr><th>看点</th><th>说明</th></tr>
-    <tr><td><span class="star">⭐</span> 玻璃穹顶</td><td>四个方向的玻璃穹顶交叉，自然光透过，下午 17:30 的光线极美</td></tr>
-    <tr><td>Prada 创始店</td><td>1913 年 Mario Prada 在这里开了第一家店，就在长廊内</td></tr>
-    <tr><td>Camparino in Galleria</td><td>Davide Campari 1915 年开的酒吧，米兰开胃酒文化的发源地。不用进去喝，橱窗看一眼就行</td></tr>
-    <tr><td><span class="star">⭐</span> 踩牛蛋</td><td>长廊中央地面有一个公牛马赛克图案（都灵市徽），米兰人相信踩住牛睾丸转三圈会带来好运。看看地上那个坑——几百万人踩过</td></tr></table>
-    <div style="margin-top:8px;font-weight:800;color:var(--pink-deep);">📸 拍照</div>
-    <div style="font-size:11px;margin-top:2px;">• 玻璃穹顶从下往上拍（广角）<br>• 长廊尽头（北端）回头看——拱门 + 穹顶的纵深构图</div></div>`,
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐 · Brera 区", time:"18:30 - 19:40", action:"Nabucco / Ristorante Galleria / Trattoria Milanese 3 选 1" }),
+    <tr><td>🌉 Ponte delle Sirene</td><td>美人鱼桥——公园中央的小铁桥</td></tr>
+    <tr><td>🗼 Torre Branca</td><td>108m 钢塔，€7 登顶，周日没人排队就上</td></tr>
+    <tr><td>🎨 Triennale di Milano</td><td>三年展设计博物馆，建筑本身就是 1930s 现代主义代表作</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">🏛️ 第三站：Arco della Pace（和平之门）｜17:25–18:00</div>
+    <table class="meal-table"><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>📍</td><td>Piazza Sempione</td></tr>
+    <tr><td>历史</td><td>1807 年拿破仑下令修建的新古典主义凯旋门</td></tr>
+    <tr><td>🍹</td><td>和平之门广场周边有酒吧和咖啡馆。累了喝杯 Aperol Spritz（€8）</td></tr></table></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐", time:"18:00 - 19:30", action:"Nabucco / Osteria del Treno / Trattoria Milanese 3 选 1", note:"Brera 区 / 米兰传统菜" }),
     `<!-- 晚餐选择 -->
     <div class="info-card"><h4>🍷 晚餐 · 3 选 1</h4>
     <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">必点</th><th class="col-note">备注</th></tr>
-    <tr><td>1</td><td><div>Nabucco <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Nabucco+Via+Fiori+Chiari+10+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–50</td><td>Lamb Chops（羊排，嫩到不行，口碑最好）、海鲜面（料足、面不夹生，中国人友好）、果味白葡萄酒</td><td><span class="highlight">首选，Brera 石巷</span>。暖黄灯光 + 白桌布。建议提前预约 +39 02 805 1004</td></tr>
-    <tr><td>2</td><td><div>Ristorante Galleria <span class="star">⭐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ristorante+Galleria+Galleria+Vittorio+Emanuele+II+75+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€35–50</td><td><span class="star">⭐</span> Risotto alla Milanese con Ossobuco（藏红花烩饭 + 炖小牛膝）、Cotoletta alla Milanese（米兰炸牛排）、Pizza</td><td><span class="highlight">就在长廊里，最方便</span>。长廊二层，窗外就是玻璃穹顶。长廊内唯一一家做传统米兰菜的正餐厅。建议提前预约 +39 02 8646 4833</td></tr>
-    <tr><td>3</td><td><div>Trattoria Milanese <span class="tag green">本地人经典</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Milanese+Via+Santa+Marta+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–45</td><td><span class="star">⭐</span> Risotto alla Milanese（米兰烩饭）、Cotoletta alla Milanese（厚切带骨）、Cassoeula（卷心菜炖猪肉，秋冬限定）</td><td>Dal 1933，米兰传统 Trattoria，木墙板 + 暖黄灯光。不是精致摆盘，是米兰人吃了三代人的味道。建议提前 3–5 天 +39 02 8645 2454</td></tr></table></div>`,
-    listRowHTML({ type:"transport", icon:"🚕", name:"打车去超市", time:"19:40 - 19:50", action:"Duomo → Eataly", note:"约 10 分钟" }),
-    listRowHTML({ type:"activity", icon:"3", name:"Eataly Milano Smeraldo", time:"20:00 - 21:00", action:"品质高端超市 · 伴手礼天堂", note:"Piazza XXV Aprile 10 · 营业至 23:00" }),
+    <tr><td>1</td><td><div>⭐ Nabucco（石巷烛光，羊排+海鲜面）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Nabucco+Via+Fiori+Chiari+10+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–50</td><td>Lamb Chops（羊排）、海鲜面、果味白葡萄酒</td><td>羊排+海鲜面双保险，没有 Risotto。氛围：Brera 石巷中的优雅小馆。预约 +39 02 805 1004</td></tr>
+    <tr><td>2</td><td><div>Osteria del Treno（1860s 本地老店）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+del+Treno+Via+San+Marco+28+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€30–40</td><td>Ossobuco con Risotto、Cotoletta alla Milanese</td><td>1860 年代开业，本地人多游客少。预约 +39 02 2900 0538</td></tr>
+    <tr><td>3</td><td><div>Trattoria Milanese（1933 年，米兰人吃了三代人）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Milanese+Via+Santa+Marta+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–45</td><td>Cassoeula（秋冬限定）、Cotoletta、Risotto alla Milanese con Ossobuco</td><td>木墙板 + 暖黄灯光 + 大家庭式服务。预约 +39 02 8645 2454</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"6", name:"Eataly · 伴手礼购物", time:"19:30 - 21:00", action:"三层楼美食殿堂", note:"Piazza XXV Aprile 10 · 10:00–23:00" }),
     `<!-- Eataly -->
-    <div class="info-card"><h4>🛒 Eataly Milano Smeraldo <span class="star">⭐</span>（必去）</h4>
-    <div class="highlight">💡 三层楼的意大利美食殿堂，不只是超市，是美食主题公园。一楼咖啡 + 甜品 + 新鲜意面，二楼酒 + 橄榄油 + 酱料，三楼餐厅。</div>
-    <table class="meal-table"><tr><th>东西</th><th class="col-narrow">价格段</th><th>说明</th></tr>
-    <tr><td><b>橄榄油</b></td><td>€10–20/瓶</td><td>托斯卡纳 IGP 或西西里 DOP</td></tr>
-    <tr><td><b>巴萨米克醋</b></td><td>€8–25/瓶</td><td>Modena IGP 陈酿，看年份</td></tr>
-    <tr><td><b>松露酱 / 松露油</b></td><td>€8–15/小瓶</td><td>Tartufo bianco / nero</td></tr>
-    <tr><td><b>干意面</b></td><td>€5–8/包</td><td>手工青铜模具意面</td></tr>
-    <tr><td><b>Pesto alla Genovese</b></td><td>€6–10</td><td>热那亚罗勒青酱</td></tr>
-    <tr><td><b>Cantucci</b></td><td>€5–8</td><td>托斯卡纳杏仁脆饼</td></tr>
-    <tr><td><b>Limoncello</b></td><td>€12–18</td><td>柠檬利口酒</td></tr>
-    <tr><td><b>意大利葡萄酒</b></td><td>€15–50</td><td>Barolo、Brunello di Montalcino、Chianti Classico</td></tr>
-    <tr><td><b>Panettone / Pandoro</b></td><td>€15–25</td><td>米兰传统圣诞蛋糕（如果 10 月有卖）</td></tr></table>
-    <div class="highlight" style="margin-top:6px;">💡 建议：只去 Eataly。三层楼已经够你买一小时的，而且品质碾压普通超市。Esselunga 虽然便宜但周日 20:00 关门，你 19:40 从晚餐出来赶过去已经来不及了。Eataly 开到 23:00，从容。</div></div>`,
-    listRowHTML({ type:"transport", icon:"🚕", name:"打车回酒店", time:"21:00 - 22:00", action:"米兰 → Via Verbano, 1, Casorate Sempione", note:"约 50 km · 40–50 分钟" }),
+    <div class="info-card"><h4>🛒 Eataly Milano Smeraldo · 伴手礼购物</h4>
+    <table class="meal-table"><tr><th>楼层</th><th>内容</th><th>买什么</th></tr>
+    <tr><td>1F</td><td>咖啡 + 甜品 + 新鲜意面 + 奶酪 + 火腿</td><td>Marchesi 1824 巧克力、新鲜意面（真空包装可带回国）</td></tr>
+    <tr><td>2F</td><td>酒 + 橄榄油 + 巴萨米克醋 + 松露 + 酱料</td><td>橄榄油、巴萨米克醋、松露酱/油、Pesto</td></tr>
+    <tr><td>3F</td><td>餐厅 + 酒吧</td><td>没吃够还能再战一轮，或只喝一杯 Negroni</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">必买清单（按优先级）</div>
+    <table class="meal-table"><tr><th>优先级</th><th>物品</th><th>价格</th><th>说明</th></tr>
+    <tr><td>🔴 必买</td><td>橄榄油（托斯卡纳 IGP 或西西里 DOP）</td><td>€10–20/瓶</td><td>意大利最值得带回国的东西。托运，别放手提行李</td></tr>
+    <tr><td>🔴 必买</td><td>巴萨米克醋（Modena IGP，看年份）</td><td>€8–25/瓶</td><td>越陈越贵。12 年陈 €15 左右，性价比最高</td></tr>
+    <tr><td>🔴 必买</td><td>松露酱 / 松露油</td><td>€8–15/小瓶</td><td>体积小、价值高、送礼首选</td></tr>
+    <tr><td>🟡 推荐</td><td>手工青铜模具意面</td><td>€5–8/包</td><td>比超市的 Barilla 好吃 10 倍，轻便好带</td></tr>
+    <tr><td>🟡 推荐</td><td>Pesto alla Genovese</td><td>€6–10/罐</td><td>热那亚罗勒青酱，回家拌面就是意大利</td></tr>
+    <tr><td>🟡 推荐</td><td>Limoncello</td><td>€12–18/瓶</td><td>柠檬利口酒，冰镇后喝</td></tr>
+    <tr><td>🟡 推荐</td><td>Cantucci + Vin Santo 套装</td><td>€10–15</td><td>托斯卡纳杏仁脆饼 + 甜酒，饭后经典</td></tr>
+    <tr><td>🟢 可选</td><td>Barolo / Brunello 红酒</td><td>€20–60/瓶</td><td>太沉、托运有破裂风险。除非你有气泡膜</td></tr>
+    <tr><td>🟢 可选</td><td>Panettone / Pandoro</td><td>€15–25</td><td>米兰传统蛋糕，如果 10 月有卖</td></tr></table></div>`,
     ].join("");
 
   return "";
