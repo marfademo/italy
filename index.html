@@ -2204,7 +2204,45 @@ if (d===4) return [
     listRowHTML({ type:"transport", icon:"🚄", name:"Bolzano → Verona Porta Nuova", time:"14:42 - 16:10", action:"Italo · TRAIN 8963", note:"座位 77、78、79" }),
     listRowHTML({ type:"transport", icon:"🚄", name:"Verona Porta Nuova → Milano Centrale", time:"17:12 - 18:25", action:"Italo · TRAIN 8988", note:"座位 77、78、79" }),
     listRowHTML({ type:"activity", icon:"🏨", name:"酒店 · 办理入住", time:"18:25 - 19:30", action:"Via Tonale, 12", note:"" }),
-    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐", time:"19:30 - 20:30", action:"米兰", note:"" }),
+    listRowHTML({ type:"meal", icon:"🍷", name:"晚餐", time:"19:30 - 20:30", action:"米兰市区 · Brera / Duomo / 中国城 3 区可选", note:"" }),
+    `<!-- 晚餐选择 -->
+    <div class="info-card"><h4>🍷 晚餐 · 5 选 1</h4>
+    <div style="font-weight:800;color:var(--pink-deep);margin-top:6px;">-Brera 区推荐（首选）⭐</div>
+    <div style="font-size:11px;margin-top:2px;margin-bottom:6px;">Brera 是米兰最有氛围的晚餐区——石巷、暖黄灯光、艺术画廊和独立餐厅交错。</div>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">🇨🇳 适配 / 必点</th><th class="col-note">备注</th></tr>
+    <tr><td>1</td><td><div>⭐ Nabucco（Brera 石巷）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Nabucco+Via+Fiori+Chiari+10+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–50</td><td>⭐⭐⭐⭐⭐ 羊排嫩、海鲜面不夹生、果味白葡萄酒；没有 Risotto</td><td><span class="highlight">首选</span>。暖黄灯光 + 白桌布 + 户外座位。预约 +39 02 805 1004。⚠️ Osteria di Brera 已暂停营业，别跑错</td></tr>
+    <tr><td>2</td><td><div>Pasta d'Autore</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pasta+d%27Autore+Via+San+Carpoforo+4+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€20–28</td><td>⭐⭐⭐⭐ 新鲜手工意面（Tagliatelle al Ragù / Pappardelle al Cinghiale / Pasta al Pesto），口感接近中式手擀面</td><td>轻松小馆，黑板菜单，不用预约 walk-in。如果想吃一盘好面 + 一杯葡萄酒</td></tr>
+    <tr><td>3</td><td><div>Osteria del Treno</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Osteria+del+Treno+Via+San+Marco+28+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€30–40</td><td>⭐⭐⭐⭐ Ossobuco 炖小牛膝、Cotoletta 炸牛排；⚠️ Risotto 说「ben cotto」</td><td>1860 年代开业，本地人多游客少。预约 +39 02 2900 0538</td></tr></table>
+    <div style="font-weight:800;color:var(--pink-deep);margin-top:6px;">-Duomo 周边推荐</div>
+    <table class="meal-table"><tr><th class="col-narrow">#</th><th>餐厅</th><th class="col-narrow">评分</th><th class="col-narrow">人均</th><th class="col-dish">🇨🇳 适配 / 必点</th><th class="col-note">备注</th></tr>
+    <tr><td>4</td><td><div>Trattoria Milanese（Dal 1933）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Trattoria+Milanese+Via+Santa+Marta+11+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.2★</span></td><td>€35–45</td><td>⭐⭐⭐⭐ Risotto alla Milanese con Ossobuco、Cassoeula（秋冬限定，东北酸菜炖白肉近亲）、Cotoletta；⚠️ Risotto 说「ben cotto」</td><td>1933 年开业，木墙板 + 暖黄灯光。预约 +39 02 8645 2454</td></tr>
+    <tr><td>5</td><td><div>Ristorante Galleria（长廊穹顶下）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Ristorante+Galleria+Galleria+Vittorio+Emanuele+II+75+Milano" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td><span class="star">4.5★</span></td><td>€35–50</td><td>⭐⭐⭐ Risotto alla Milanese con Ossobuco、Cotoletta、Pizza；⚠️ Risotto</td><td>长廊二层，窗外就是玻璃穹顶。预约 +39 02 8646 4833</td></tr></table>
+    <div style="font-weight:800;color:var(--pink-deep);margin-top:6px;">-米兰中国城（Via Paolo Sarpi）——零风险垫底选项</div>
+    <div style="font-size:11px;margin-top:2px;margin-bottom:6px;">如果你到米兰后发现「真的不想再吃意大利菜了」，去中国城。从 Duomo 坐 M1 红线到 Cairoli + 步行 5 分钟，或 M5 Monumentale 出站即到。</div>
+    <table class="meal-table"><tr><th>店</th><th>风格</th><th class="col-narrow">人均</th><th>推荐</th><th>备注</th></tr>
+    <tr><td><b>⭐ Ravioleria Sarpi</b></td><td>饺子/煎饼</td><td>€5–10</td><td>手工煎饼、饺子</td><td>Gambero Rosso 推荐！意大利最权威美食指南认可的街头小吃</td></tr>
+    <tr><td><b>毛爷爷湘菜馆</b></td><td>湘菜/川菜</td><td>€15–25</td><td>剁椒鱼头、小炒肉</td><td>4.8 分，米兰中餐天花板之一</td></tr>
+    <tr><td><b>新福记餐厅</b></td><td>粤菜/砂锅煲</td><td>€15–25</td><td>砂锅煲、炒菜</td><td>5 分 96 评，人气最高中餐</td></tr>
+    <tr><td><b>懒人烧</b></td><td>烧烤</td><td>€15–20</td><td>羊肉串、烤鱼</td><td>烧烤是中国胃的最终安全感</td></tr>
+    <tr><td><b>Foodie 吃货</b></td><td>奶茶/小吃</td><td>€5–10</td><td>珍珠奶茶、盐酥鸡</td><td>喝着奶茶走中国城</td></tr></table>
+    <div class="highlight" style="margin-top:6px;">🇨🇳 什么时候选中国城？如果你在多洛米蒂最后几天已经吃腻了 Tyrolean 炖菜，或者同行人有人实在不想再吃意大利菜了——去 Via Paolo Sarpi，一碗热汤面 / 一碟小炒肉 / 一杯奶茶，战斗力回满。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"小酒馆（可选）", time:"20:30 -", action:"Brera 区安静小酒馆", note:"" }),
+    `<!-- 小酒馆推荐 -->
+    <div class="info-card"><h4>🍷 小酒馆（可选）· Brera 区安静小酒馆</h4>
+    <table class="meal-table"><tr><th>酒馆</th><th>位置</th><th class="col-narrow">人均</th><th>风格</th></tr>
+    <tr><td><b>⭐ N'Ombra de Vin</b></td><td>Via San Marco 2（Brera 北端）</td><td>€12–20</td><td>米兰最经典的红酒窖——16 世纪修道院地窖改造，拱顶石墙、几百种葡萄酒按杯卖。Barolo（€12–15/杯）+ Tagliere 冷肉拼盘（€14）。安静到能听见隔壁桌的意大利语低语</td></tr>
+    <tr><td><b>⭐ Enoteca Brera</b></td><td>Via Fiori Chiari 10（Brera 石巷核心）</td><td>€10–18</td><td>就在 Nabucco 隔壁，石巷里的小酒馆。户外座位直接摆在石巷上——10 月晚上披一条毯子、端一杯 Franciacorta（意大利香槟，€8–10/杯），看石巷暖黄灯光</td></tr>
+    <tr><td><b>Vineria 76</b></td><td>Via Madonnina 5（Brera 小巷深处）</td><td>€10–15</td><td>毫不起眼的小门面，本地人才知道。自酿葡萄酒 + 小盘冷肉，没有菜单——老板会问你喜欢什么风格然后帮你挑</td></tr>
+    <tr><td><b>Cantine Isola</b></td><td>Via Paolo Sarpi 30（唐人街路口）</td><td>€8–15</td><td>米兰最老的葡萄酒吧（1896 年）。站着的 aperitivo 文化——端着酒杯站在吧台或街边，墙上百年老照片，本地大爷下午就来喝第一杯</td></tr></table>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">🍷 怎么选？</div>
+    <div style="font-size:11px;margin-top:2px;">• 想体验米兰最经典的红酒窖 → N'Ombra de Vin<br>• 想在 Brera 石巷户外喝酒看夜景 → Enoteca Brera<br>• 想找只有本地人知道的秘密角落 → Vineria 76<br>• 想见识米兰 128 年老酒馆的烟火气 → Cantine Isola<br>• 累了直接回酒店 → 完全没问题。🚇 M2 Lanza → Centrale（2 站，5 min）或 🚶 步行 15 分钟</div>
+    <div style="font-weight:800;color:#7a4a00;margin-top:6px;">意大利小酒馆怎么喝（饭后酒入门）</div>
+    <table class="meal-table"><tr><th>概念</th><th>说明</th></tr>
+    <tr><td><b>Dopo cena（饭后酒）</b></td><td>意大利人晚饭后去酒吧喝一杯的习惯。点一杯红酒或 Digestivo（消化酒），慢慢喝，不要急。一顿饭后酒可以喝 1–2 小时</td></tr>
+    <tr><td><b>按杯点（Al calice）</b></td><td>小酒馆的葡萄酒大多可以按杯卖（€6–15/杯），不用点整瓶。先点一杯尝尝，喜欢再加</td></tr>
+    <tr><td><b>Tagliere 配酒</b></td><td>切几片火腿 + 芝士配红酒也是意大利人的日常。Tagliere（冷肉芝士拼盘，€12–18）一人份刚好</td></tr>
+    <tr><td><b>账单</b></td><td>小酒馆没有餐桌费（Coperto），只算酒和小食。人均 €12–20</td></tr>
+    <tr><td><b>点什么酒？</b></td><td>🍷 红酒：Barolo（€12–15/杯）、Chianti Classico（€8–10/杯）、Valpolicella Ripasso（€7–9/杯）；🥂 气泡：Franciacorta（€10–12/杯）、Prosecco（€6–8/杯）</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 12：返程 =====
