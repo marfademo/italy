@@ -2654,11 +2654,10 @@ function focusSpotByName(name){
   focusSpot(idx, true);
 }
 
-// 多源瓦片：优先 CARTO，加载失败自动降级到 OSM，再降级到备用源。
-// 用于对抗浏览器扩展拦截瓦片请求（某些扩展会把瓦片替换成需要 API key 的服务，导致底图空白）。
+// 多源瓦片：优先 OSM，CARTO Voyager 从 2024 年底起需要 API key，会返回带
+// "API KEY REQUIRED" 水印的 tile，因此不再作为首选。
 function addResilientTileLayer(map){
   const sources = [
-    { url: "https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors © CARTO" },
     { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors" },
     { url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "© OpenStreetMap contributors", subdomains: "abc" },
   ];
