@@ -1023,17 +1023,25 @@ const DAYS = {
     timeline: dayTimeline(11),
   },
   12: {
-    isTransit: true,
     badge: "DAY 12",
     title: "返程",
     date: "10.12 · MXP → AUH → HKG",
     line: "🛬 米兰 → 阿布扎比 → 香港 · 全程约 26h",
-    hotel: { name: "酒店 · Via Verbano, 1", lat: 45.6180, lng: 8.7270 },
-    center: [0, 0],
-    zoom: 1,
-    bounds: [[-90,-180],[90,180]],
-    nodes: [],
-    route: [],
+    hotel: { name: "酒店 · Via Tonale 12", lat: 45.4850, lng: 9.2030 },
+    center: [37.0, 60.0],
+    zoom: 3,
+    bounds: [[20.0, 8.0], [50.0, 120.0]],
+    nodes: [
+      { num: null, kind: "hotel", name: "酒店 · Via Tonale 12", lat: 45.4850, lng: 9.2030, hint: "7:00 起床、早餐、退房", pills: ["🚕 50min"] },
+      { num: 1, kind: "main", name: "MXP T1 · 米兰马尔彭萨机场", lat: 45.6300, lng: 8.7230, hint: "8:15 抵达 · 退税+值机+安检", pills: ["✈️ 8h"] },
+      { num: 2, kind: "main", name: "AUH · 阿布扎比转机", lat: 24.4330, lng: 54.6510, hint: "19:40 到达 · 1h30 转机", pills: ["✈️ 8h"] },
+      { num: 3, kind: "main", name: "HKG · 香港", lat: 22.3080, lng: 113.9180, hint: "次日 09:00 抵达", pills: ["🛬 到达"] },
+    ],
+    route: [
+      { mode: "taxi", from: 0, to: 1 },
+      { mode: "plane", from: 1, to: 2 },
+      { mode: "plane", from: 2, to: 3 },
+    ],
     timeline: dayTimeline(12),
   },
 };
@@ -2546,14 +2554,24 @@ function buildLayerFromRows(d){
     const fromIdx = i;
     const toIdx = i + 1;
 
-    // 判断交通样式：有打车/自驾相关关键词 → 实线绿色；否则步行虚线粉色
+    // 判断交通样式：飞机→蓝色虚线、打车/自驾→绿色实线、巴士→黄色、其他→粉色虚线
     let mode = "walk";
+    const hasPlane = transportBetween.some(r => {
+      const icon = r.querySelector(".list-icon")?.textContent?.trim() || "";
+      return icon === "✈️";
+    });
+    const hasBus = transportBetween.some(r => {
+      const icon = r.querySelector(".list-icon")?.textContent?.trim() || "";
+      return icon === "🚌";
+    });
     const hasDrive = transportBetween.some(r => {
       const durEl = r.querySelector(".list-transport-duration");
       const text = durEl ? durEl.textContent.trim() : "";
       return /🚕|的士|taxi|自驾|car/i.test(text);
     });
-    if (hasDrive) mode = "taxi";
+    if (hasPlane) mode = "plane";
+    else if (hasBus) mode = "bus";
+    else if (hasDrive) mode = "taxi";
 
     route.push({ mode, from: fromIdx, to: toIdx });
   }
@@ -2585,7 +2603,7 @@ function buildLayerFromRows(d){
   route.forEach(seg => {
     const a = nodes[seg.from];
     const b = nodes[seg.to];
-    const color = seg.mode === "taxi" ? "#3a8a2c" : (seg.mode === "train" ? "#2b6cb0" : (seg.mode === "bus" ? "#d69e2e" : "#e63475"));
+    const color = seg.mode === "taxi" ? "#3a8a2c" : (seg.mode === "train" || seg.mode === "plane" ? "#2b6cb0" : (seg.mode === "bus" ? "#d69e2e" : "#e63475"));
     const dash = seg.mode === "taxi" ? null : "8 8";
     const pl = L.polyline([[a.lat, a.lng],[b.lat, b.lng]], {
       color, weight: 4, opacity: .85, dashArray: dash,
@@ -2631,7 +2649,7 @@ function buildLayer(d){
   cfg.route.forEach(seg => {
     const a = cfg.nodes[seg.from];
     const b = cfg.nodes[seg.to];
-    const color = seg.mode === "taxi" ? "#3a8a2c" : (seg.mode === "train" ? "#2b6cb0" : (seg.mode === "bus" ? "#d69e2e" : "#e63475"));
+    const color = seg.mode === "taxi" ? "#3a8a2c" : (seg.mode === "train" || seg.mode === "plane" ? "#2b6cb0" : (seg.mode === "bus" ? "#d69e2e" : "#e63475"));
     const weight = seg.mode === "taxi" ? 4 : 4;
     const dash = seg.mode === "taxi" ? "8 8" : null;
     const pl = L.polyline([[a.lat, a.lng],[b.lat, b.lng]], {
