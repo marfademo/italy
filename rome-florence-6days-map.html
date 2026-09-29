@@ -754,19 +754,29 @@
    - mode: walk / taxi（决定 polyline 颜色）
    ========================================================= */
 const DAYS = {
-  /* ---------- Day 1 出发 / 抵达（无 OSM 地图，transit 抽象图） ---------- */
+  /* ---------- Day 1 出发 / 抵达（跨境飞行路线） ---------- */
   1: {
-    isTransit: true,
     badge: "DAY 1",
     title: "出发 / 抵达",
     date: "10.1 · SZX → ROM",
     line: "🛫 皇岗口岸 → 香港 → 伊斯坦布尔 → 罗马 · 全程约 18h",
     hotel: { name: "酒店 · Via Vespasiano, 12 (PRATI)", lat: 41.9066, lng: 12.4566 },
-    center: [0, 0],
-    zoom: 1,
-    bounds: [[-90,-180],[90,180]],
-    nodes: [],
-    route: [],
+    center: [30.0, 60.0],
+    zoom: 3,
+    bounds: [[15.0, 100.0], [45.0, 30.0]],
+    nodes: [
+      { num: null, kind: "hotel", name: "皇岗口岸", lat: 22.5300, lng: 114.0700, hint: "6:30 · 深圳过关", pills: ["🚌 1h"] },
+      { num: 1, kind: "main", name: "香港国际机场 HKG", lat: 22.3080, lng: 113.9180, hint: "8:00 · 候机", pills: ["✈️ 11h45m"] },
+      { num: 2, kind: "main", name: "伊斯坦布尔 IST", lat: 41.2753, lng: 28.7519, hint: "15:45 · 转机 6h", pills: ["✈️ 2h45m"] },
+      { num: 3, kind: "main", name: "罗马菲乌米奇诺 FCO", lat: 41.8002, lng: 12.2389, hint: "23:35 · 入境+取行李", pills: ["🚕 €50 到酒店"] },
+      { num: null, kind: "hotel", name: "酒店 · Via Vespasiano, 12", lat: 41.9066, lng: 12.4566, hint: "约 01:00 · 入住" },
+    ],
+    route: [
+      { mode: "bus", from: 0, to: 1 },
+      { mode: "plane", from: 1, to: 2 },
+      { mode: "plane", from: 2, to: 3 },
+      { mode: "taxi", from: 3, to: 4 },
+    ],
     timeline: dayTimeline(1),
   },
 
@@ -2416,7 +2426,7 @@ function makeNumberIcon(num, kind){
 
 function renderDayPanel(d){
   const cfg = DAYS[d];
-  const left = cfg.isTransit ? renderTransitBoard() : `
+  const left = `
         <div class="mapwrap">
           <div id="map-${d}" class="map"></div>
         </div>`;
@@ -2433,70 +2443,6 @@ function renderDayPanel(d){
         <div class="date">${cfg.line}</div>
         <div class="timeline">${cfg.timeline}</div>
       </div>
-    </div>`;
-}
-
-function renderTransitBoard(){
-  return `
-            <div class="transit-board">
-      <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arrow" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="9" markerHeight="9" orient="auto">
-            <path d="M0 0 L12 6 L0 12 Z" fill="#e63475"/>
-          </marker>
-        </defs>
-        <!-- 第一行：深圳 → 香港 -->
-        <g>
-          <circle cx="100" cy="70" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="100" y="65" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Shenzhen</text>
-          <text x="100" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4a00">深圳 · 皇岗口岸</text>
-          <text x="100" y="106" text-anchor="middle" font-size="22">🚌</text>
-        </g>
-        <!-- 深圳 → 香港 水平箭头 (从深圳圆右边缘 x=152 到香港圆左边缘 x=208) -->
-        <path d="M152 70 Q 180 70 208 70" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,38)">
-          <rect x="-42" y="-22" width="84" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.4"/>
-          <text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="900" fill="#e63475">🚌 皇岗口岸</text>
-          <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">6:30 – 7:30</text>
-        </g>
-        <!-- 香港 -->
-        <g>
-          <circle cx="260" cy="70" r="52" fill="#cfe7ff" stroke="#3a82c9" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="260" y="65" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Hong Kong</text>
-          <text x="260" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">香港 · T1</text>
-          <text x="260" y="106" text-anchor="middle" font-size="22">✈️</text>
-        </g>
-        <!-- 香港 → 伊斯坦布尔 斜向箭头 (从香港圆底部 x=260,y=132 斜向左下到伊斯坦布尔圆顶部 x=100,y=218) -->
-        <path d="M260 122 Q 180 150 100 178" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,150)">
-          <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
-          <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK0171</text>
-          <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">09:20 – 15:45</text>
-        </g>
-        <!-- 第二行：伊斯坦布尔 → 罗马 -->
-        <g>
-          <circle cx="100" cy="230" r="52" fill="#e6f4ff" stroke="#3b82f6" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="100" y="215" text-anchor="middle" font-size="12" font-weight="900" fill="#1e3a8a">Istanbul</text>
-          <text x="100" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a8a">伊斯坦布尔 IST</text>
-          <text x="100" y="248" text-anchor="middle" font-size="10" font-weight="500" fill="#5b5b5b">转机 6h</text>
-          <text x="100" y="266" text-anchor="middle" font-size="22">🕌</text>
-        </g>
-        <!-- 伊斯坦布尔 → 罗马 水平箭头 (从伊斯坦布尔圆右边缘 x=152 到罗马圆左边缘 x=208) -->
-        <path d="M152 230 Q 180 230 208 230" stroke="#e63475" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
-        <g transform="translate(180,202)">
-          <rect x="-54" y="-22" width="108" height="44" rx="11" fill="#fff" stroke="#e63475" stroke-width="1.5"/>
-          <text x="0" y="-6" text-anchor="middle" font-size="11" font-weight="900" fill="#e63475">✈️ TK1361</text>
-          <text x="0" y="12" text-anchor="middle" font-size="10" font-weight="700" fill="#5c3a00">21:50 – 23:35</text>
-        </g>
-        <!-- 罗马 -->
-        <g>
-          <circle cx="260" cy="230" r="52" fill="#fff0d6" stroke="#e63475" stroke-width="2.5" filter="drop-shadow(0 3px 4px rgba(160,120,60,.25))"/>
-          <text x="260" y="215" text-anchor="middle" font-size="12" font-weight="900" fill="#7a4a00">Rome FCO</text>
-          <text x="260" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4a00">罗马 · 23:35</text>
-          <text x="260" y="248" text-anchor="middle" font-size="10" font-weight="500" fill="#5b5b5b">🚕 €50 到酒店</text>
-          <text x="260" y="266" text-anchor="middle" font-size="22">🇮🇹</text>
-        </g>
-      </svg>
     </div>`;
 }
 
@@ -2773,22 +2719,6 @@ function activateDay(d){
   bindAllImgGalleries();
   // panel active
   document.querySelectorAll(".day-panel").forEach(p => p.classList.toggle("active", String(p.dataset.day) === String(d)));
-
-  // Day 1 是 transit，无 OSM 地图
-  if (DAYS[d].isTransit) {
-    if (map) { map.remove(); map = null; }
-    if (currentLayer) {
-      currentLayer.markers.forEach(m => m.remove());
-      currentLayer.polylines.forEach(p => p.remove());
-      currentLayer = null;
-    }
-    currentDay = d;
-    // 装载当前 Day 的 row 图片
-    document.querySelectorAll(`.day-panel[data-day="${d}"] .list-row`).forEach(loadRowImages);
-    renderBottomInfo(d);
-    if (editMode) attachEditHandlers();
-    return;
-  }
 
   // 切换地图数据
   if (!map) {
