@@ -821,7 +821,7 @@ const DAYS = {
     line: "🏛️ 万神殿 → 圣依纳爵堂 → 许愿池 → 古罗马 → 斗兽场 · 打车 + 步行结合",
     nodes: [
       { num: null, kind: "hotel", name: "酒店 · Via Vespasiano, 12 (PRATI)", lat: 41.9066, lng: 12.4566, hint: "出发起点" },
-      { num: 1, kind: "main", name: "万神殿 Pantheon", lat: 41.8986, lng: 12.4769, hint: "13:30–14:30", pills: ["🚕 18min · €12–15","€5 · 门前扫码即入"] },
+      { num: 1, kind: "main", name: "万神殿 Pantheon", lat: 41.8986, lng: 12.4769, hint: "13:30–14:30", pills: ["🚕 18min · €12–15","€5 · 提前买票"] },
       { num: 2, kind: "main", name: "圣依纳爵堂", lat: 41.8987, lng: 12.4804, hint: "14:40–15:20 · 免费", pills: ["🚶 10min","天顶透视画"] },
       { num: 3, kind: "main", name: "特雷维喷泉 / 许愿池", lat: 41.9009, lng: 12.4833, hint: "15:30–16:10", pills: ["🚶 10min","投币许愿"] },
       { num: 4, kind: "main", name: "古罗马广场 Foro Romano（外观）", lat: 41.8925, lng: 12.4853, hint: "16:30–17:10 · 不进", pills: ["🚶 25min 或 🚕 10min","Campidoglio 俯瞰"] },
@@ -1687,10 +1687,7 @@ function dayTimeline(d){
     <tr><td>3</td><td><div>Cantina e Cucina（如果愿意多走几步）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Cantina+e+Cucina+Via+del+Governo+Vecchio+87+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>4.6</td><td>€20–30</td><td>⭐⭐⭐⭐⭐ Supplì（炸饭团）、Pizza Margherita、Tiramisù。</td><td>轻松热闹的装修，适合不想太正式的午餐</td></tr>
     <tr><td>4</td><td><div>Pietro al Pantheon <span class="tag blue">小红书推荐</span></div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pietro+al+Pantheon+Roma" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>4.4</td><td>€20–30</td><td>⭐⭐⭐⭐⭐ 番茄炖牛膝、鲜菌蘑菇烩饭、黑松露意面。</td><td>小红书推荐</td></tr></table></div>`,
     listRowHTML({ type:"meal", icon:"🍝", name:"午餐 · 万神殿附近", time:"12:30 - 13:30", action:"Armando al Pantheon / Osteria del Sostegno / Cantina e Cucina / Pietro al Pantheon", note:"建议 12:30 前到 · Armando 必须提前预约" }),
-    listRowHTML({ type:"activity", icon:"1", name:"万神殿 Pantheon", time:"13:30 - 14:20", action:"穹顶天窗 · 拉斐尔墓 · 维托里奥·埃马努埃莱二世墓", note:"开放 9:00–19:00（最后入场 18:30）· €5 · 门前扫二维码现场买票，即买即入，不用排队" }),
-    `<!-- 万神殿购票 -->
-    <div class="info-card"><h4>🎫 万神殿 · 购票方式</h4>
-    <div class="highlight">💡 在万神殿门前扫二维码现场买票，不用换实体票，不用排队，也不限时段，绝对能即买即入。购票后给守门人扫码即可进入，是最快能进入殿内参观的途径。</div></div>`,
+    listRowHTML({ type:"activity", icon:"1", name:"万神殿 Pantheon", time:"13:30 - 14:20", action:"穹顶天窗 · 拉斐尔墓 · 维托里奥·埃马努埃莱二世墓", note:"开放 9:00–19:00（最后入场 18:30）· €5 · 提前官网买好 13:30 的票" }),
     `<!-- 万神殿看点 -->
     <div class="info-card"><h4>🏛️ 万神殿 Pantheon · 看点 & 拍照指南</h4>
     <div class="highlight">💡 万神殿是古罗马保存最完好的建筑（公元 126 年建成），2000 年来一直在使用——最初是罗马神庙，现在是天主教堂。</div>
@@ -3263,52 +3260,26 @@ function estimateStorageBytes(){
   return total;
 }
 
-// 当 localStorage 配额满时，先清掉联网拉的老图缓存（wiki/unsplash），再清最旧的 trip-img-*
+// 当 localStorage 配额满时，清掉可重建的自动缓存（wiki/unsplash等），
+// 绝不动用户手动粘贴的 trip-img-*（这些只能由用户手动删除）
 function cleanupOversizedTripImgs(){
   let freed = 0, removedCount = 0;
-
-  // 第一轮：清掉所有联网拉的缓存（wiki/unsplash，这些可以随时重拉）
+  // 清除所有可自动重建的缓存（绝不动 trip-img-*）
+  const safePrefixes = [
+    "unsplash-cache-", "wiki-cache-", "wikiimg-cache-", "wikithumb-cache-",
+    "wikiimg2-cache-", "wikiimg3-cache-",
+  ];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
-    if (k && (k.startsWith("unsplash-cache-") || k.startsWith("wikiimg-cache-") || k.startsWith("wikithumb-cache-") || k.startsWith("wikiimg2-cache-") || k.startsWith("wikiimg3-cache-"))) {
+    if (k && safePrefixes.some(pre => k.startsWith(pre))) {
       const v = localStorage.getItem(k) || "";
       freed += (k.length + v.length) * 2;
       localStorage.removeItem(k);
       removedCount++;
     }
   }
-
-  // 第二轮：如果还不够，清掉最旧的非当前 Day 的 trip-img-*（保留当前正在编辑的）
-  if (freed < 1 * 1024 * 1024) {
-    const activeDay = currentDay;
-    const entries = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (!k || !k.startsWith("trip-img-")) continue;
-      // 跳过当前 active day-panel 里的行名称
-      if (activeDay) {
-        const panel = document.querySelector(`.day-panel[data-day="${activeDay}"]`);
-        if (panel) {
-          const activeNames = new Set(Array.from(panel.querySelectorAll(".name-text")).map(el => el.textContent?.trim()).filter(Boolean));
-          const imgName = k.replace("trip-img-", "");
-          if (activeNames.has(imgName)) continue;
-        }
-      }
-      const v = localStorage.getItem(k) || "";
-      entries.push({ k, size: (k.length + v.length) * 2 });
-    }
-    // 从最大的开始删（释放更多空间）
-    entries.sort((a, b) => b.size - a.size);
-    for (const e of entries) {
-      if (freed >= 2 * 1024 * 1024) break; // 释放 2MB 以上就停
-      localStorage.removeItem(e.k);
-      freed += e.size;
-      removedCount++;
-    }
-  }
-
   if (removedCount > 0) {
-    console.info(`[cache] 配额紧张，清理 ${removedCount} 个缓存，释放约 ${(freed / 1024 / 1024).toFixed(1)} MB`);
+    console.info(`[cache] 释放 ${removedCount} 个可重建缓存，约 ${(freed / 1024 / 1024).toFixed(1)} MB`);
   }
 }
 
@@ -4750,7 +4721,8 @@ function saveRowImages(row){
       } catch (e2) {
         console.warn("[img-save] 清理后仍失败", e2);
       }
-      alert("⚠️ 图片保存失败：浏览器本地存储已满。\n\n已自动清理旧的大图缓存，但仍不够空间。\n建议：删除部分已粘贴的图片后重试。");
+      const usedKB = Math.round(estimateStorageBytes() / 1024);
+      alert(`⚠️ 图片保存失败：浏览器本地存储已满（约 ${usedKB} KB / 5 MB）。\n\n已自动清理可重建的临时缓存。\n建议：删除部分已粘贴的图片后重试。`);
     }
   }
 }
