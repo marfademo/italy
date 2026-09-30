@@ -715,7 +715,7 @@
     <button class="tab" data-day="5"><span class="tab-num">DAY 5 · 10.5</span><span class="tab-title">⛪ 百花 + Oltrarno + 日落</span><span class="tab-sub">大教堂 → 圣三一桥 → 米开朗琪罗广场</span></button>
     <button class="tab" data-day="6"><span class="tab-num">DAY 6 · 10.6</span><span class="tab-title">🗿 学院美术馆 + 乌菲兹</span><span class="tab-sub">大卫 → 乌菲兹 → 老桥日落</span></button>
     <button class="tab" data-day="7"><span class="tab-num">DAY 7 · 10.7</span><span class="tab-title">🚄 转场多洛米蒂</span><span class="tab-sub">佛罗伦萨 → Bolzano → Ortisei</span></button>
-    <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
+    <button class="tab" data-day="8"><span class="tab-num">DAY 8 · 10.8</span><span class="tab-title">🚠 刀锋山 + 休斯高原</span><span class="tab-sub">Resciesa → Alpe di Siusi → Col Raiser</span></button>
     <button class="tab" data-day="9"><span class="tab-num">DAY 9 · 10.9</span><span class="tab-title">📝 待规划</span><span class="tab-sub">点击编辑添加行程</span></button>
     <button class="tab" data-day="10"><span class="tab-num">DAY 10 · 10.10</span><span class="tab-title">🚄 多洛米蒂 → 米兰</span><span class="tab-sub">Ortisei → Bolzano → Verona → Milano</span></button>
     <button class="tab" data-day="11"><span class="tab-num">DAY 11 · 10.11</span><span class="tab-title">🏙️ 米兰市区一日游</span><span class="tab-sub">Centrale → 大教堂 → 长廊 → Brera → Eataly</span></button>
@@ -952,18 +952,39 @@ const DAYS = {
     ],
     timeline: dayTimeline(7),
   },
+  /* ---------- Day 8 刀锋山 + 休斯高原 ---------- */
   8: {
-    isTransit: true,
     badge: "DAY 8",
-    title: "待规划",
-    date: "10.8",
-    line: "📝 点击编辑按钮添加行程",
-    hotel: { name: "", lat: 0, lng: 0 },
-    center: [0, 0],
-    zoom: 1,
-    bounds: [[-90,-180],[90,180]],
-    nodes: [],
-    route: [],
+    title: "刀锋山 + 休斯高原",
+    date: "10.8 · DOLOMITES",
+    line: "🚠 Resciesa 速打卡 → Alpe di Siusi 草甸 → Col Raiser 徒步刀锋山",
+    hotel: { name: "酒店 · Ortisei / Val Gardena", lat: 46.5760, lng: 11.6710 },
+    center: [46.5760, 11.6800],
+    zoom: 13,
+    bounds: [[46.5350,11.6000],[46.6100,11.7400]],
+    nodes: [
+      { num: null, kind: "hotel", name: "酒店 · Ortisei / Val Gardena", lat: 46.5760, lng: 11.6710, hint: "出发起点 · Resciesa 登山铁道起点旁" },
+      { num: 1, kind: "main", name: "Resciesa 登山铁道", lat: 46.5730, lng: 11.6740, hint: "08:10 · 在售票处买 Summerpass 一日票 €66", pills: ["🚠 3号线","首班 8:30","住宿旁上车"] },
+      { num: 2, kind: "view", name: "Resciesa 山顶", lat: 46.5800, lng: 11.6900, hint: "08:45–09:15 · 俯瞰刀锋山 Seceda 最佳机位之一", pills: ["海拔 ~2150m","只打卡不徒步","30 min"] },
+      { num: 3, kind: "main", name: "1 号 Alpe di Siusi 缆车站", lat: 46.5640, lng: 11.6710, hint: "09:45 · 1 号缆车上山 → 休斯高原", pills: ["🚠 1号线"] },
+      { num: 4, kind: "main", name: "Compaccio 2000m", lat: 46.5550, lng: 11.6280, hint: "10:00 · 出站即广袤草甸，远眺 Sciliar 山", pills: ["🚶 草甸漫步","1h 平缓"] },
+      { num: 5, kind: "main", name: "2 号开放式缆车体验", lat: 46.5500, lng: 11.6500, hint: "11:15–11:45 · 双脚悬空的开放式椅式缆车", pills: ["🚠 2号线","隐藏亮点"] },
+      { num: 6, kind: "main", name: "Col Raiser 缆车站", lat: 46.5680, lng: 11.7160, hint: "12:45 · 7 号缆车上山 → 刀锋山方向徒步", pills: ["🚠 7号线","公交 350","末班 17:00"] },
+      { num: 7, kind: "view", name: "刀锋山 Seceda 徒步线", lat: 46.5980, lng: 11.7230, hint: "13:00–16:30 · 往返留足 3.5h，能走多远走多远", pills: ["⛰ 徒步 3.5h","硬约束 16:30 返山顶站"] },
+      { num: 8, kind: "dinner", name: "S. Cristina 小镇晚餐", lat: 46.5560, lng: 11.7170, hint: "17:15–18:45 · 找家餐厅好好吃一顿补回体力", pills: ["🍽 晚餐 €20–35/人"] },
+      { num: null, kind: "hotel", name: "返回 Ortisei 酒店", lat: 46.5760, lng: 11.6710, hint: "20:00 前 · 公交回 Ortisei，注意末班车时间" },
+    ],
+    route: [
+      { mode: "walk", from: 0, to: 1 },
+      { mode: "walk", from: 1, to: 2 },
+      { mode: "walk", from: 2, to: 3 },
+      { mode: "walk", from: 3, to: 4 },
+      { mode: "walk", from: 4, to: 5 },
+      { mode: "walk", from: 5, to: 6 },
+      { mode: "walk", from: 6, to: 7 },
+      { mode: "walk", from: 7, to: 8 },
+      { mode: "walk", from: 8, to: 9 },
+    ],
     timeline: dayTimeline(8),
   },
   9: {
@@ -2197,8 +2218,69 @@ if (d===4) return [
     <tr><td>2</td><td><div>Pizzeria Rosticceria Rondula（最轻松，不用预约）</div><a class="gmaps-btn" href="https://www.google.com/maps/search/?api=1&query=Pizzeria+Rosticceria+Rondula+Via+Rezia+42+Ortisei" target="_blank" title="Google Maps 导航"><span class="gmaps-pin">📍</span>导航</a></td><td>4.6</td><td>€15–22</td><td>Pizza Alto Adige（Speck + 蘑菇 + 戈尔根朱勒奶酪）、Calzone。</td><td>轻松随意，披萨 + 啤酒，最没负担的选择</td></tr></table></div>`,
   ].join("");
 
-  // ===== Day 8–10, 12：空白页 =====
-  if (d===8 || d===9) return [
+  // ===== Day 8：刀锋山 + 休斯高原 =====
+  if (d===8) return [
+    `<!-- 今日逻辑 -->
+    <div class="info-card"><h4>💡 今日逻辑</h4>
+    <div class="highlight">住宿就在 Resciesa 登山铁道起点旁，清晨赶 8:30 首班上 3 号速打卡（山顶俯瞰刀锋山，30 分钟即可）；下山顺路在镇口坐 1 号缆车上休斯高原，平缓草甸漫步 + 体验 2 号开放式缆车；中午不正经吃，带干粮路上随意吃几口，把时间让给下午；12:20 公交去 S. Cristina 坐 7 号 Col Raiser 缆车到半山腰，13:00 起徒步刀锋山、往返留足 3.5h（13:00–16:30），能走多远走多远，赶 17:00 末班缆车下山；下山后直接在 S. Cristina 小镇吃晚餐、逛一会儿再回 Ortisei。一日票 €66 全程刷（1/2/3/7 号全覆盖），无需任何预约。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍳", name:"早餐 + 准备干粮", time:"07:00 - 08:10", action:"酒店早餐 + 带足干粮和水", note:"早餐含房费。下午徒步日，且中午不正经吃，干粮（三明治/能量棒/水果）务必带够两顿的量，水 ≥1L。" }),
+    listRowHTML({ type:"activity", icon:"1", name:"Resciesa 登山铁道", time:"08:10 - 08:30", action:"步行到 Resciesa 铁道站（住宿旁）", note:"在售票处购买 Summerpass 一日票 €66（今日全程用它），刷票进站候车。" }),
+    `<!-- Resciesa 铁道 -->
+    <div class="info-card"><h4>🚠 3 号 Resciesa 速打卡（首班 8:30 · 住宿旁上车）</h4>
+    <table><tr><th>时间</th><th>动作</th></tr>
+    <tr><td>08:10</td><td>步行几分钟到 Resciesa 登山铁道站（住宿旁）</td></tr>
+    <tr><td>08:30</td><td>3 号登山铁道首班上山（一日票已含）</td></tr>
+    <tr><td>08:42</td><td>约 12 分钟到山顶。首班人少，晨光正好</td></tr>
+    <tr><td>08:45–09:15</td><td>Resciesa 山顶速览（30 分钟）——俯瞰刀锋山 Seceda 最佳机位之一，清晨侧光适合拍照，远眺 Odle 群峰</td></tr>
+    <tr><td>09:20</td><td>下山 → 回镇（一日票已含）</td></tr>
+    <tr><td>09:35</td><td>约 15 分钟回到山脚</td></tr></table>
+    <div class="warn">⚠️ 山顶风大温度低，带薄外套/冲锋衣。只打卡不徒步，控制 30 分钟。</div></div>`,
+    listRowHTML({ type:"activity", icon:"2", name:"Resciesa 山顶", time:"08:45 - 09:15", action:"山顶速览 · 俯瞰刀锋山 Seceda 与 Odle 群峰", note:"只打卡不徒步 · 控制 30 分钟" }),
+    listRowHTML({ type:"transport", icon:"🚶", name:"Resciesa 山脚 → 1 号 Alpe di Siusi 缆车站", time:"09:35 - 09:45", action:"步行约 10 分钟", note:"镇内 1 号 Alpe di Siusi 缆车站" }),
+    listRowHTML({ type:"activity", icon:"3", name:"Alpe di Siusi 休斯高原", time:"10:00 - 12:00", action:"1 号缆车上山 → 草甸漫步 → 2 号开放式缆车体验", note:"1+2 号缆车 · 末班 18:00 · 一日票已含" }),
+    `<!-- 休斯高原 -->
+    <div class="info-card"><h4>⛰ 上午 · 休斯高原 Alpe di Siusi（1+2 号 · 末班 18:00）</h4>
+    <table><tr><th>时间</th><th>动作</th></tr>
+    <tr><td>09:45</td><td>步行至 1 号 Alpe di Siusi 缆车站（镇内，约 10 分钟）</td></tr>
+    <tr><td>10:00</td><td>1 号缆车上山 → Compaccio 2000m（一日票已含）</td></tr>
+    <tr><td>10:15–11:15</td><td>草甸精华漫步（1h · 平缓）——走 Compaccio→Saltria 方向平缓步道，几乎无爬升，途经 Panchina Gigante 巨型座椅</td></tr>
+    <tr><td>11:15–11:45</td><td>2 号开放式缆车体验（隐藏亮点）——双脚悬空的开放式椅式缆车，俯瞰草甸，轻松有趣</td></tr>
+    <tr><td>12:00</td><td>1 号缆车下山 → Ortisei（一日票已含）</td></tr>
+    <tr><td>12:10</td><td>下山即往公交站走，路上吃干粮简餐（干粮已备 · 无午餐花费）</td></tr></table>
+    <div class="highlight">💡 不安排正经午餐，把干粮/能量棒在等车和车上吃完，为下午徒步留足 3.5h。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🥪", name:"干粮简餐", time:"12:10 - 12:20", action:"在等车和公交上吃", note:"三明治/能量棒/水果 · 无午餐花费" }),
+    listRowHTML({ type:"transport", icon:"🚌", name:"Ortisei → S. Cristina (Val Gardena)", time:"12:20 - 12:45", action:"350/360 路公交 · 约 10–15 分钟", note:"公交免费（Guest Pass）· 在 "restaurant pizzeria" 附近下车" }),
+    `<!-- 公交提示 -->
+    <div class="info-card"><h4>🚌 公交提示 · Ortisei → S. Cristina</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>线路</td><td>350/360 路公交（目的地 S. Cristina / Val Gardena）</td></tr>
+    <tr><td>时长</td><td>约 10–15 分钟</td></tr>
+    <tr><td>费用</td><td>凭 Val Gardena Guest Pass 免费</td></tr>
+    <tr><td>下车点</td><td>在 "restaurant pizzeria" 附近下车，步行到 7 号 Col Raiser 缆车站</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"4", name:"Col Raiser 缆车站", time:"12:45 - 13:00", action:"7 号 Col Raiser 缆车上山", note:"一日票已含 · 到山顶站约 2100m，出站即见刀锋山 Seceda 方向" }),
+    listRowHTML({ type:"activity", icon:"5", name:"刀锋山 Seceda 徒步", time:"13:00 - 16:30", action:"刀锋山方向徒步 · 往返留足 3.5h", note:"能走多远走多远 · 硬约束：末班下山 17:00，16:30 必须回到山顶站候车" }),
+    `<!-- 刀锋山徒步 -->
+    <div class="info-card"><h4>⛰ 下午 · Col Raiser 徒步刀锋山（7 号 · 末班 17:00 · 徒步留足 3.5h）</h4>
+    <table><tr><th>时间</th><th>动作</th></tr>
+    <tr><td>12:45</td><td>7 号 Col Raiser 缆车上山（一日票已含）</td></tr>
+    <tr><td>13:00–16:30</td><td>Col Raiser → 刀锋山方向徒步（往返留足 3.5h）——沿标记步道向 Seceda 山脊方向走，能走多远走多远。体力好可一直逼近刀锋山山脊观景</td></tr>
+    <tr><td>中途</td><td>找背风处把剩余干粮吃掉补充体力</td></tr>
+    <tr><td>硬约束</td><td>Col Raiser 末班下行 17:00，无论走到哪，<span class="warn">16:30 必须回到山顶站候车</span>（据此反推折返点：约 15:00 前掉头）</td></tr>
+    <tr><td>16:30–17:00</td><td>7 号缆车下山 → S. Cristina（一日票已含）</td></tr></table>
+    <div class="warn">⚠️ 前一晚查好晚间末班公交时间，别逛过头，打车回 Ortisei 贵。</div></div>`,
+    listRowHTML({ type:"meal", icon:"🍷", name:"S. Cristina 小镇晚餐", time:"17:15 - 18:45", action:"找家餐厅好好吃一顿补回体力", note:"推荐当地 Schlutzkrapfen 半月饺" }),
+    `<!-- 晚餐推荐 -->
+    <div class="info-card"><h4>🍽 S. Cristina 小镇晚餐</h4>
+    <table><tr><th>项目</th><th>说明</th></tr>
+    <tr><td>预算</td><td>€20–35/人</td></tr>
+    <tr><td>推荐</td><td>当地 Schlutzkrapfen（半月饺，南蒂罗尔特色）</td></tr>
+    <tr><td>氛围</td><td>下山不用赶路，在小镇找家餐厅慢慢吃</td></tr></table></div>`,
+    listRowHTML({ type:"activity", icon:"6", name:"逛 S. Cristina 小镇", time:"18:45 - 19:45", action:"饭后在镇中心慢慢逛", note:"看 Monte Pana 方向山影、教堂与老街。山区日落早，趁天光拍照。" }),
+    listRowHTML({ type:"transport", icon:"🚌", name:"S. Cristina → Ortisei", time:"20:00 前", action:"公交返回 Ortisei", note:"免费（Guest Pass）· 约 10–15 分钟 · 前一晚查好晚间末班公交时间" }),
+  ].join("");
+
+  // ===== Day 9：待规划 =====
+  if (d===9) return [
     listRowHTML({ type:"activity", icon:"·", name:"新条目" }),
   ].join("");
 
@@ -3260,26 +3342,25 @@ function estimateStorageBytes(){
   return total;
 }
 
-// 当 localStorage 配额满时，清掉可重建的自动缓存（wiki/unsplash等），
-// 绝不动用户手动粘贴的 trip-img-*（这些只能由用户手动删除）
+// ⚠️ 已禁用：这个函数会无条件删除任何超过 1.5MB 的 trip-img-* 键，
+// 导致用户手动粘贴的图片（多张图加起来很容易超过 1.5MB）在刷新时被误删。
+// 用户粘贴的图已经过 compressImageToDataURL 压缩，不应再被大小阈值清除。
 function cleanupOversizedTripImgs(){
+  return; // 已禁用：避免误删用户手动粘贴的图片
+  const THRESHOLD = 1.5 * 1024 * 1024;
   let freed = 0, removedCount = 0;
-  // 清除所有可自动重建的缓存（绝不动 trip-img-*）
-  const safePrefixes = [
-    "unsplash-cache-", "wiki-cache-", "wikiimg-cache-", "wikithumb-cache-",
-    "wikiimg2-cache-", "wikiimg3-cache-",
-  ];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
-    if (k && safePrefixes.some(pre => k.startsWith(pre))) {
-      const v = localStorage.getItem(k) || "";
-      freed += (k.length + v.length) * 2;
+    if (!k || !k.startsWith("trip-img-")) continue;
+    const v = localStorage.getItem(k) || "";
+    if (v.length * 2 > THRESHOLD) {
       localStorage.removeItem(k);
+      freed += v.length * 2;
       removedCount++;
     }
   }
   if (removedCount > 0) {
-    console.info(`[cache] 释放 ${removedCount} 个可重建缓存，约 ${(freed / 1024 / 1024).toFixed(1)} MB`);
+    console.info(`[cache] 清理 ${removedCount} 个未压缩大图缓存，释放约 ${(freed / 1024 / 1024).toFixed(1)} MB（重新粘贴会自动压缩）`);
   }
 }
 
@@ -4435,7 +4516,7 @@ function blobToDataURL(blob){
 // 压缩图片为 JPEG dataURL，避免 localStorage 超配额（QuotaExceededError）
 // 缩放最长边到 maxDim，质量 quality，返回压缩后的 dataURL
 // 任何异常（解码失败/超时）都回退到原始 blob 的 dataURL，保证图片至少能粘贴上
-function compressImageToDataURL(blob, maxDim = 960, quality = 0.68){
+function compressImageToDataURL(blob, maxDim = 1280, quality = 0.82){
   return new Promise((resolve) => {
     const fallback = () => {
       const r = new FileReader();
@@ -4721,8 +4802,7 @@ function saveRowImages(row){
       } catch (e2) {
         console.warn("[img-save] 清理后仍失败", e2);
       }
-      const usedKB = Math.round(estimateStorageBytes() / 1024);
-      alert(`⚠️ 图片保存失败：浏览器本地存储已满（约 ${usedKB} KB / 5 MB）。\n\n已自动清理可重建的临时缓存。\n建议：删除部分已粘贴的图片后重试。`);
+      alert("⚠️ 图片保存失败：浏览器本地存储已满。\n\n已自动清理旧的大图缓存，但仍不够空间。\n建议：删除部分已粘贴的图片后重试。");
     }
   }
 }
