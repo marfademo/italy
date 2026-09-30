@@ -587,9 +587,6 @@
 .info-card .meal-table .col-dish{width:42%;min-width:180px;}
 .info-card .meal-table .col-note{width:32%;min-width:140px;}
 .info-card .meal-table tr>:nth-child(2){width:19%;min-width:110px;}
-/* 小酒馆入门表格：概念+说明两列 */
-.info-card .meal-table-wide tr>:first-child{width:22%;min-width:130px;white-space:nowrap;}
-.info-card .meal-table-wide tr>:nth-child(2){width:78%;}
 .info-card .tag{display:inline-block;background:var(--pink-soft);color:var(--pink-deep);font-size:10px;padding:1px 6px;border-radius:4px;margin:1px 2px;white-space:nowrap;}
 .info-card .tag.green{background:#e6f4ea;color:#2d6a4f;}
 .info-card .tag.blue{background:#e6f0ff;color:#1e40af;}
@@ -2246,20 +2243,20 @@ if (d===4) return [
     listRowHTML({ type:"meal", icon:"🍷", name:"小酒馆（可选）", time:"20:30 -", action:"Brera 区安静小酒馆", note:"" }),
     `<!-- 小酒馆推荐 -->
     <div class="info-card"><h4>🍷 小酒馆（可选）· Brera 区安静小酒馆</h4>
-    <table class="meal-table"><tr><th>酒馆</th><th>位置</th><th class="col-narrow">人均</th><th class="col-dish">风格 / 喝什么</th></tr>
-    <tr><td><b>⭐ N'Ombra de Vin</b></td><td>Via San Marco 2（Brera 北端）</td><td>€12–20</td><td>米兰最经典红酒窖，16 世纪修道院地窖改造。Barolo + Tagliere 冷肉拼盘。安静到能听见隔壁桌的意大利语低语</td></tr>
-    <tr><td><b>⭐ Enoteca Brera</b></td><td>Via Fiori Chiari 10（Brera 石巷核心）</td><td>€10–18</td><td>石巷小酒馆，户外座位。Franciacorta + 石巷暖黄灯光</td></tr>
-    <tr><td><b>Vineria 76</b></td><td>Via Madonnina 5（Brera 小巷深处）</td><td>€10–15</td><td>本地人才知道的秘密小门面，自酿葡萄酒 + 小盘冷肉，老板按口味帮你挑</td></tr>
-    <tr><td><b>Cantine Isola</b></td><td>Via Paolo Sarpi 30（唐人街路口）</td><td>€8–15</td><td>米兰最老葡萄酒吧（1896 年），站着喝的 aperitivo 文化 + 百年老照片</td></tr></table>
+    <table class="meal-table"><tr><th>酒馆</th><th>位置</th><th class="col-narrow">人均</th><th>风格</th></tr>
+    <tr><td><b>⭐ N'Ombra de Vin</b></td><td>Via San Marco 2（Brera 北端）</td><td>€12–20</td><td>米兰最经典的红酒窖——16 世纪修道院地窖改造，拱顶石墙、几百种葡萄酒按杯卖。Barolo（€12–15/杯）+ Tagliere 冷肉拼盘（€14）。安静到能听见隔壁桌的意大利语低语</td></tr>
+    <tr><td><b>⭐ Enoteca Brera</b></td><td>Via Fiori Chiari 10（Brera 石巷核心）</td><td>€10–18</td><td>就在 Nabucco 隔壁，石巷里的小酒馆。户外座位直接摆在石巷上——10 月晚上披一条毯子、端一杯 Franciacorta（意大利香槟，€8–10/杯），看石巷暖黄灯光</td></tr>
+    <tr><td><b>Vineria 76</b></td><td>Via Madonnina 5（Brera 小巷深处）</td><td>€10–15</td><td>毫不起眼的小门面，本地人才知道。自酿葡萄酒 + 小盘冷肉，没有菜单——老板会问你喜欢什么风格然后帮你挑</td></tr>
+    <tr><td><b>Cantine Isola</b></td><td>Via Paolo Sarpi 30（唐人街路口）</td><td>€8–15</td><td>米兰最老的葡萄酒吧（1896 年）。站着的 aperitivo 文化——端着酒杯站在吧台或街边，墙上百年老照片，本地大爷下午就来喝第一杯</td></tr></table>
     <div style="font-weight:800;color:#7a4a00;margin-top:6px;">🍷 怎么选？</div>
     <div style="font-size:11px;margin-top:2px;">• 想体验米兰最经典的红酒窖 → N'Ombra de Vin<br>• 想在 Brera 石巷户外喝酒看夜景 → Enoteca Brera<br>• 想找只有本地人知道的秘密角落 → Vineria 76<br>• 想见识米兰 128 年老酒馆的烟火气 → Cantine Isola<br>• 累了直接回酒店 → 完全没问题。🚇 M2 Lanza → Centrale（2 站，5 min）或 🚶 步行 15 分钟</div>
     <div style="font-weight:800;color:#7a4a00;margin-top:6px;">意大利小酒馆怎么喝（饭后酒入门）</div>
-    <table class="meal-table meal-table-wide"><tr><th class="col-concept">概念</th><th class="col-desc">说明</th></tr>
+    <table class="meal-table"><tr><th style="width:22%;min-width:120px">概念</th><th style="width:78%">说明</th></tr>
     <tr><td><b>Dopo cena（饭后酒）</b></td><td>意大利人晚饭后去酒吧喝一杯的习惯。点一杯红酒或 Digestivo（消化酒），慢慢喝，不要急。一顿饭后酒可以喝 1–2 小时</td></tr>
     <tr><td><b>按杯点（Al calice）</b></td><td>小酒馆的葡萄酒大多可以按杯卖（€6–15/杯），不用点整瓶。先点一杯尝尝，喜欢再加</td></tr>
     <tr><td><b>Tagliere 配酒</b></td><td>切几片火腿 + 芝士配红酒也是意大利人的日常。Tagliere（冷肉芝士拼盘，€12–18）一人份刚好</td></tr>
     <tr><td><b>账单</b></td><td>小酒馆没有餐桌费（Coperto），只算酒和小食。人均 €12–20</td></tr>
-    <tr><td><b>点什么酒？</b></td><td>🍷 红酒：Barolo（€12–15/杯）、Chianti Classico（€8–10/杯）、Valpolicella Ripasso（€7–9/杯）；🥂 气泡：Franciacorta（€10–12/杯）、Prosecco（€6–8/杯）</td></tr></table></div>`}
+    <tr><td><b>点什么酒？</b></td><td>🍷 红酒：Barolo（€12–15/杯）、Chianti Classico（€8–10/杯）、Valpolicella Ripasso（€7–9/杯）；🥂 气泡：Franciacorta（€10–12/杯）、Prosecco（€6–8/杯）</td></tr></table></div>`,
   ].join("");
 
   // ===== Day 12：返程 =====
