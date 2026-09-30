@@ -3260,25 +3260,26 @@ function estimateStorageBytes(){
   return total;
 }
 
-// ⚠️ 已禁用：这个函数会无条件删除任何超过 1.5MB 的 trip-img-* 键，
-// 导致用户手动粘贴的图片（多张图加起来很容易超过 1.5MB）在刷新时被误删。
-// 用户粘贴的图已经过 compressImageToDataURL 压缩，不应再被大小阈值清除。
+// 当 localStorage 配额满时，清掉可重建的自动缓存（wiki/unsplash等），
+// 绝不动用户手动粘贴的 trip-img-*（这些只能由用户手动删除）
 function cleanupOversizedTripImgs(){
-  return; // 已禁用：避免误删用户手动粘贴的图片
-  const THRESHOLD = 1.5 * 1024 * 1024;
   let freed = 0, removedCount = 0;
+  // 清除所有可自动重建的缓存（绝不动 trip-img-*）
+  const safePrefixes = [
+    "unsplash-cache-", "wiki-cache-", "wikiimg-cache-", "wikithumb-cache-",
+    "wikiimg2-cache-", "wikiimg3-cache-",
+  ];
   for (let i = localStorage.length - 1; i >= 0; i--) {
     const k = localStorage.key(i);
-    if (!k || !k.startsWith("trip-img-")) continue;
-    const v = localStorage.getItem(k) || "";
-    if (v.length * 2 > THRESHOLD) {
+    if (k && safePrefixes.some(pre => k.startsWith(pre))) {
+      const v = localStorage.getItem(k) || "";
+      freed += (k.length + v.length) * 2;
       localStorage.removeItem(k);
-      freed += v.length * 2;
       removedCount++;
     }
   }
   if (removedCount > 0) {
-    console.info(`[cache] 清理 ${removedCount} 个未压缩大图缓存，释放约 ${(freed / 1024 / 1024).toFixed(1)} MB（重新粘贴会自动压缩）`);
+    console.info(`[cache] 释放 ${removedCount} 个可重建缓存，约 ${(freed / 1024 / 1024).toFixed(1)} MB`);
   }
 }
 
@@ -4434,7 +4435,7 @@ function blobToDataURL(blob){
 // 压缩图片为 JPEG dataURL，避免 localStorage 超配额（QuotaExceededError）
 // 缩放最长边到 maxDim，质量 quality，返回压缩后的 dataURL
 // 任何异常（解码失败/超时）都回退到原始 blob 的 dataURL，保证图片至少能粘贴上
-function compressImageToDataURL(blob, maxDim = 1280, quality = 0.82){
+function compressImageToDataURL(blob, maxDim = 960, quality = 0.68){
   return new Promise((resolve) => {
     const fallback = () => {
       const r = new FileReader();
@@ -4720,7 +4721,8 @@ function saveRowImages(row){
       } catch (e2) {
         console.warn("[img-save] 清理后仍失败", e2);
       }
-      alert("⚠️ 图片保存失败：浏览器本地存储已满。\n\n已自动清理旧的大图缓存，但仍不够空间。\n建议：删除部分已粘贴的图片后重试。");
+      const usedKB = Math.round(estimateStorageBytes() / 1024);
+      alert(`⚠️ 图片保存失败：浏览器本地存储已满（约 ${usedKB} KB / 5 MB）。\n\n已自动清理可重建的临时缓存。\n建议：删除部分已粘贴的图片后重试。`);
     }
   }
 }
